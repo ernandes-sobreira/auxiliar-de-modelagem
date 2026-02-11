@@ -1,0 +1,1224 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Plataforma do Curso – Estatística e Modelagem (Biologia/Ecologia/Saúde)</title>
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#0b1220;
+      --muted:#475569;
+      --line:#e5e7eb;
+      --shadow: 0 10px 28px rgba(2,6,23,.08);
+
+      --pink:#ff006e;
+      --blue:#3a86ff;
+      --purple:#8338ec;
+      --green:#06d6a0;
+      --yellow:#ffbe0b;
+      --orange:#fb5607;
+
+      --card:#ffffff;
+      --soft:#f8fafc;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#fff 0%, #fff 55%, #f7fbff 100%);
+      color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      line-height:1.35;
+    }
+    header{
+      border-bottom:1px solid var(--line);
+      background:
+        radial-gradient(1100px 420px at 12% -10%, rgba(255,0,110,.12), transparent 55%),
+        radial-gradient(950px 420px at 82% -10%, rgba(58,134,255,.12), transparent 55%),
+        radial-gradient(950px 420px at 95% 30%, rgba(6,214,160,.10), transparent 55%),
+        #fff;
+    }
+    .wrap{max-width:1200px;margin:0 auto;padding:0 16px}
+    h1{margin:0;padding:22px 0 8px;font-size:26px;letter-spacing:-.02em}
+    .sub{margin:0 0 16px;color:var(--muted);max-width:980px}
+    .topbar{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+      padding:0 0 18px;
+    }
+    .pill{
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:6px 10px;
+      background:#fff;
+      font-size:12px;
+      box-shadow: 0 4px 14px rgba(2,6,23,.04);
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 330px 1fr;
+      gap:14px;
+      padding:16px 0 26px;
+    }
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr}
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card h2{
+      margin:0;
+      padding:14px 14px 10px;
+      font-size:15px;
+    }
+    .body{padding:14px}
+    .lessonList{
+      max-height:74vh;
+      overflow:auto;
+      padding:10px 10px 12px;
+    }
+    .lessonBtn{
+      width:100%;
+      text-align:left;
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:14px;
+      padding:10px 10px;
+      cursor:pointer;
+      margin-bottom:10px;
+      transition:.12s transform ease;
+    }
+    .lessonBtn:hover{transform: translateY(-1px)}
+    .lessonBtn .t{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      font-weight:900;
+      font-size:13px;
+    }
+    .lessonBtn .d{
+      margin-top:4px;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .tag{
+      font-size:11px;
+      padding:4px 8px;
+      border-radius:999px;
+      color:#fff;
+      background: linear-gradient(90deg, var(--blue), var(--pink));
+      white-space:nowrap;
+      align-self:flex-start;
+    }
+    .tag.ok{background:linear-gradient(90deg,var(--green),var(--yellow));color:#0b1220}
+    .tag.todo{background:linear-gradient(90deg,var(--orange),var(--pink));}
+    .toolbar{
+      display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+      padding:12px 14px;
+      border-bottom:1px solid var(--line);
+      background: #fff;
+    }
+    button{
+      border:none;
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:900;
+      color:#0b1220;
+      background:#f1f5f9;
+      border:1px solid var(--line);
+    }
+    button.primary{background:linear-gradient(90deg,var(--blue),var(--pink));color:#fff;border:none}
+    button.accent{background:linear-gradient(90deg,var(--green),var(--yellow));border:none}
+    button.warn{background:linear-gradient(90deg,var(--orange),var(--pink));color:#fff;border:none}
+    .small{font-size:12px;color:var(--muted)}
+    .titleBlock{
+      padding:14px 14px 0;
+    }
+    .titleBlock h3{
+      margin:0 0 6px;
+      font-size:18px;
+      letter-spacing:-.01em;
+    }
+    .meta{
+      display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+      color:var(--muted);font-size:12px;margin-bottom:10px;
+    }
+    .panels{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+      padding:0 14px 14px;
+    }
+    details{
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fff;
+      overflow:hidden;
+    }
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:12px 12px;
+      font-weight:900;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .chip{
+      font-size:11px;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:#0b1220;
+      white-space:nowrap;
+    }
+    .content{
+      padding:0 12px 12px;
+      color:#0b1220;
+    }
+    .content p{margin:10px 0;color:#0b1220}
+    .content ul{margin:8px 0 10px 18px}
+    .box{
+      border-radius:14px;
+      border:1px dashed rgba(58,134,255,.35);
+      background:rgba(58,134,255,.06);
+      padding:10px;
+      margin:10px 0;
+    }
+    .box.warn{
+      border:1px dashed rgba(251,86,7,.45);
+      background:rgba(251,86,7,.08);
+    }
+    .box.ok{
+      border:1px dashed rgba(6,214,160,.45);
+      background:rgba(6,214,160,.08);
+    }
+    .links a{
+      color:#0b1220;
+      font-weight:800;
+      text-decoration:none;
+      border-bottom:2px solid rgba(58,134,255,.35);
+    }
+    .quiz{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      background:#fff;
+      margin-top:10px;
+    }
+    .q{
+      border-top:1px solid var(--line);
+      padding-top:10px;
+      margin-top:10px;
+    }
+    .q:first-child{border-top:none;padding-top:0;margin-top:0}
+    .qtitle{font-weight:900;margin-bottom:6px}
+    .opts label{display:block;margin:6px 0;color:#0b1220}
+    .quizResult{
+      margin-top:10px;
+      border-radius:14px;
+      padding:10px;
+      background:#0b1220;
+      color:#e2e8f0;
+      white-space:pre-wrap;
+      font-size:12px;
+    }
+    .footer{
+      padding:12px 14px 16px;
+      border-top:1px solid var(--line);
+      background:#fff;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .prog{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+      padding:10px 14px;
+      border-top:1px solid var(--line);
+      background: #fff;
+    }
+    .bar{
+      height:10px;
+      border-radius:999px;
+      background:#e5e7eb;
+      overflow:hidden;
+      flex:1;
+      min-width:160px;
+    }
+    .bar > div{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg,var(--green),var(--yellow));
+    }
+    textarea{
+      width:100%;
+      min-height:90px;
+      resize:vertical;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:10px;
+      outline:none;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      font-size:13px;
+    }
+    textarea:focus{border-color:#94a3b8}
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="wrap">
+    <h1>Plataforma do Curso – Estatística e Modelagem (Biologia/Ecologia/Saúde)</h1>
+    <p class="sub">
+      Cada semana tem: objetivos, explicação detalhada, “por que importa”, erros comuns, checklist de réplicas, tarefas e mini-quiz.
+      O aluno estuda em partes, registra o dossiê e acompanha o próprio progresso.
+    </p>
+    <div class="topbar">
+      <span class="pill">60h • 15 semanas • 4h/semana</span>
+      <span class="pill">Dossiê semanal (1 lauda)</span>
+      <span class="pill">Pergunta científica semanal</span>
+      <span class="pill">Réplicas e padronização</span>
+      <span class="pill">Quiz rápido por aula</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="grid">
+
+    <!-- LISTA -->
+    <section class="card">
+      <h2>Semanas (clique para abrir)</h2>
+      <div class="lessonList" id="lessonList"></div>
+
+      <div class="prog">
+        <div class="small"><strong>Progresso</strong>: <span id="progText">0/15 concluídas</span></div>
+        <div class="bar" aria-label="barra de progresso"><div id="progBar"></div></div>
+      </div>
+
+      <div class="footer">
+        Dica: marque a semana como concluída após fazer o quiz e registrar o dossiê.
+      </div>
+    </section>
+
+    <!-- CONTEÚDO -->
+    <section class="card">
+      <div class="toolbar">
+        <button class="primary" id="btnDone">Marcar semana como concluída</button>
+        <button class="ghost" id="btnUndone">Desmarcar</button>
+        <button class="accent" id="btnSaveNotes">Salvar notas</button>
+        <button class="ghost" id="btnExport">Exportar relatório (JSON)</button>
+        <button class="warn" id="btnReset">Resetar tudo</button>
+      </div>
+
+      <div class="titleBlock">
+        <h3 id="lessonTitle">Selecione uma semana</h3>
+        <div class="meta">
+          <span id="lessonDates">—</span>
+          <span class="chip" id="lessonShort">—</span>
+        </div>
+        <div class="small" id="lessonHint">Clique numa semana à esquerda para ver a explicação completa e o quiz.</div>
+      </div>
+
+      <div class="panels" id="lessonPanels"></div>
+
+      <div class="footer">
+        Observação: este material é didático e prático. Para análises formais, recomenda-se confirmar resultados no PAST4/R após aprender o raciocínio aqui.
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script>
+  // -------------------------
+  // Conteúdo do curso (15 semanas)
+  // Cada semana: descrição curta + explicação detalhada + quiz
+  // -------------------------
+  const LESSONS = [
+    {
+      id: 1,
+      short: "Introdução e desenho amostral",
+      dates: "23/02/2026 a 28/02/2026",
+      objectives: [
+        "Entender o que é uma pergunta científica testável.",
+        "Distinguir unidade amostral, réplica e repetição.",
+        "Planejar um desenho simples com coleta possível em até 4h."
+      ],
+      before: {
+        title: "Antes da aula (o que estudar e por quê)",
+        text: [
+          "Nesta primeira semana, o foco não é “rodar teste”, e sim construir a base: a pergunta científica e o desenho de coleta.",
+          "Se o desenho está ruim (sem réplicas, sem padronização, sem variável clara), qualquer estatística vira ruído.",
+          "Seu objetivo é sair da semana com uma pergunta simples e mensurável e um plano de coleta que caiba na rotina."
+        ],
+        steps: [
+          "Escolha um tema do cotidiano: clima, sono, passos, ruído, tempo de tela, mosquitos, consumo de água, etc.",
+          "Defina a variável resposta (Y): o que você mede/conta/observa.",
+          "Defina pelo menos 1 explicativa (X) ou 2 grupos (A vs B).",
+          "Defina o que é uma réplica: uma nova observação independente."
+        ]
+      },
+      during: {
+        title: "Durante a aula (partes e explicação detalhada)",
+        text: [
+          "Parte 1 – Pergunta científica: deve indicar relação ou comparação. Ex.: “A chuva aumenta a contagem de mosquitos à noite?”",
+          "Parte 2 – Unidade amostral: é “o que” está sendo amostrado (ex.: noite; dia; local; pessoa; quarteirão).",
+          "Parte 3 – Réplicas: são várias unidades amostrais para estimar variabilidade real. Sem réplica, você só tem um ‘caso’.",
+          "Parte 4 – Padronização: regra fixa de coleta (horário, duração, método de contagem, mesma unidade).",
+          "Parte 5 – Viés: escolhas que distorcem o resultado (ex.: só medir quando dá vontade; só em um horário)."
+        ],
+        commonMistakes: [
+          "Confundir repetição técnica (medir o mesmo item várias vezes) com réplica (novas unidades independentes).",
+          "Mudar o método no meio da semana (isso mistura efeitos e atrapalha a comparação).",
+          "Criar pergunta ampla demais (ex.: “o clima afeta minha vida”). Precisa ser mensurável."
+        ],
+        replicaBox: [
+          "Regra simples: tente pelo menos 6–10 observações totais na semana.",
+          "Para comparação A vs B, tente ≥3 réplicas por grupo (melhor: 5+).",
+          "Se for série temporal, defina claramente: 1 observação = 1 dia (ou 1 noite)."
+        ]
+      },
+      after: {
+        title: "Depois da aula (tarefa curta e direta)",
+        text: [
+          "Você vai registrar a pergunta científica e fazer uma coleta curta com réplicas.",
+          "A coleta precisa ser possível por celular/internet, sem instrumentos caros."
+        ],
+        tasks: [
+          "Escreva a pergunta científica (1 linha).",
+          "Defina Y e X (ou grupos A/B).",
+          "Colete no mínimo 6 observações seguindo a mesma regra.",
+          "Insira os dados na plataforma e gere 1 gráfico + descrição curta."
+        ]
+      },
+      links: [
+        {label:"Khan Academy (PT) – Estatística e probabilidade (base)", url:"https://pt.khanacademy.org/math/statistics-probability"},
+        {label:"Khan Academy (PT) – Amostragem e inferência (rota geral)", url:"https://pt.khanacademy.org/math/statistics-probability"}
+      ],
+      reading: [
+        {label:"Texto (PT) – Noções básicas de amostragem (Barbetta – UFSC, PDF)", url:"https://www.inf.ufsc.br/~marcelo/Artigos/amostragem.pdf"}
+      ],
+      quiz: {
+        intro: "Mini-quiz (3 questões). Objetivo: garantir que você entendeu unidade amostral, réplicas e pergunta científica.",
+        questions: [
+          {
+            q: "O que define melhor uma réplica em um estudo simples?",
+            options: [
+              "Repetir a mesma medição várias vezes no mesmo objeto",
+              "Coletar novas observações independentes seguindo o mesmo método",
+              "Aumentar o tamanho do gráfico no relatório",
+              "Escolher o teste estatístico antes de coletar"
+            ],
+            correctIndex: 1,
+            feedback: [
+              "Isso é repetição técnica, não réplica independente.",
+              "Correto: réplica = nova unidade amostral independente.",
+              "Não tem relação com réplica.",
+              "O teste vem depois do desenho e do dado."
+            ]
+          },
+          {
+            q: "Qual pergunta é mais ‘testável’ nesta semana?",
+            options: [
+              "O clima influencia meu humor?",
+              "A chuva aumenta a contagem de mosquitos à noite na minha casa?",
+              "A estatística é importante?",
+              "O Pantanal é complexo?"
+            ],
+            correctIndex: 1,
+            feedback: [
+              "Muito ampla e difícil de medir com precisão em 4h.",
+              "Correto: tem variável, direção e contexto mensurável.",
+              "Não é pergunta científica com dado.",
+              "É verdadeira, mas não é pergunta mensurável aqui."
+            ]
+          },
+          {
+            q: "Por que padronizar o método de coleta?",
+            options: [
+              "Para deixar o arquivo mais bonito",
+              "Para reduzir variabilidade ‘artificial’ e comparar observações corretamente",
+              "Para evitar usar gráficos",
+              "Para garantir p-valor sempre baixo"
+            ],
+            correctIndex: 1,
+            feedback: [
+              "Beleza não garante validade científica.",
+              "Correto: padronização reduz viés e ruído do método.",
+              "Gráficos ajudam; o problema é falta de padrão.",
+              "p-valor não é objetivo; objetivo é inferência confiável."
+            ]
+          }
+        ]
+      },
+      notesPrompt: "Notas da semana (para o docente e para o dossiê):"
+    },
+
+    // Semana 2–15: conteúdos detalhados, mas mantendo didático e “pedaços”
+    {
+      id: 2,
+      short: "Tipos de dados e variáveis",
+      dates: "02/03/2026 a 07/03/2026",
+      objectives: [
+        "Classificar variáveis (qualitativa/quantitativa; discreta/contínua).",
+        "Definir Y e X com unidade e regra de coleta.",
+        "Montar tabela padrão (Grupo, Valor) ou (Grupo, X, Y)."
+      ],
+      before:{title:"Antes da aula",text:[
+        "A estatística começa na forma do dado. O tipo de variável define o tipo de gráfico e o tipo de teste.",
+        "Nesta semana, você vai transformar uma ideia em variáveis bem definidas (com unidade e regra)."
+      ],steps:[
+        "Escolha uma pergunta com 2 grupos (A/B) ou com X e Y.",
+        "Escreva a unidade do Y (ex.: °C, passos, horas, contagem).",
+        "Defina a unidade amostral (ex.: dia; noite; local; pessoa)."
+      ]},
+      during:{title:"Durante a aula",text:[
+        "Parte 1 – Qualitativa: categorias (ex.: presença/ausência; tipo de local).",
+        "Parte 2 – Quantitativa discreta: contagens (ex.: mosquitos por noite).",
+        "Parte 3 – Quantitativa contínua: medidas (ex.: temperatura, horas de sono).",
+        "Parte 4 – Variável resposta (Y) e explicativa (X): o que explica e o que é explicado.",
+        "Parte 5 – Planilha limpa: colunas consistentes, sem misturar unidade."
+      ],commonMistakes:[
+        "Misturar unidade (ex.: às vezes minutos, às vezes horas).",
+        "Trocar a regra de contagem (ex.: um dia conta 10 min, outro dia 30 min).",
+        "Criar muitos grupos sem réplicas suficientes."
+      ],replicaBox:[
+        "Se tiver 2 grupos, tente balancear: n parecido em A e B.",
+        "Se usar X e Y, tente pelo menos 8 pares (X,Y) para ver padrão."
+      ]},
+      after:{title:"Depois da aula",text:[
+        "Você vai montar o banco de dados padrão e escolher o gráfico correto."
+      ],tasks:[
+        "Entregar dossiê com: pergunta + tabela curta + 1 gráfico adequado + 5–8 linhas de interpretação.",
+        "Usar a plataforma para exportar gráfico (PNG) e colar no dossiê."
+      ]},
+      links:[
+        {label:"Khan Academy (PT) – Tipos de dados e gráficos (rota estatística)", url:"https://pt.khanacademy.org/math/statistics-probability"}
+      ],
+      reading:[
+        {label:"Texto (PT) – Noções básicas de amostragem (reforço)", url:"https://www.inf.ufsc.br/~marcelo/Artigos/amostragem.pdf"}
+      ],
+      quiz:{
+        intro:"Mini-quiz: classificar variáveis e escolher estrutura de tabela.",
+        questions:[
+          { q:"‘Número de mosquitos por noite’ é:", options:["Qualitativa","Quantitativa contínua","Quantitativa discreta","Nominal sem medida"], correctIndex:2,
+            feedback:["Não, é contagem.","Não, não é contínua.","Correto: contagem.","Não."] },
+          { q:"Para regressão simples, a tabela mínima deve ter:", options:["Grupo e Valor","X e Y (pares)","Somente médias","Somente gráficos"], correctIndex:1,
+            feedback:["Serve para comparação por grupos, não para regressão.","Correto.","Média sozinha perde informação.","Gráfico sem dado não resolve."] },
+          { q:"Qual erro mais grave?", options:["Usar cores fortes","Misturar unidades na mesma coluna","Fazer boxplot","Salvar o arquivo"], correctIndex:1,
+            feedback:["Cores não afetam validade.","Correto.","Boxplot pode ser ótimo.","Salvar é necessário."] }
+        ]
+      },
+      notesPrompt:"Notas da semana:"
+    },
+
+    {
+      id: 3,
+      short: "Descrição de dados e gráficos",
+      dates: "09/03/2026 a 14/03/2026",
+      objectives:[
+        "Calcular e interpretar média, mediana, DP e quartis.",
+        "Escolher gráficos adequados para cada tipo de pergunta.",
+        "Reconhecer outliers e discutir sem ‘apagar’ dado."
+      ],
+      before:{title:"Antes da aula",text:[
+        "Descrever bem é metade da análise. Se você descreve mal, você interpreta mal.",
+        "Nesta semana o foco é: leitura de gráfico + variabilidade + o que é um outlier de verdade."
+      ],steps:[
+        "Tenha pelo menos 6 observações (melhor: 10).",
+        "Traga uma situação com variabilidade (não precisa ser perfeita)."
+      ]},
+      during:{title:"Durante a aula",text:[
+        "Parte 1 – Medidas centrais: média vs mediana (quando cada uma é mais robusta).",
+        "Parte 2 – Dispersão: DP e quartis (variabilidade é informação).",
+        "Parte 3 – Gráficos para comparação: colunas (média), boxplot (distribuição).",
+        "Parte 4 – Gráficos para relação: dispersão (X vs Y).",
+        "Parte 5 – Outliers: investigar causa, não ‘sumir’ com o ponto."
+      ],commonMistakes:[
+        "Usar pizza para comparar muitas categorias.",
+        "Relatar apenas média sem indicar variabilidade.",
+        "Confundir ‘dado ruim’ com ‘dado extremo’."
+      ],replicaBox:[
+        "Boxplot é melhor quando há réplicas por grupo.",
+        "Histograma ajuda a entender forma da distribuição."
+      ]},
+      after:{title:"Depois da aula",text:["Gerar 2 gráficos e escrever interpretação curta com foco em variabilidade."],tasks:[
+        "Dossiê com: tabela resumida + 2 gráficos (ex.: boxplot + histograma) + interpretação."
+      ]},
+      links:[{label:"Khan Academy (PT) – Medidas de tendência e dispersão", url:"https://pt.khanacademy.org/math/statistics-probability"}],
+      reading:[{label:"Texto (PT) – Amostragem (reforço para consistência)", url:"https://www.inf.ufsc.br/~marcelo/Artigos/amostragem.pdf"}],
+      quiz:{intro:"Mini-quiz: média, mediana e gráfico adequado.",
+        questions:[
+          {q:"Quando a mediana costuma ser melhor que a média?", options:["Quando não há variabilidade","Quando há valores extremos (assimetria)","Quando N=1","Quando o gráfico é pizza"], correctIndex:1,
+            feedback:["Sempre existe variabilidade.","Correto.","N=1 não permite inferência.","Irrelevante."]},
+          {q:"Para comparar 2 ou mais grupos com réplicas, um gráfico muito bom é:", options:["Boxplot","Pizza","Mapa mental","Tabela sem números"], correctIndex:0,
+            feedback:["Correto.","Pizza não é ideal para isso.","Não é análise de dados.","Sem números não há análise."]},
+          {q:"O que é dispersão?", options:["Só o valor máximo","O quanto os dados variam em torno do centro","A cor do gráfico","A forma do título"], correctIndex:1,
+            feedback:["Não.","Correto.","Não.","Não."]}
+        ]
+      },
+      notesPrompt:"Notas da semana:"
+    },
+
+    {
+      id: 4,
+      short: "Probabilidade e inferência",
+      dates: "16/03/2026 a 21/03/2026",
+      objectives:[
+        "Entender p-valor como evidência (não como ‘verdade’).",
+        "Relacionar amostra, variabilidade e incerteza.",
+        "Evitar erros clássicos de interpretação."
+      ],
+      before:{title:"Antes da aula",text:[
+        "Inferência é responder: o padrão observado é plausível por acaso?",
+        "Você não precisa decorar fórmulas: precisa saber o significado e os limites."
+      ],steps:[
+        "Tenha seu exemplo (dado) e uma frase de hipótese (H0 vs H1)."
+      ]},
+      during:{title:"Durante a aula",text:[
+        "Parte 1 – Hipóteses: H0 (sem efeito/diferença) e H1 (com efeito).",
+        "Parte 2 – p-valor: probabilidade de obter resultado tão extremo quanto o observado assumindo H0.",
+        "Parte 3 – Erros: tipo I (falso positivo) e tipo II (falso negativo).",
+        "Parte 4 – Tamanho amostral: mais N geralmente reduz incerteza.",
+        "Parte 5 – Ciência real: evidência depende do desenho, não só do p."
+      ],commonMistakes:[
+        "Achar que p é ‘probabilidade de a hipótese ser verdadeira’.",
+        "Achar que p pequeno prova causalidade.",
+        "Ignorar tamanho de efeito e variabilidade."
+      ],replicaBox:[
+        "Sem réplicas, p-valor não significa quase nada.",
+        "Com N baixo, a chance de erro tipo II aumenta."
+      ]},
+      after:{title:"Depois da aula",text:["Escrever uma interpretação curta de resultado evitando erros comuns."],tasks:[
+        "Dossiê: uma frase com H0/H1 + gráfico + interpretação do que ‘p’ significa (sem exageros)."
+      ]},
+      links:[{label:"Khan Academy (PT) – Inferência estatística (rota geral)", url:"https://pt.khanacademy.org/math/statistics-probability"}],
+      reading:[{label:"Artigo (clássico) – Pseudorrepetição (Hurlbert, 1984) – DOI", url:"https://doi.org/10.2307/1942661"}],
+      quiz:{intro:"Mini-quiz: significado do p-valor e erros.",
+        questions:[
+          {q:"p-valor pequeno significa:", options:["H0 é falsa com certeza","O resultado é improvável se H0 for verdadeira","A causa foi provada","O desenho não importa"], correctIndex:1,
+            feedback:["Não existe certeza.","Correto.","Causalidade não é garantida.","O desenho importa muito."]},
+          {q:"Erro tipo I é:", options:["Não detectar um efeito real","Detectar efeito quando não existe","Aumentar réplicas","Usar boxplot"], correctIndex:1,
+            feedback:["Isso é tipo II.","Correto.","Aumentar réplicas ajuda.","Irrelevante."]},
+          {q:"O que reduz incerteza (em geral)?", options:["Diminuir N","Aumentar N com método padronizado","Trocar unidade no meio","Escolher teste antes do dado"], correctIndex:1,
+            feedback:["Piora.","Correto.","Piora.","Não é a ordem correta."]}
+        ]
+      },
+      notesPrompt:"Notas da semana:"
+    },
+
+    // 5–15: mantive detalhado e prático, sem ficar “matemática pesada”
+    {
+      id: 5, short:"Distribuições (normal, binomial, Poisson)", dates:"23/03/2026 a 28/03/2026",
+      objectives:["Relacionar tipo de dado à distribuição.","Reconhecer contagem/proporção/contínuo.","Usar histograma para ‘ver’ a distribuição."],
+      before:{title:"Antes da aula",text:["Distribuição é o ‘formato’ do dado. Ela guia escolha de modelo e teste."],steps:["Traga um exemplo de contagem (mosquitos) ou medida (temperatura)."]},
+      during:{title:"Durante a aula",text:[
+        "Normal: medidas contínuas com ‘campânula’ (muitas situações aproximam).",
+        "Binomial: proporções (sucesso/fracasso).",
+        "Poisson: contagens de eventos em um intervalo.",
+        "Por que isso importa: modelos e testes assumem formatos; se o formato muda, o método muda."
+      ],commonMistakes:["Tratar contagem como se fosse sempre normal.","Ignorar assimetria evidente no histograma."],replicaBox:["Mais réplicas deixam o histograma mais ‘confiável’."]},
+      after:{title:"Depois da aula",text:["Fazer histograma e classificar seu dado."],tasks:["Dossiê com: tipo de variável + distribuição provável + histograma + interpretação."]},
+      links:[{label:"Khan Academy (PT) – Probabilidade e distribuições", url:"https://pt.khanacademy.org/math/statistics-probability"}],
+      reading:[{label:"Texto (PT) – Amostragem (base)", url:"https://www.inf.ufsc.br/~marcelo/Artigos/amostragem.pdf"}],
+      quiz:{intro:"Mini-quiz: identificar distribuição pelo tipo de dado.",
+        questions:[
+          {q:"Contagens (eventos por dia) tendem a se aproximar de:", options:["Poisson","Binomial","Normal sempre","Nenhuma"], correctIndex:0,
+            feedback:["Correto.","Depende de sucesso/fracasso.","Nem sempre.","Errado."]},
+          {q:"Proporção (0–1) é mais ligada a:", options:["Binomial","Poisson","Geometria","Normal obrigatória"], correctIndex:0,
+            feedback:["Correto.","Não é contagem de eventos contínua.","Não.","Não."]},
+          {q:"Histograma serve para:", options:["Ver formato/distribuição","Provar causalidade","Substituir coleta","Eliminar outliers automaticamente"], correctIndex:0,
+            feedback:["Correto.","Não.","Não.","Não."]}
+        ]}
+    },
+
+    {
+      id: 6, short:"Premissas: paramétrico vs não paramétrico", dates:"30/03/2026 a 04/04/2026",
+      objectives:["Entender normalidade/homogeneidade/independência.","Decidir teste coerente com premissas.","Fazer interpretação cuidadosa com N baixo."],
+      before:{title:"Antes da aula",text:["Premissas são ‘condições’ para o teste funcionar bem. Se não cumprir, use alternativa."],steps:["Separe seus dados por grupo e veja se há réplicas suficientes."]},
+      during:{title:"Durante a aula",text:[
+        "Normalidade: dados ‘parecem’ normais? (histograma + checagem).",
+        "Homogeneidade: variâncias parecidas entre grupos (olhar boxplot).",
+        "Independência: cada medida é um evento novo, não ‘repetição do mesmo’.",
+        "Decisão prática: se premissas falham, use não paramétrico."
+      ],commonMistakes:["Aplicar teste t com 1 ou 2 réplicas por grupo.","Ignorar independência (pseudorrepetição)."],replicaBox:["Se grupo tem <3 réplicas, a prioridade é aumentar N."]},
+      after:{title:"Depois da aula",text:["Aplicar 1 teste coerente (ou justificar por que ficou só na descrição)."],tasks:["Dossiê: escolha do método + justificativa curta."]},
+      links:[{label:"Khan Academy (PT) – Fundamentos de inferência", url:"https://pt.khanacademy.org/math/statistics-probability"}],
+      reading:[{label:"Artigo – Pseudorrepetição (Hurlbert) – DOI", url:"https://doi.org/10.2307/1942661"}],
+      quiz:{intro:"Mini-quiz: premissas e decisão de teste.",
+        questions:[
+          {q:"Independência quer dizer:", options:["Mesmo instrumento","Eventos/observações diferentes (não repetidas)","Sempre normal","Sempre 2 grupos"], correctIndex:1,
+            feedback:["Não.","Correto.","Não.","Não."]},
+          {q:"Se dados são muito assimétricos e N é baixo, tende a ser melhor:", options:["Não paramétrico","Sempre t-test","Sempre ANOVA","Ignorar análise"], correctIndex:0,
+            feedback:["Correto.","Nem sempre.","Nem sempre.","Não."]},
+          {q:"Premissas importam porque:", options:["Deixam o relatório bonito","Afetam validade do teste","Aumentam cores do gráfico","Diminuem trabalho"], correctIndex:1,
+            feedback:["Não.","Correto.","Não.","Não necessariamente."]}
+        ]}
+    },
+
+    {
+      id: 7, short:"Testes básicos: t, F, qui-quadrado", dates:"06/04/2026 a 11/04/2026",
+      objectives:["Comparar 2 grupos (t) com interpretação correta.","Entender qui-quadrado para categorias.","Ler resultado sem exagerar conclusões."],
+      before:{title:"Antes da aula",text:["Teste responde perguntas do tipo ‘há diferença?’ ou ‘há associação?’."],steps:["Tenha 2 grupos com réplicas ou uma tabela de categorias."]},
+      during:{title:"Durante a aula",text:[
+        "Teste t: compara médias de dois grupos (com réplicas).",
+        "Qui-quadrado: testa associação entre categorias (contagens em tabela).",
+        "Leitura: p indica evidência; resultado deve ser interpretado no contexto.",
+        "Boas práticas: relatar média/mediana e variabilidade."
+      ],commonMistakes:["Usar t-test com categorias.","Usar qui-quadrado com valores contínuos."],replicaBox:["Sem réplicas por grupo, t-test fica frágil."]},
+      after:{title:"Depois da aula",text:["Rodar 1 teste (t ou qui-quadrado) ou justificar por que não rodou."],tasks:["Dossiê: teste + resultado + interpretação curta."]},
+      links:[{label:"Khan Academy (PT) – Testes de hipóteses (rota geral)", url:"https://pt.khanacademy.org/math/statistics-probability"}],
+      reading:[{label:"Artigo – Efeito e IC para biólogos (Nakagawa & Cuthill, 2007) – DOI", url:"https://doi.org/10.1111/j.1469-185X.2007.00027.x"}],
+      quiz:{intro:"Mini-quiz: escolher teste conforme dado.",
+        questions:[
+          {q:"Comparar média de 2 grupos com dados numéricos:", options:["Teste t","Qui-quadrado","Pizza","Somente mediana"], correctIndex:0,
+            feedback:["Correto.","Não é para média numérica.","Não.","Pode ser, mas não é o teste."]},
+          {q:"Qui-quadrado é apropriado para:", options:["Tabela de contagens por categoria","Regressão","Histograma","ANCOVA"], correctIndex:0,
+            feedback:["Correto.","Não.","Não.","Não."]},
+          {q:"Resultado estatístico deve vir junto com:", options:["Somente p-valor","Descrição e contexto","Apenas cor do gráfico","Nada"], correctIndex:1,
+            feedback:["Insuficiente.","Correto.","Irrelevante.","Não."]}
+        ]}
+    },
+
+    {
+      id: 8, short:"ANOVA de uma via + pós-teste", dates:"13/04/2026 a 18/04/2026",
+      objectives:["Entender ANOVA para 3+ grupos.","Interpretar F e p.","Saber quando precisa pós-teste."],
+      before:{title:"Antes da aula",text:["Quando há 3+ grupos, ANOVA evita múltiplos t-tests sem controle."],steps:["Tenha pelo menos 3 grupos ou use dataset exemplo."]},
+      during:{title:"Durante a aula",text:[
+        "ANOVA pergunta: existe diferença entre pelo menos dois grupos?",
+        "Se p<0,05, você ainda precisa saber ‘quais’ diferem: pós-teste (Tukey/LSD).",
+        "Interpretação: sempre olhar boxplot e médias."
+      ],commonMistakes:["Concluir ‘todos os grupos diferem’ só porque ANOVA deu significativo."],replicaBox:["ANOVA exige réplicas por grupo (mínimo didático: 3)."]},
+      after:{title:"Depois da aula",text:["Rodar ANOVA e produzir gráfico comparativo."],tasks:["Dossiê: ANOVA + gráfico + interpretação."]},
+      links:[{label:"Khan Academy (PT) – Comparação de grupos (rota geral)", url:"https://pt.khanacademy.org/math/statistics-probability"}],
+      reading:[{label:"Artigo – Efeito e IC (Nakagawa & Cuthill) – DOI", url:"https://doi.org/10.1111/j.1469-185X.2007.00027.x"}],
+      quiz:{intro:"Mini-quiz: o que ANOVA responde.",
+        questions:[
+          {q:"ANOVA de uma via testa:", options:["Diferença entre 2 grupos apenas","Diferença entre 3+ grupos (pelo menos um difere)","Correlação","Normalidade"], correctIndex:1,
+            feedback:["Não.","Correto.","Não.","Não."]},
+          {q:"Se ANOVA é significativa, o próximo passo é:", options:["Parar e concluir tudo","Ver quais grupos diferem (pós-teste)","Trocar dados","Eliminar variabilidade"], correctIndex:1,
+            feedback:["Não.","Correto.","Não.","Não."]},
+          {q:"Um gráfico muito útil junto com ANOVA:", options:["Boxplot","Pizza","Radar com 20 grupos","Mapa mental"], correctIndex:0,
+            feedback:["Correto.","Não é ideal.","Complica.","Não."]}
+        ]}
+    },
+
+    {
+      id: 9, short:"ANOVA de duas vias e interação", dates:"20/04/2026 a 25/04/2026",
+      objectives:["Entender 2 fatores e interação.","Interpretar efeito principal vs interação.","Desenhar pergunta com dois fatores."],
+      before:{title:"Antes da aula",text:["Dois fatores permitem perguntas mais realistas (ex.: local e horário)."],steps:["Defina 2 fatores e uma resposta."]},
+      during:{title:"Durante a aula",text:[
+        "Efeito principal: diferença média por fator (ex.: A vs B).",
+        "Interação: quando o efeito de um fator depende do outro (ex.: A>B de manhã, mas A<B à noite).",
+        "Interpretação sempre com gráfico e contexto."
+      ],commonMistakes:["Ignorar interação e interpretar só efeitos principais."],replicaBox:["Equilibrar réplicas por combinação ajuda muito."]},
+      after:{title:"Depois da aula",text:["Planejar projeto final com 2 variáveis explicativas possíveis."],tasks:["Dossiê: pergunta com 2 fatores + tabela exemplo + interpretação."]},
+      links:[{label:"Khan Academy (PT) – ANOVA e comparação (rota geral)", url:"https://pt.khanacademy.org/math/statistics-probability"}],
+      reading:[{label:"Artigo – Pseudorrepetição (Hurlbert) – DOI", url:"https://doi.org/10.2307/1942661"}],
+      quiz:{intro:"Mini-quiz: interação.",
+        questions:[
+          {q:"Interação significa:", options:["Os grupos são iguais","Um fator muda o efeito do outro","Não precisa de gráfico","Só existe com regressão"], correctIndex:1,
+            feedback:["Não.","Correto.","Gráfico ajuda muito.","Não."]},
+          {q:"Dois fatores comuns em dados do cotidiano:", options:["Local e horário","Cor do título e fonte","Nome e matrícula","Nada"], correctIndex:0,
+            feedback:["Correto.","Não.","Não.","Não."]},
+          {q:"Se há interação, interpretar só ‘média geral’ pode:", options:["Ser perigoso e enganar","Ser perfeito","Eliminar viés","Provar causalidade"], correctIndex:0,
+            feedback:["Correto.","Não.","Não.","Não."]}
+        ]}
+    },
+
+    {
+      id: 10, short:"Regressão linear", dates:"27/04/2026 a 02/05/2026",
+      objectives:["Modelar relação Y~X.","Interpretar coeficiente, R² e p.","Evitar confundir associação com causalidade."],
+      before:{title:"Antes da aula",text:["Regressão responde: quanto Y muda quando X muda?"],steps:["Traga pares (X,Y) com pelo menos 8 pontos."]},
+      during:{title:"Durante a aula",text:[
+        "Coeficiente b1: direção e intensidade do efeito.",
+        "Intercepto b0: valor esperado quando X=0 (às vezes não faz sentido físico).",
+        "R²: fração da variabilidade explicada pelo modelo.",
+        "Resíduos: onde o modelo erra; olhar ajuda a ver inadequação."
+      ],commonMistakes:["Achar que R² alto prova causalidade.","Extrapolar além da faixa observada."],replicaBox:["Mais pontos (X,Y) melhoram estabilidade da estimativa."]},
+      after:{title:"Depois da aula",text:["Gerar dispersão + linha de regressão e interpretar."],tasks:["Dossiê: equação + gráfico + interpretação (sem exageros)."]},
+      links:[{label:"Khan Academy (PT) – Regressão linear", url:"https://pt.khanacademy.org/math/statistics-probability"}],
+      reading:[{label:"Artigo – Efeito e IC (Nakagawa & Cuthill) – DOI", url:"https://doi.org/10.1111/j.1469-185X.2007.00027.x"}],
+      quiz:{intro:"Mini-quiz: regressão e interpretação.",
+        questions:[
+          {q:"b1 (inclinação) indica:", options:["A cor do gráfico","Como Y varia com X","O número de grupos","A variância total"], correctIndex:1,
+            feedback:["Não.","Correto.","Não.","Não."]},
+          {q:"R² mede:", options:["Causalidade","Proporção de variabilidade explicada","Número de réplicas","Erro tipo I"], correctIndex:1,
+            feedback:["Não.","Correto.","Não.","Não."]},
+          {q:"Regressão prova causalidade?", options:["Sim, sempre","Não, precisa de desenho causal/controle","Só se p<0,05","Só se R²>0,8"], correctIndex:1,
+            feedback:["Não.","Correto.","Não.","Não."]}
+        ]}
+    },
+
+    {
+      id: 11, short:"Correlação (Pearson/Spearman)", dates:"04/05/2026 a 09/05/2026",
+      objectives:["Diferenciar correlação de regressão.","Escolher Pearson vs Spearman.","Interpretar força e direção."],
+      before:{title:"Antes da aula",text:["Correlação mede associação; regressão modela relação."],steps:["Separe X e Y e verifique outliers."]},
+      during:{title:"Durante a aula",text:[
+        "Pearson: associação linear e sensível a outliers.",
+        "Spearman: usa postos; bom quando relação é monotônica e dados não normais.",
+        "Nunca interpretar correlação como causa."
+      ],commonMistakes:["Usar Pearson com relação claramente não linear.","Ignorar outlier que controla o resultado."],replicaBox:["Quanto mais pares, melhor a estimativa."]},
+      after:{title:"Depois da aula",text:["Rodar correlação e discutir limite da interpretação."],tasks:["Dossiê: r + gráfico + interpretação."]},
+      links:[{label:"Khan Academy (PT) – Correlação", url:"https://pt.khanacademy.org/math/statistics-probability"}],
+      reading:[{label:"Artigo – Efeito e IC (Nakagawa & Cuthill) – DOI", url:"https://doi.org/10.1111/j.1469-185X.2007.00027.x"}],
+      quiz:{intro:"Mini-quiz: Pearson vs Spearman.",
+        questions:[
+          {q:"Spearman é útil quando:", options:["Dados são monotônicos e não normais","Sempre que possível","Para tabela categórica","Para ANOVA"], correctIndex:0,
+            feedback:["Correto.","Não necessariamente.","Não.","Não."]},
+          {q:"Correlação mede:", options:["Associação","Causalidade","Diferença de médias","Normalidade"], correctIndex:0,
+            feedback:["Correto.","Não.","Não.","Não."]},
+          {q:"Outliers podem:", options:["Mudar muito o Pearson","Não afetar nada","Provar causalidade","Eliminar a necessidade de réplicas"], correctIndex:0,
+            feedback:["Correto.","Afetam sim.","Não.","Não."]}
+        ]}
+    },
+
+    {
+      id: 12, short:"GLM (contagens e proporções)", dates:"11/05/2026 a 16/05/2026",
+      objectives:["Entender por que GLM existe.","Reconhecer dados de contagem/proporção.","Interpretar de forma aplicada (sem matemática pesada)."],
+      before:{title:"Antes da aula",text:["GLM é uma extensão quando a regressão linear não se encaixa (contagens, proporções)."],steps:["Tenha exemplo de contagem ou proporção, ou use dataset guiado."]},
+      during:{title:"Durante a aula",text:[
+        "Contagens: muitas vezes assimétricas; modelo Poisson (ideia).",
+        "Proporções: binomial (ideia).",
+        "Interpretação: foco em direção do efeito e plausibilidade biológica."
+      ],commonMistakes:["Forçar regressão linear em contagem com muitos zeros."],replicaBox:["Coleta consistente melhora muito para contagens."]},
+      after:{title:"Depois da aula",text:["Identificar se seu dado se encaixa melhor em contagem/proporção e justificar."],tasks:["Dossiê: tipo de dado + justificativa do modelo adequado."]},
+      links:[{label:"Khan Academy (PT) – Probabilidade e modelos (base)", url:"https://pt.khanacademy.org/math/statistics-probability"}],
+      reading:[{label:"Artigo – Pseudorrepetição (Hurlbert) – DOI", url:"https://doi.org/10.2307/1942661"}],
+      quiz:{intro:"Mini-quiz: quando pensar em GLM.",
+        questions:[
+          {q:"GLM é útil quando:", options:["Y é contagem/proporção e não se comporta bem como normal","Sempre que há 2 grupos","Para criar gráficos bonitos","Para substituir coleta"], correctIndex:0,
+            feedback:["Correto.","Não.","Não.","Não."]},
+          {q:"Poisson é frequentemente ligado a:", options:["Contagens","Temperatura","Cor","Nome"], correctIndex:0,
+            feedback:["Correto.","Não.","Não.","Não."]},
+          {q:"Proporções se ligam a:", options:["Binomial (ideia)","Poisson sempre","Normal obrigatória","Nada"], correctIndex:0,
+            feedback:["Correto.","Não.","Não.","Não."]}
+        ]}
+    },
+
+    {
+      id: 13, short:"Modelos com múltiplos preditores", dates:"18/05/2026 a 23/05/2026",
+      objectives:["Entender múltiplos X.","Reconhecer colinearidade.","Justificar seleção de variáveis."],
+      before:{title:"Antes da aula",text:["Mais variáveis explicativas não significa melhor modelo. Precisa sentido científico."],steps:["Liste 2–3 variáveis explicativas plausíveis para sua pergunta."]},
+      during:{title:"Durante a aula",text:[
+        "Modelo múltiplo: Y explicado por X1, X2…",
+        "Colinearidade: Xs que ‘andam juntos’ confundem interpretação.",
+        "Estratégia prática: escolher variáveis com justificativa biológica e evitar redundância."
+      ],commonMistakes:["Colocar muitas variáveis com N pequeno."],replicaBox:["Regra prática: N precisa crescer quando cresce o número de preditores."]},
+      after:{title:"Depois da aula",text:["Definir 2 variáveis explicativas para o projeto final e justificar."],tasks:["Dossiê: modelo conceitual (texto) + plano de dados."]},
+      links:[{label:"Khan Academy (PT) – Regressão e modelos (base)", url:"https://pt.khanacademy.org/math/statistics-probability"}],
+      reading:[{label:"Artigo – Efeito e IC (Nakagawa & Cuthill) – DOI", url:"https://doi.org/10.1111/j.1469-185X.2007.00027.x"}],
+      quiz:{intro:"Mini-quiz: colinearidade e múltiplos preditores.",
+        questions:[
+          {q:"Colinearidade é:", options:["Xs muito correlacionados entre si","Y com variância alta","p-valor alto","Boxplot"], correctIndex:0,
+            feedback:["Correto.","Não.","Não.","Não."]},
+          {q:"Muitos preditores com N pequeno:", options:["Aumenta risco de overfitting","Garante melhor modelo","Remove viés","Prova causalidade"], correctIndex:0,
+            feedback:["Correto.","Não.","Não.","Não."]},
+          {q:"Seleção de variáveis deve ser:", options:["Justificada biologicamente","Por gosto pessoal","Pelo título do gráfico","Aleatória"], correctIndex:0,
+            feedback:["Correto.","Não.","Não.","Não."]}
+        ]}
+    },
+
+    {
+      id: 14, short:"ANCOVA + viés + testes cegos", dates:"25/05/2026 a 30/05/2026",
+      objectives:["Entender covariável e controle estatístico.","Reconhecer vieses comuns.","Aplicar checklist de qualidade do banco."],
+      before:{title:"Antes da aula",text:["Viés nasce no desenho e na coleta. ANCOVA é uma ferramenta para controlar covariável, quando faz sentido."],steps:["Escolha uma covariável plausível (ex.: horário, temperatura, local)."]},
+      during:{title:"Durante a aula",text:[
+        "ANCOVA: compara grupos controlando uma covariável (ideia: ‘comparar em condições equivalentes’).",
+        "Viés de seleção: medir só quando convém; viés de medição: método muda; viés de confirmação: interpretar só o que favorece.",
+        "Teste cego: quando possível, reduzir influência de expectativa na medição."
+      ],commonMistakes:["Controlar covariável sem justificativa (virar ‘ajuste’ para dar significativo)."],replicaBox:["Controle estatístico não substitui bom desenho e réplicas."]},
+      after:{title:"Depois da aula",text:["Revisar banco do projeto final com checklist e corrigir falhas."],tasks:["Dossiê: checklist de viés + ajustes feitos."]},
+      links:[{label:"Khan Academy (PT) – Fundamentos (base)", url:"https://pt.khanacademy.org/math/statistics-probability"}],
+      reading:[{label:"Artigo – Pseudorrepetição (Hurlbert) – DOI", url:"https://doi.org/10.2307/1942661"}],
+      quiz:{intro:"Mini-quiz: viés e covariável.",
+        questions:[
+          {q:"ANCOVA serve para:", options:["Comparar grupos controlando covariável","Fazer histograma","Eliminar necessidade de dados","Trocar variável"], correctIndex:0,
+            feedback:["Correto.","Não.","Não.","Não."]},
+          {q:"Viés de seleção é:", options:["Escolher amostra ‘do jeito mais conveniente’","Ter muitos dados","Fazer boxplot","Usar X e Y"], correctIndex:0,
+            feedback:["Correto.","Não.","Não.","Não."]},
+          {q:"Controle estatístico substitui réplicas?", options:["Não","Sim, sempre","Só com p<0,05","Só com R² alto"], correctIndex:0,
+            feedback:["Correto.","Não.","Não.","Não."]}
+        ]}
+    },
+
+    {
+      id: 15, short:"PAST + relatório e apresentação final", dates:"01/06/2026 a 06/06/2026",
+      objectives:["Organizar relatório científico curto.","Consolidar banco e análises.","Preparar apresentação com interpretação e limites."],
+      before:{title:"Antes da aula",text:["Agora é transformar ‘números’ em comunicação científica: pergunta → método → resultado → discussão."],steps:["Reunir banco final do grupo e gráficos principais."]},
+      during:{title:"Durante a aula",text:[
+        "Parte 1 – Estrutura do relatório: pergunta, dados, método, resultados, discussão, limitações.",
+        "Parte 2 – Gráficos essenciais: 1 figura principal + 1 de suporte.",
+        "Parte 3 – Interpretação: o que o resultado sugere (sem prometer causalidade).",
+        "Parte 4 – Limitações: N, viés, representatividade e próximos passos."
+      ],commonMistakes:["Apresentar só p-valor sem mostrar o dado.","Conclusões muito fortes para N pequeno."],replicaBox:["Se N foi limitado, foque em honestidade e próximos passos."]},
+      after:{title:"Depois da aula",text:["Finalizar apresentação e entregar relatório."],tasks:["Entrega do projeto final (apresentação + arquivo do banco + figuras)."]},
+      links:[
+        {label:"PAST (site oficial)", url:"https://www.nhm.uio.no/english/research/resources/past/"},
+        {label:"Manual do PAST (PDF)", url:"https://www.nhm.uio.no/english/research/resources/past/downloads/past4manual.pdf"}
+      ],
+      reading:[{label:"Artigo – Efeito e IC (Nakagawa & Cuthill, 2007) – DOI", url:"https://doi.org/10.1111/j.1469-185X.2007.00027.x"}],
+      quiz:{intro:"Mini-quiz: apresentação científica.",
+        questions:[
+          {q:"Uma boa apresentação deve ter:", options:["Só p-valor","Pergunta, método, resultado e limites","Apenas título","Somente fotos"], correctIndex:1,
+            feedback:["Insuficiente.","Correto.","Insuficiente.","Insuficiente."]},
+          {q:"Se N foi pequeno, o correto é:", options:["Esconder isso","Declarar limitação e sugerir próximos passos","Inventar dados","Ignorar variabilidade"], correctIndex:1,
+            feedback:["Errado.","Correto.","Errado.","Errado."]},
+          {q:"Gráficos são importantes porque:", options:["Enfeitam","Mostram o dado e sustentam interpretação","Substituem coleta","Garantem causalidade"], correctIndex:1,
+            feedback:["Não.","Correto.","Não.","Não."]}
+        ]}
+    },
+  ];
+
+  // Completar semanas 5–15 que não foram listadas (id 5–15 já existem),
+  // mas faltaram id 6–15? (já existem). Agora faltam id 5–15? Estão todos.
+  // Só falta a semana 8? etc. Já estão.
+
+  // -------------------------
+  // Estado (progresso e notas)
+  // -------------------------
+  const KEY = "curso_plataforma_v1";
+  let state = {
+    currentId: null,
+    done: {},          // {id:true}
+    notes: {},         // {id:"..."}
+    quiz: {}           // {id:{answers:[...], score:int}}
+  };
+
+  function loadState(){
+    const raw = localStorage.getItem(KEY);
+    if(raw){
+      try{ state = JSON.parse(raw); }catch(e){}
+    }
+  }
+  function saveState(){
+    localStorage.setItem(KEY, JSON.stringify(state));
+  }
+
+  // -------------------------
+  // Render lista
+  // -------------------------
+  function calcProgress(){
+    const total = LESSONS.length;
+    const doneCount = Object.keys(state.done||{}).filter(k=>state.done[k]).length;
+    const pct = total ? Math.round(doneCount*100/total) : 0;
+    document.getElementById("progText").textContent = `${doneCount}/${total} concluídas`;
+    document.getElementById("progBar").style.width = `${pct}%`;
+  }
+
+  function renderList(){
+    const el = document.getElementById("lessonList");
+    el.innerHTML = "";
+    LESSONS.forEach(ls=>{
+      const isDone = !!state.done?.[ls.id];
+      const btn = document.createElement("button");
+      btn.className = "lessonBtn";
+      btn.innerHTML = `
+        <div class="t">
+          <span>Semana ${ls.id} • ${ls.short}</span>
+          <span class="tag ${isDone ? "ok":"todo"}">${isDone ? "Concluída":"Pendente"}</span>
+        </div>
+        <div class="d">${ls.dates}</div>
+      `;
+      btn.addEventListener("click", ()=>openLesson(ls.id));
+      el.appendChild(btn);
+    });
+    calcProgress();
+  }
+
+  // -------------------------
+  // Render aula
+  // -------------------------
+  function elHTML(tag, html, cls){
+    const e = document.createElement(tag);
+    if(cls) e.className = cls;
+    e.innerHTML = html;
+    return e;
+  }
+
+  function mkList(items){
+    return `<ul>${items.map(x=>`<li>${x}</li>`).join("")}</ul>`;
+  }
+
+  function mkLinks(items){
+    if(!items || !items.length) return `<p class="small">Sem links cadastrados.</p>`;
+    return `<div class="links">${items.map(x=>`<p>• <a href="${x.url}" target="_blank" rel="noopener noreferrer">${x.label}</a></p>`).join("")}</div>`;
+  }
+
+  function quizBlock(lesson){
+    const q = lesson.quiz;
+    const saved = state.quiz?.[lesson.id] || null;
+
+    const container = document.createElement("div");
+    container.className = "quiz";
+    container.innerHTML = `
+      <div><strong>Quiz da semana</strong></div>
+      <div class="small">${q.intro || ""}</div>
+      <div id="quizQuestions"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+        <button class="primary" id="btnGrade">Corrigir</button>
+        <button class="ghost" id="btnClearQuiz">Limpar respostas</button>
+      </div>
+      <div class="quizResult" id="quizResult" style="display:none"></div>
+    `;
+
+    const questionsEl = container.querySelector("#quizQuestions");
+    questionsEl.innerHTML = q.questions.map((qq,qi)=>{
+      const opts = qq.options.map((opt,oi)=>{
+        const name = `q_${lesson.id}_${qi}`;
+        const checked = saved?.answers?.[qi] === oi ? "checked" : "";
+        return `<label><input type="radio" name="${name}" value="${oi}" ${checked}/> ${opt}</label>`;
+      }).join("");
+      return `
+        <div class="q">
+          <div class="qtitle">${qi+1}) ${qq.q}</div>
+          <div class="opts">${opts}</div>
+        </div>
+      `;
+    }).join("");
+
+    const resultEl = container.querySelector("#quizResult");
+
+    function grade(){
+      const answers = [];
+      let score = 0;
+      const lines = [];
+      q.questions.forEach((qq,qi)=>{
+        const chosen = container.querySelector(`input[name="q_${lesson.id}_${qi}"]:checked`);
+        const a = chosen ? Number(chosen.value) : null;
+        answers.push(a);
+        const ok = (a === qq.correctIndex);
+        if(ok) score++;
+        lines.push(`${qi+1}) ${ok ? "Certo" : "Errado"} – ${qq.feedback?.[a ?? -1] ?? (ok?"":"Revise o conteúdo.")}`);
+      });
+
+      state.quiz = state.quiz || {};
+      state.quiz[lesson.id] = {answers, score};
+      saveState();
+
+      resultEl.style.display = "block";
+      resultEl.textContent = `Pontuação: ${score}/${q.questions.length}\n\n` + lines.join("\n");
+    }
+
+    function clearQuiz(){
+      q.questions.forEach((qq,qi)=>{
+        const checks = container.querySelectorAll(`input[name="q_${lesson.id}_${qi}"]`);
+        checks.forEach(i=>i.checked=false);
+      });
+      if(state.quiz?.[lesson.id]){
+        delete state.quiz[lesson.id];
+        saveState();
+      }
+      resultEl.style.display = "none";
+      resultEl.textContent = "";
+    }
+
+    container.querySelector("#btnGrade").addEventListener("click", grade);
+    container.querySelector("#btnClearQuiz").addEventListener("click", clearQuiz);
+
+    if(saved){
+      resultEl.style.display = "block";
+      resultEl.textContent = `Última pontuação salva: ${saved.score}/${q.questions.length}\n(Se quiser, clique em “Corrigir” novamente.)`;
+    }
+    return container;
+  }
+
+  function openLesson(id){
+    const lesson = LESSONS.find(x=>x.id===id);
+    if(!lesson) return;
+    state.currentId = id;
+    saveState();
+
+    document.getElementById("lessonTitle").textContent = `Semana ${lesson.id} – ${lesson.short}`;
+    document.getElementById("lessonDates").textContent = `Período: ${lesson.dates}`;
+    document.getElementById("lessonShort").textContent = lesson.short;
+    document.getElementById("lessonHint").textContent = "";
+
+    const panels = document.getElementById("lessonPanels");
+    panels.innerHTML = "";
+
+    // Objetivos
+    const obj = elHTML("details", `
+      <summary>Objetivos da semana <span class="chip">o que você precisa dominar</span></summary>
+      <div class="content">
+        <p><strong>Ao final desta semana, você deve conseguir:</strong></p>
+        ${mkList(lesson.objectives || [])}
+        <div class="box ok">
+          <strong>Por que isso importa:</strong> objetivos claros evitam “estudar demais” e focam no essencial para o dossiê e para o projeto final.
+        </div>
+      </div>
+    `);
+    obj.open = true;
+    panels.appendChild(obj);
+
+    // Antes
+    const before = elHTML("details", `
+      <summary>${lesson.before?.title || "Antes da aula"} <span class="chip">preparação</span></summary>
+      <div class="content">
+        ${(lesson.before?.text||[]).map(p=>`<p>${p}</p>`).join("")}
+        ${lesson.before?.steps?.length ? `<div class="box"><strong>Passo a passo:</strong>${mkList(lesson.before.steps)}</div>` : ""}
+      </div>
+    `);
+    panels.appendChild(before);
+
+    // Durante
+    const during = elHTML("details", `
+      <summary>${lesson.during?.title || "Durante a aula"} <span class="chip">conteúdo em partes</span></summary>
+      <div class="content">
+        ${(lesson.during?.text||[]).map(p=>`<p>${p}</p>`).join("")}
+        ${lesson.during?.commonMistakes?.length ? `<div class="box warn"><strong>Erros comuns (evite):</strong>${mkList(lesson.during.commonMistakes)}</div>` : ""}
+        ${lesson.during?.replicaBox?.length ? `<div class="box ok"><strong>Lembrete de réplicas:</strong>${mkList(lesson.during.replicaBox)}</div>` : ""}
+      </div>
+    `);
+    panels.appendChild(during);
+
+    // Depois
+    const after = elHTML("details", `
+      <summary>${lesson.after?.title || "Depois da aula"} <span class="chip">tarefa curta</span></summary>
+      <div class="content">
+        ${(lesson.after?.text||[]).map(p=>`<p>${p}</p>`).join("")}
+        ${lesson.after?.tasks?.length ? `<div class="box"><strong>Entregas da semana:</strong>${mkList(lesson.after.tasks)}</div>` : ""}
+      </div>
+    `);
+    panels.appendChild(after);
+
+    // Links e leitura
+    const refs = elHTML("details", `
+      <summary>Materiais (links e leitura) <span class="chip">português / base</span></summary>
+      <div class="content">
+        <p><strong>Links recomendados:</strong></p>
+        ${mkLinks(lesson.links)}
+        <div class="hr"></div>
+        <p><strong>Leitura complementar:</strong></p>
+        ${mkLinks(lesson.reading)}
+        <div class="box">
+          <strong>Dica didática:</strong> o aluno não precisa ler tudo. Ele deve ler o suficiente para melhorar o dossiê (1 lauda).
+        </div>
+      </div>
+    `);
+    panels.appendChild(refs);
+
+    // Notas
+    const notes = elHTML("details", `
+      <summary>Notas da semana <span class="chip">rascunho do dossiê</span></summary>
+      <div class="content">
+        <p class="small">${lesson.notesPrompt || "Notas:"}</p>
+        <textarea id="notesArea" placeholder="Escreva aqui: pergunta científica, variável Y, como coletou, dificuldades, ideias para o projeto final..."></textarea>
+        <p class="small">Essas notas ficam salvas no navegador.</p>
+      </div>
+    `);
+    panels.appendChild(notes);
+
+    // Quiz
+    const qb = elHTML("details", `
+      <summary>Quiz da semana <span class="chip">3 questões</span></summary>
+      <div class="content" id="quizMount"></div>
+    `);
+    panels.appendChild(qb);
+
+    // Mount quiz
+    const mount = qb.querySelector("#quizMount");
+    mount.appendChild(quizBlock(lesson));
+
+    // Load notes
+    const area = panels.querySelector("#notesArea");
+    area.value = (state.notes && state.notes[id]) ? state.notes[id] : "";
+
+    // Update buttons state
+    updateDoneButtons();
+  }
+
+  function updateDoneButtons(){
+    const id = state.currentId;
+    const done = !!state.done?.[id];
+    document.getElementById("btnDone").disabled = !id || done;
+    document.getElementById("btnUndone").disabled = !id || !done;
+  }
+
+  // -------------------------
+  // Ações
+  // -------------------------
+  document.getElementById("btnDone").addEventListener("click", ()=>{
+    const id = state.currentId;
+    if(!id) return;
+    state.done = state.done || {};
+    state.done[id] = true;
+    saveState();
+    renderList();
+    updateDoneButtons();
+  });
+
+  document.getElementById("btnUndone").addEventListener("click", ()=>{
+    const id = state.currentId;
+    if(!id) return;
+    state.done = state.done || {};
+    delete state.done[id];
+    saveState();
+    renderList();
+    updateDoneButtons();
+  });
+
+  document.getElementById("btnSaveNotes").addEventListener("click", ()=>{
+    const id = state.currentId;
+    if(!id) return alert("Selecione uma semana primeiro.");
+    const ta = document.querySelector("#lessonPanels #notesArea");
+    if(!ta) return;
+    state.notes = state.notes || {};
+    state.notes[id] = ta.value;
+    saveState();
+    alert("Notas salvas.");
+  });
+
+  document.getElementById("btnExport").addEventListener("click", ()=>{
+    const payload = {
+      exportedAt: new Date().toISOString(),
+      done: state.done || {},
+      notes: state.notes || {},
+      quiz: state.quiz || {}
+    };
+    const blob = new Blob([JSON.stringify(payload,null,2)], {type:"application/json"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "relatorio-curso.json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 1500);
+  });
+
+  document.getElementById("btnReset").addEventListener("click", ()=>{
+    if(!confirm("Tem certeza? Isso apaga progresso, notas e quizzes deste navegador.")) return;
+    localStorage.removeItem(KEY);
+    state = {currentId:null, done:{}, notes:{}, quiz:{}};
+    renderList();
+    document.getElementById("lessonTitle").textContent = "Selecione uma semana";
+    document.getElementById("lessonDates").textContent = "—";
+    document.getElementById("lessonShort").textContent = "—";
+    document.getElementById("lessonHint").textContent = "Clique numa semana à esquerda para ver a explicação completa e o quiz.";
+    document.getElementById("lessonPanels").innerHTML = "";
+    calcProgress();
+    updateDoneButtons();
+  });
+
+  // -------------------------
+  // Init
+  // -------------------------
+  loadState();
+  renderList();
+  if(state.currentId){
+    openLesson(state.currentId);
+  } else {
+    // abre a primeira por padrão
+    openLesson(1);
+  }
+</script>
+</body>
+</html>
