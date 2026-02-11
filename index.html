@@ -3,162 +3,127 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Plataforma do Curso – Estatística e Modelagem (Biologia/Ecologia/Saúde)</title>
-
+  <title>Curso – Estatística e Modelagem (Online)</title>
   <style>
     :root{
       --bg:#ffffff;
       --text:#0b1220;
       --muted:#475569;
       --line:#e5e7eb;
-      --shadow: 0 10px 28px rgba(2,6,23,.08);
+      --shadow: 0 10px 22px rgba(2,6,23,.08);
 
       --pink:#ff006e;
       --blue:#3a86ff;
-      --purple:#8338ec;
       --green:#06d6a0;
       --yellow:#ffbe0b;
       --orange:#fb5607;
 
-      --card:#ffffff;
       --soft:#f8fafc;
     }
     *{box-sizing:border-box}
     body{
       margin:0;
-      background:linear-gradient(180deg,#fff 0%, #fff 55%, #f7fbff 100%);
+      background:#fff;
       color:var(--text);
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      line-height:1.4;
+      line-height:1.45;
     }
     header{
       border-bottom:1px solid var(--line);
       background:
-        radial-gradient(1100px 420px at 12% -10%, rgba(255,0,110,.12), transparent 55%),
-        radial-gradient(950px 420px at 82% -10%, rgba(58,134,255,.12), transparent 55%),
-        radial-gradient(950px 420px at 95% 30%, rgba(6,214,160,.10), transparent 55%),
+        radial-gradient(900px 340px at 10% -10%, rgba(255,0,110,.14), transparent 55%),
+        radial-gradient(900px 340px at 90% -10%, rgba(58,134,255,.14), transparent 55%),
         #fff;
     }
-    .wrap{max-width:1250px;margin:0 auto;padding:0 16px}
-    h1{margin:0;padding:22px 0 8px;font-size:26px;letter-spacing:-.02em}
-    .sub{margin:0 0 16px;color:var(--muted);max-width:1050px}
-    .topbar{
-      display:flex;gap:10px;flex-wrap:wrap;align-items:center;
-      padding:0 0 18px;
-    }
-    .pill{
+    .wrap{max-width:980px;margin:0 auto;padding:0 14px}
+    h1{margin:0;padding:18px 0 6px;font-size:22px;letter-spacing:-.01em}
+    .sub{margin:0 0 14px;color:var(--muted);font-size:13px}
+    .badges{display:flex;flex-wrap:wrap;gap:8px;padding:0 0 16px}
+    .badge{
+      font-size:12px;
+      padding:6px 10px;
       border:1px solid var(--line);
       border-radius:999px;
-      padding:6px 10px;
       background:#fff;
-      font-size:12px;
-      box-shadow: 0 4px 14px rgba(2,6,23,.04);
+      box-shadow: 0 4px 12px rgba(2,6,23,.04);
     }
-    .grid{
-      display:grid;
-      grid-template-columns: 360px 1fr;
-      gap:14px;
-      padding:16px 0 26px;
-    }
-    @media (max-width: 1020px){
-      .grid{grid-template-columns:1fr}
-    }
+
+    main{padding:14px 0 26px}
     .card{
-      background:var(--card);
       border:1px solid var(--line);
       border-radius:16px;
+      background:#fff;
       box-shadow:var(--shadow);
       overflow:hidden;
+      margin-bottom:12px;
     }
-    .card h2{
-      margin:0;
-      padding:14px 14px 10px;
-      font-size:15px;
-    }
-    .lessonList{
-      max-height:74vh;
-      overflow:auto;
-      padding:10px 10px 12px;
-    }
-    .lessonBtn{
-      width:100%;
-      text-align:left;
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:14px;
-      padding:10px 10px;
-      cursor:pointer;
-      margin-bottom:10px;
-      transition:.12s transform ease;
-    }
-    .lessonBtn:hover{transform: translateY(-1px)}
-    .lessonBtn .t{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      font-weight:900;
-      font-size:13px;
-    }
-    .lessonBtn .d{
-      margin-top:4px;
-      color:var(--muted);
-      font-size:12px;
-    }
-    .tag{
-      font-size:11px;
-      padding:4px 8px;
-      border-radius:999px;
-      color:#fff;
-      background: linear-gradient(90deg, var(--blue), var(--pink));
-      white-space:nowrap;
-      align-self:flex-start;
-    }
-    .tag.ok{background:linear-gradient(90deg,var(--green),var(--yellow));color:#0b1220}
-    .tag.todo{background:linear-gradient(90deg,var(--orange),var(--pink));}
-
-    .toolbar{
-      display:flex;flex-wrap:wrap;gap:10px;align-items:center;
-      padding:12px 14px;
+    .cardHead{
+      padding:12px 12px;
       border-bottom:1px solid var(--line);
-      background: #fff;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
     }
+    .cardHead strong{font-size:14px}
+    .btnRow{display:flex;gap:10px;flex-wrap:wrap}
     button{
       border:none;
-      padding:10px 12px;
       border-radius:12px;
+      padding:10px 12px;
       cursor:pointer;
       font-weight:900;
-      color:#0b1220;
       background:#f1f5f9;
       border:1px solid var(--line);
+      color:var(--text);
     }
     button.primary{background:linear-gradient(90deg,var(--blue),var(--pink));color:#fff;border:none}
     button.accent{background:linear-gradient(90deg,var(--green),var(--yellow));border:none}
     button.warn{background:linear-gradient(90deg,var(--orange),var(--pink));color:#fff;border:none}
     button:disabled{opacity:.55;cursor:not-allowed}
 
-    .small{font-size:12px;color:var(--muted)}
-    .titleBlock{padding:14px 14px 0;}
-    .titleBlock h3{
-      margin:0 0 6px;
-      font-size:18px;
-      letter-spacing:-.01em;
+    .list{padding:10px 12px}
+    .lessonBtn{
+      width:100%;
+      text-align:left;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:10px 10px;
+      cursor:pointer;
+      margin:10px 0;
+      transition:.12s transform ease;
     }
-    .meta{
-      display:flex;flex-wrap:wrap;gap:8px;align-items:center;
-      color:var(--muted);font-size:12px;margin-bottom:10px;
+    .lessonBtn:hover{transform:translateY(-1px)}
+    .topLine{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      font-weight:900;
+      font-size:13px;
     }
-    .panels{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:12px;
-      padding:0 14px 14px;
+    .dates{margin-top:4px;color:var(--muted);font-size:12px}
+    .tag{
+      font-size:11px;
+      padding:4px 8px;
+      border-radius:999px;
+      color:#fff;
+      background:linear-gradient(90deg,var(--orange),var(--pink));
+      white-space:nowrap;
     }
+    .tag.ok{background:linear-gradient(90deg,var(--green),var(--yellow));color:#0b1220}
+
+    .content{padding:12px 12px 14px}
+    .title{font-size:18px;margin:0 0 6px}
+    .meta{color:var(--muted);font-size:12px;margin-bottom:12px}
+
     details{
       border:1px solid var(--line);
       border-radius:14px;
-      background:#fff;
       overflow:hidden;
+      background:#fff;
+      margin:10px 0;
     }
     summary{
       list-style:none;
@@ -166,9 +131,9 @@
       padding:12px 12px;
       font-weight:900;
       display:flex;
-      align-items:center;
       justify-content:space-between;
       gap:10px;
+      align-items:center;
     }
     summary::-webkit-details-marker{display:none}
     .chip{
@@ -177,15 +142,12 @@
       border-radius:999px;
       border:1px solid var(--line);
       background:#fff;
-      color:#0b1220;
       white-space:nowrap;
     }
-    .content{
-      padding:0 12px 12px;
-      color:#0b1220;
-    }
-    .content p{margin:10px 0;color:#0b1220}
-    .content ul{margin:8px 0 10px 18px}
+    .sec{padding:0 12px 12px}
+    .sec p{margin:10px 0}
+    .sec ul{margin:8px 0 10px 18px}
+
     .box{
       border-radius:14px;
       border:1px dashed rgba(58,134,255,.35);
@@ -193,14 +155,21 @@
       padding:10px;
       margin:10px 0;
     }
-    .box.warn{
-      border:1px dashed rgba(251,86,7,.45);
-      background:rgba(251,86,7,.08);
-    }
     .box.ok{
       border:1px dashed rgba(6,214,160,.45);
       background:rgba(6,214,160,.08);
     }
+
+    textarea, input[type="text"], input[type="url"]{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:10px;
+      outline:none;
+      font-size:13px;
+      font-family:inherit;
+    }
+    textarea{min-height:90px;resize:vertical}
 
     .links a{
       color:#0b1220;
@@ -208,6 +177,21 @@
       text-decoration:none;
       border-bottom:2px solid rgba(58,134,255,.35);
       word-break:break-word;
+    }
+    .linkItem{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:10px;
+      margin:10px 0;
+      background:#fff;
+    }
+    .row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+    @media (max-width:720px){
+      .row{grid-template-columns:1fr}
     }
 
     .quiz{
@@ -220,83 +204,16 @@
     .q{border-top:1px solid var(--line);padding-top:10px;margin-top:10px}
     .q:first-child{border-top:none;padding-top:0;margin-top:0}
     .qtitle{font-weight:900;margin-bottom:6px}
-    .opts label{display:block;margin:6px 0;color:#0b1220}
-    .quizResult{
+    .opts label{display:block;margin:6px 0}
+    .result{
       margin-top:10px;
-      border-radius:14px;
-      padding:10px;
       background:#0b1220;
       color:#e2e8f0;
-      white-space:pre-wrap;
-      font-size:12px;
-    }
-
-    .footer{
-      padding:12px 14px 16px;
-      border-top:1px solid var(--line);
-      background:#fff;
-      color:var(--muted);
-      font-size:12px;
-    }
-    .prog{
-      display:flex;gap:10px;flex-wrap:wrap;align-items:center;
-      padding:10px 14px;
-      border-top:1px solid var(--line);
-      background: #fff;
-    }
-    .bar{
-      height:10px;
-      border-radius:999px;
-      background:#e5e7eb;
-      overflow:hidden;
-      flex:1;
-      min-width:160px;
-    }
-    .bar > div{
-      height:100%;
-      width:0%;
-      background: linear-gradient(90deg,var(--green),var(--yellow));
-    }
-
-    textarea, input[type="text"], input[type="url"]{
-      width:100%;
-      border:1px solid var(--line);
-      border-radius:12px;
-      padding:10px;
-      outline:none;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      font-size:13px;
-    }
-    textarea{min-height:95px;resize:vertical}
-    input:focus, textarea:focus{border-color:#94a3b8}
-
-    .row{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-    @media (max-width: 720px){
-      .row{grid-template-columns:1fr}
-    }
-
-    .refItem{
-      border:1px solid var(--line);
       border-radius:14px;
       padding:10px;
-      background:#fff;
-      margin:10px 0;
-    }
-    .refActions{
-      display:flex;gap:10px;flex-wrap:wrap;margin-top:10px
-    }
-    .kbd{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:11px;
-      padding:2px 6px;
-      border:1px solid var(--line);
-      border-radius:8px;
-      background:#fff;
-      color:#0b1220;
+      font-size:12px;
+      white-space:pre-wrap;
+      display:none;
     }
   </style>
 </head>
@@ -304,804 +221,497 @@
 <body>
 <header>
   <div class="wrap">
-    <h1>Plataforma do Curso – Estatística e Modelagem (Biologia/Ecologia/Saúde)</h1>
+    <h1>Curso – Estatística e Modelagem (Biologia/Ecologia/Saúde)</h1>
     <p class="sub">
-      A ideia aqui é dar um material “bem explicadinho” por semana: o aluno entende o conceito, aplica em um conjunto de dados simples,
-      registra o dossiê (1 lauda) e treina raciocínio estatístico com um mini-quiz.
-      Você pode editar as referências dentro da própria plataforma.
+      Plataforma simples para acompanhar as 15 semanas. Sem artigos. Links padrão: Khan Academy (você pode editar os links por semana).
     </p>
-    <div class="topbar">
-      <span class="pill">60h • 15 semanas • 4h/semana</span>
-      <span class="pill">Dossiê semanal (1 lauda)</span>
-      <span class="pill">Pergunta científica semanal</span>
-      <span class="pill">Réplica ≠ repetição</span>
-      <span class="pill">Links editáveis</span>
+    <div class="badges">
+      <span class="badge">60h • 15 semanas • 4h/semana</span>
+      <span class="badge">Online</span>
+      <span class="badge">Dossiê semanal (1 lauda)</span>
+      <span class="badge">Quiz curto por semana</span>
     </div>
   </div>
 </header>
 
 <main class="wrap">
-  <div class="grid">
 
-    <!-- LISTA -->
-    <section class="card">
-      <h2>Semanas (clique para abrir)</h2>
-      <div class="lessonList" id="lessonList"></div>
-
-      <div class="prog">
-        <div class="small"><strong>Progresso</strong>: <span id="progText">0/15 concluídas</span></div>
-        <div class="bar"><div id="progBar"></div></div>
+  <section class="card">
+    <div class="cardHead">
+      <strong>Semanas (clique para abrir)</strong>
+      <div class="btnRow">
+        <button class="accent" id="btnExport">Exportar progresso (JSON)</button>
+        <button class="warn" id="btnReset">Resetar</button>
       </div>
+    </div>
+    <div class="list" id="lessonList"></div>
+  </section>
 
-      <div class="footer">
-        Dica: clique na semana → leia “Antes/Durante/Depois” → faça o quiz → salve notas → marque como concluída.
-      </div>
-    </section>
-
-    <!-- CONTEÚDO -->
-    <section class="card">
-      <div class="toolbar">
-        <button class="primary" id="btnDone">Marcar semana como concluída</button>
+  <section class="card">
+    <div class="cardHead">
+      <strong>Conteúdo da semana selecionada</strong>
+      <div class="btnRow">
+        <button class="primary" id="btnDone">Marcar como concluída</button>
         <button id="btnUndone">Desmarcar</button>
-        <button class="accent" id="btnSaveNotes">Salvar notas</button>
-        <button id="btnToggleEdit">Editar referências: OFF</button>
-        <button id="btnExport">Exportar relatório (JSON)</button>
-        <button class="warn" id="btnReset">Resetar tudo</button>
       </div>
+    </div>
 
-      <div class="titleBlock">
-        <h3 id="lessonTitle">Selecione uma semana</h3>
-        <div class="meta">
-          <span id="lessonDates">—</span>
-          <span class="chip" id="lessonShort">—</span>
-        </div>
-        <div class="small" id="lessonHint">Clique numa semana à esquerda para ver a explicação completa e o quiz.</div>
-      </div>
+    <div class="content">
+      <h2 class="title" id="title">Selecione uma semana acima</h2>
+      <div class="meta" id="meta">—</div>
+      <div id="panels"></div>
+    </div>
+  </section>
 
-      <div class="panels" id="lessonPanels"></div>
-
-      <div class="footer">
-        Observação prática: os links e as leituras são totalmente editáveis por você (modo “Editar referências”).
-        Assim você não fica preso a nenhum link ruim.
-      </div>
-    </section>
-
-  </div>
 </main>
 
 <script>
-  // ==============================
-  // 1) CURSO (conteúdo base)
-  // Você vai editar links dentro do app
-  // ==============================
-  const BASE_LESSONS = [
-    {
-      id:1,
-      short:"Introdução e desenho amostral",
-      dates:"23/02/2026 a 28/02/2026",
-      objectives:[
-        "Transformar uma ideia em pergunta científica testável.",
-        "Entender unidade amostral, réplica e padronização.",
-        "Planejar uma coleta simples (até 4h) que gere dados analisáveis."
-      ],
-      before:{
-        title:"Antes da aula (começar do jeito certo)",
-        text:[
-          "Nesta semana, você não está “fazendo estatística” no sentido de rodar testes. Você está construindo o que dá poder à estatística: o desenho do estudo.",
-          "Uma pergunta científica boa é aquela que: (1) cabe em poucas palavras, (2) vira uma variável mensurável e (3) permite réplicas.",
-          "Aqui, a meta é sair com um plano simples: o que medir, quando medir, como medir e quantas vezes medir — sem inventar complexidade."
-        ],
-        steps:[
-          "Escolha um tema do cotidiano: clima, sono, passos, tempo de tela, ruído, ingestão de água, humor (com escala), etc.",
-          "Escreva uma pergunta científica objetiva (1 linha). Ex.: “Dias mais quentes estão associados a menos horas de sono?”",
-          "Defina variável resposta (Y): o que você quer explicar/medir.",
-          "Defina variável explicativa (X) ou dois grupos (A/B): o que você quer comparar/relacionar."
-        ]
-      },
-      during:{
-        title:"Durante a aula (as peças do desenho, em linguagem simples)",
-        text:[
-          "Parte 1 — Pergunta científica: precisa indicar comparação (A vs B) ou relação (Y muda com X). Evite frases amplas (“o clima influencia minha vida”) e prefira algo medível (“temperatura e sono”, “chuva e passos”).",
-          "Parte 2 — Unidade amostral: é o “bloco” básico de observação. Ex.: 1 dia; 1 noite; 1 pessoa em 1 dia; 1 local em 1 horário. Definir unidade amostral evita confusão e pseudorrepetição.",
-          "Parte 3 — Réplicas: são várias unidades amostrais independentes. Réplica não é repetir a mesma medição 10 vezes no mesmo minuto; isso é repetição técnica. Réplica é “novos eventos” (novos dias/noites/locais).",
-          "Parte 4 — Padronização: regra fixa para coleta. Se você conta ‘mosquitos por 10 minutos’, tem que ser 10 minutos todo dia e no mesmo horário aproximado. Se muda a regra, o método vira parte do resultado (e isso atrapalha).",
-          "Parte 5 — Viés: acontece quando sua coleta favorece um resultado. Ex.: medir só quando você lembra, medir só em um local que você gosta, trocar método quando não dá certo. O antídoto é: regra simples + constância."
-        ],
-        commonMistakes:[
-          "Confundir réplica (independente) com repetição técnica (mesma unidade).",
-          "Criar pergunta grande demais e não coletar nada consistente.",
-          "Mudar o método no meio da semana, sem registrar."
-        ],
-        replicaBox:[
-          "Objetivo mínimo: 6 observações independentes na semana (melhor: 8–12).",
-          "Para 2 grupos, tente pelo menos 3 por grupo (melhor: 5).",
-          "Se for série temporal, defina: 1 observação = 1 dia (ou 1 noite), sempre."
-        ]
-      },
-      after:{
-        title:"Depois da aula (entrega rápida e corrigível)",
-        text:[
-          "A entrega desta semana é curta e objetiva: pergunta + dados mínimos + 1 gráfico + interpretação curta.",
-          "O dossiê deve ser fácil de corrigir: 1 lauda, com títulos e bullets. O professor precisa bater o olho e ver se há pergunta, regra, réplicas e gráfico coerente."
-        ],
-        tasks:[
-          "Registrar a pergunta científica (1 linha).",
-          "Definir Y, X (ou grupos A/B) e unidade amostral.",
-          "Coletar no mínimo 6 observações seguindo regra fixa.",
-          "Gerar 1 gráfico e escrever 5–8 linhas de interpretação."
-        ]
-      },
-      // links serão editáveis no app
-      links:[
-        {label:"(Edite aqui) Vídeo/Playlist em português sobre amostragem", url:""},
-        {label:"(Edite aqui) Khan Academy PT – página do tema", url:"https://pt.khanacademy.org/math/statistics-probability"}
-      ],
-      reading:[
-        {label:"(Edite aqui) Texto introdutório em português (PDF)", url:""}
-      ],
-      quiz:{
-        intro:"Mini-quiz (3 questões) para garantir que o básico ficou claro.",
-        questions:[
-          {
-            q:"O que define melhor uma réplica em um estudo simples?",
-            options:[
-              "Repetir a mesma medição várias vezes no mesmo objeto",
-              "Coletar novas observações independentes seguindo o mesmo método",
-              "Aumentar o tamanho do gráfico no relatório",
-              "Escolher o teste estatístico antes de coletar"
-            ],
-            correctIndex:1,
-            feedback:[
-              "Isso é repetição técnica, não réplica independente.",
-              "Correto: réplica = nova unidade amostral independente.",
-              "Não tem relação com réplica.",
-              "O teste vem depois do desenho e do dado."
-            ]
-          },
-          {
-            q:"Qual pergunta é mais testável nesta semana?",
-            options:[
-              "O clima influencia meu humor?",
-              "A temperatura do dia está associada às minhas horas de sono?",
-              "A estatística é importante?",
-              "O Pantanal é complexo?"
-            ],
-            correctIndex:1,
-            feedback:[
-              "Muito ampla e difícil de medir com precisão.",
-              "Correto: é mensurável e vira tabela X–Y.",
-              "Não é pergunta científica mensurável.",
-              "Verdade, mas não é pergunta mensurável aqui."
-            ]
-          },
-          {
-            q:"Por que padronizar o método de coleta?",
-            options:[
-              "Para deixar o arquivo mais bonito",
-              "Para reduzir variabilidade do método e permitir comparação",
-              "Para evitar usar gráficos",
-              "Para garantir p-valor sempre baixo"
-            ],
-            correctIndex:1,
-            feedback:[
-              "Beleza não garante validade científica.",
-              "Correto: padronização reduz viés e ruído do método.",
-              "Gráficos ajudam.",
-              "p-valor não é objetivo."
-            ]
-          }
-        ]
-      },
-      notesPrompt:"Notas da semana (pergunta científica, regra de coleta, dificuldades e ideias):"
-    },
-
-    // SEMANAS 2–15 (base, com mais texto). Você pode expandir ainda mais editando o próprio HTML depois.
-    {
-      id:2, short:"Tipos de dados e variáveis", dates:"02/03/2026 a 07/03/2026",
-      objectives:[
-        "Classificar variáveis (qualitativa/quantitativa; discreta/contínua).",
-        "Definir Y e X com unidade e regra de coleta.",
-        "Montar tabela padrão limpa (sem misturar unidade e sem células ‘soltas’)."
-      ],
-      before:{title:"Antes da aula",text:[
-        "Grande parte dos erros em estatística vem antes do teste: é dado mal definido, variável sem unidade e tabela confusa.",
-        "Nesta semana, você vai ‘traduzir’ sua pergunta em um formato de dados que qualquer pessoa consiga entender e analisar."
-      ],steps:[
-        "Escreva sua pergunta científica em 1 linha.",
-        "Diga qual é o Y (resposta) e qual é o X (explicativa) — ou quais são os grupos A/B.",
-        "Defina unidade (°C, horas, passos, contagem, escala 0–10 etc.)."
-      ]},
-      during:{title:"Durante a aula",text:[
-        "Parte 1 — Variáveis qualitativas: categorias (ex.: choveu/não choveu; bairro A/B).",
-        "Parte 2 — Variáveis quantitativas discretas: contagens (ex.: quantos ‘eventos’ em 10 minutos).",
-        "Parte 3 — Variáveis quantitativas contínuas: medidas (ex.: temperatura, tempo, altura).",
-        "Parte 4 — Tabela padrão: para grupos → (Grupo, Valor). Para relação → (X, Y).",
-        "Parte 5 — Padronização novamente: dados limpos facilitam gráficos e testes e tornam seu dossiê corrigível em minutos."
-      ],commonMistakes:[
-        "Misturar minutos e horas na mesma coluna.",
-        "Trocar regra de coleta no meio da semana sem avisar.",
-        "Criar 5–6 grupos sem ter réplicas suficientes."
-      ],replicaBox:[
-        "Se for comparação A/B: busque equilíbrio (n parecido em cada grupo).",
-        "Se for regressão: busque ≥8 pares (X,Y)."
-      ]},
-      after:{title:"Depois da aula",text:[
-        "Você vai entregar uma tabela curta e um gráfico adequado ao tipo de dado.",
-        "A correção fica simples: tabela limpa + gráfico coerente + interpretação curta."
-      ],tasks:[
-        "Dossiê: pergunta, definição de variáveis, tabela curta e 1 gráfico.",
-        "Interpretação em 5–8 linhas, sem exagero."
-      ]},
-      links:[
-        {label:"(Edite) Vídeo em português sobre tipos de variáveis", url:""},
-        {label:"(Edite) Khan Academy PT – Estatística", url:"https://pt.khanacademy.org/math/statistics-probability"}
-      ],
-      reading:[{label:"(Edite) Texto em português sobre variáveis e tabelas", url:""}],
-      quiz:{intro:"Mini-quiz: identificar tipo de variável e estrutura de tabela.",
-        questions:[
-          { q:"‘Número de mosquitos por noite’ é:", options:["Qualitativa","Quantitativa contínua","Quantitativa discreta","Nominal sem medida"], correctIndex:2,
-            feedback:["Não.","Não.","Correto.","Não."] },
-          { q:"Para regressão simples, a tabela mínima deve ter:", options:["Grupo e Valor","X e Y (pares)","Somente médias","Somente gráficos"], correctIndex:1,
-            feedback:["Isso é para grupos.","Correto.","Perde informação.","Sem dado não dá."] },
-          { q:"Qual erro mais grave?", options:["Usar cores fortes","Misturar unidades na mesma coluna","Fazer boxplot","Salvar o arquivo"], correctIndex:1,
-            feedback:["Cores não estragam a análise.","Correto.","Boxplot é ótimo.","Salvar é necessário."] }
-        ]}},
-      notesPrompt:"Notas da semana:"
-    },
-
-    // Para não ficar uma parede aqui, eu deixo 3–15 já cadastradas com estrutura
-    // e você pode copiar/colar texto adicional em cada uma se quiser.
-    // (Se você quiser, eu já te devolvo a versão 100% expandida para as 15 com textos longos.)
-    ...Array.from({length:13}, (_,i)=>{
-      const id = i+3;
-      const meta = [
-        {short:"Descrição de dados e gráficos", dates:"09/03/2026 a 14/03/2026"},
-        {short:"Probabilidade e inferência", dates:"16/03/2026 a 21/03/2026"},
-        {short:"Distribuições de probabilidade", dates:"23/03/2026 a 28/03/2026"},
-        {short:"Premissas e escolha do teste", dates:"30/03/2026 a 04/04/2026"},
-        {short:"Testes básicos (t, F, qui-quadrado)", dates:"06/04/2026 a 11/04/2026"},
-        {short:"ANOVA de uma via + pós-teste", dates:"13/04/2026 a 18/04/2026"},
-        {short:"ANOVA de duas vias e interação", dates:"20/04/2026 a 25/04/2026"},
-        {short:"Regressão linear", dates:"27/04/2026 a 02/05/2026"},
-        {short:"Correlação (Pearson/Spearman)", dates:"04/05/2026 a 09/05/2026"},
-        {short:"GLM (contagens e proporções)", dates:"11/05/2026 a 16/05/2026"},
-        {short:"Modelos com múltiplos preditores", dates:"18/05/2026 a 23/05/2026"},
-        {short:"ANCOVA + viés + teste cego", dates:"25/05/2026 a 30/05/2026"},
-        {short:"Projeto final e apresentação", dates:"01/06/2026 a 06/06/2026"}
-      ][i];
-
-      return {
-        id,
-        short: meta.short,
-        dates: meta.dates,
-        objectives:[
-          "Entender o conceito central da semana e reconhecer quando usar.",
-          "Aplicar em um exemplo simples (dados do cotidiano ou internet).",
-          "Produzir dossiê de 1 lauda com gráfico e interpretação curta."
-        ],
-        before:{title:"Antes da aula",text:[
-          "Objetivo desta semana: entender o ‘porquê’ do método, e não só apertar botão.",
-          "Você vai estudar a ideia central, ver exemplos e aplicar no seu próprio conjunto de dados."
-        ],steps:[
-          "Revise sua pergunta científica.",
-          "Garanta que seu dado está limpo e com réplicas.",
-          "Separe o que é comparação (grupos) e o que é relação (X–Y)."
-        ]},
-        during:{title:"Durante a aula (explicação em partes)",text:[
-          "Parte 1 — Conceito principal: o que o método responde (qual pergunta ele resolve).",
-          "Parte 2 — Quando usar: sinais práticos no tipo de dado e no objetivo.",
-          "Parte 3 — Como interpretar: o que significa um resultado ‘positivo’ e quais limites existem.",
-          "Parte 4 — Erros comuns: formas típicas de errar que deixam a conclusão fraca.",
-          "Parte 5 — Boas práticas: sempre mostrar o dado com gráfico e indicar variabilidade."
-        ],commonMistakes:[
-          "Rodar método sem saber qual pergunta ele responde.",
-          "Interpretar ‘significativo’ como ‘importante’ sem ver tamanho de efeito.",
-          "Concluir causalidade sem desenho experimental."
-        ],replicaBox:[
-          "Sem réplicas suficientes, a prioridade é melhorar coleta/planejamento, não complicar análise.",
-          "Dados do cotidiano funcionam, desde que a regra seja fixa e as observações independentes."
-        ]},
-        after:{title:"Depois da aula",text:[
-          "Você vai registrar seu resultado de forma simples e corrigível: gráfico + 5–8 linhas + 1 conclusão e 1 limitação."
-        ],tasks:[
-          "Dossiê (1 lauda): pergunta + método + gráfico + interpretação + limitação.",
-          "Quiz da semana dentro da plataforma."
-        ]},
-        links:[
-          {label:"(Edite) Vídeo em português sobre o tema", url:""},
-          {label:"(Edite) Khan Academy PT – base", url:"https://pt.khanacademy.org/math/statistics-probability"}
-        ],
-        reading:[
-          {label:"(Edite) Texto/Capítulo em português", url:""}
-        ],
-        quiz:{
-          intro:"Mini-quiz (3 questões) para reforçar a ideia central.",
-          questions:[
-            {q:"A ideia principal desta semana serve para:", options:["Enfeitar o dossiê","Responder uma pergunta estatística específica","Trocar dados","Evitar gráficos"], correctIndex:1,
-              feedback:["Não.","Correto.","Não.","Não."]},
-            {q:"Uma conclusão forte precisa de:", options:["Somente p-valor","Gráfico + contexto + limites","Apenas título","Somente média"], correctIndex:1,
-              feedback:["Insuficiente.","Correto.","Insuficiente.","Insuficiente."]},
-            {q:"Réplica é importante porque:", options:["Diminui a variabilidade real","Permite estimar variabilidade e sustentar inferência","Deixa mais bonito","Substitui método"], correctIndex:1,
-              feedback:["Não.","Correto.","Não.","Não."]}
-          ]
-        },
-        notesPrompt:"Notas da semana:"
-      };
-    })
+  // ======== DADOS DO CURSO (15 SEMANAS) ========
+  // Conteúdo detalhado, mas prático para 4h.
+  const LESSONS = [
+    {id:1,  dates:"23/02/2026 a 28/02/2026", title:"Introdução e desenho amostral"},
+    {id:2,  dates:"02/03/2026 a 07/03/2026", title:"Tipos de dados e variáveis"},
+    {id:3,  dates:"09/03/2026 a 14/03/2026", title:"Descrição de dados e gráficos"},
+    {id:4,  dates:"16/03/2026 a 21/03/2026", title:"Probabilidade e inferência"},
+    {id:5,  dates:"23/03/2026 a 28/03/2026", title:"Distribuições (normal, binomial, Poisson)"},
+    {id:6,  dates:"30/03/2026 a 04/04/2026", title:"Premissas: paramétrico vs não paramétrico"},
+    {id:7,  dates:"06/04/2026 a 11/04/2026", title:"Testes básicos: t, F, qui-quadrado"},
+    {id:8,  dates:"13/04/2026 a 18/04/2026", title:"ANOVA (uma via) e comparações"},
+    {id:9,  dates:"20/04/2026 a 25/04/2026", title:"ANOVA (duas vias) e interação"},
+    {id:10, dates:"27/04/2026 a 02/05/2026", title:"Regressão linear"},
+    {id:11, dates:"04/05/2026 a 09/05/2026", title:"Correlação (Pearson e Spearman)"},
+    {id:12, dates:"11/05/2026 a 16/05/2026", title:"Modelos Lineares Generalizados (GLM)"},
+    {id:13, dates:"18/05/2026 a 23/05/2026", title:"Modelos com múltiplos preditores"},
+    {id:14, dates:"25/05/2026 a 30/05/2026", title:"ANCOVA + viés + testes cegos"},
+    {id:15, dates:"01/06/2026 a 06/06/2026", title:"Projeto final: análise, escrita e apresentação"},
   ];
 
-  // ==============================
-  // 2) ESTADO + LINKS EDITÁVEIS
-  // ==============================
-  const KEY = "curso_plataforma_v2";
+  // Texto “mais detalhado” por semana (didático e prático)
+  function lessonText(id){
+    const base = {
+      objectives: [
+        "Entender o que a ferramenta estatística da semana responde (qual pergunta ela resolve).",
+        "Aplicar em um conjunto de dados simples (cotidiano ou internet).",
+        "Produzir dossiê de 1 lauda com: pergunta, dados, gráfico e interpretação curta."
+      ],
+      before: [
+        "Organize sua pergunta da semana em uma frase. Ela precisa virar uma tabela simples.",
+        "Defina com clareza o que é uma observação (unidade amostral) e quantas réplicas você terá.",
+        "Garanta que a regra de coleta é fixa (horário, duração, fonte do dado, etc.)."
+      ],
+      during: [
+        "Você vai estudar o conceito central em partes: (1) o que é, (2) quando usar, (3) como interpretar, (4) erros comuns.",
+        "O foco é leitura de gráfico + interpretação do resultado, e não decorar fórmula.",
+        "A aula deve te deixar capaz de explicar o método com suas palavras, como se estivesse ensinando outra pessoa."
+      ],
+      after: [
+        "Você entrega um dossiê curto (1 lauda). O objetivo é ser corrigível em poucos minutos.",
+        "Estrutura recomendada do dossiê: Pergunta científica (1 linha) → Dados (tabela curta) → Gráfico → Resultado/Interpretação (5–8 linhas) → 1 limitação."
+      ],
+      replica: [
+        "Lembrete: réplica é observação independente (ex.: dias diferentes), não repetir o mesmo valor várias vezes.",
+        "Sem réplicas suficientes, não complique: foque em melhorar o desenho e a consistência."
+      ]
+    };
+
+    // Ajustes por tema (textos extras)
+    const extra = {
+      1: {
+        objectives: [
+          "Construir pergunta científica testável e simples.",
+          "Definir unidade amostral, réplicas e padronização.",
+          "Planejar coleta que caiba em até 4 horas na semana."
+        ],
+        during: [
+          "Parte 1 — Pergunta científica: tem que indicar comparação (A vs B) ou relação (Y muda com X).",
+          "Parte 2 — Unidade amostral: é o ‘bloco’ de observação (ex.: 1 dia). Isso evita pseudorrepetição.",
+          "Parte 3 — Réplicas: várias unidades independentes para capturar variabilidade real.",
+          "Parte 4 — Padronização: regra fixa para medir/observar (se muda, você mistura efeitos).",
+          "Parte 5 — Viés: medir só quando dá vontade, trocar método, escolher só um caso ‘bom’."
+        ]
+      },
+      8: {
+        during: [
+          "ANOVA (1 via) responde: existe diferença entre 3 ou mais grupos?",
+          "Depois de ANOVA significativa, você precisa identificar quais grupos diferem (comparações).",
+          "Sempre acompanhe ANOVA com gráfico: boxplot por grupo + pontos (quando possível).",
+          "Interpretação boa: fala do padrão observado + variabilidade + coerência biológica."
+        ]
+      },
+      10: {
+        during: [
+          "Regressão linear modela relação entre X e Y. Você vai olhar: direção (inclinação), força (R²) e evidência (p).",
+          "Ponto central: associação não é causalidade. O desenho e o contexto importam.",
+          "Resíduos são essenciais: se o gráfico mostra curvatura, a linearidade pode não ser adequada."
+        ]
+      },
+      12: {
+        during: [
+          "GLM entra quando o Y não se comporta como ‘normal’: contagens, proporções, muitos zeros.",
+          "A ideia é ajustar um modelo mais compatível com o tipo de dado, e interpretar o efeito de forma aplicada.",
+          "Nesta disciplina, você não precisa se perder em matemática: precisa reconhecer quando GLM é mais adequado."
+        ]
+      },
+      15: {
+        after: [
+          "Projeto final: (1) pergunta científica clara, (2) dados e regra de coleta, (3) análise adequada, (4) gráficos, (5) interpretação e limitações.",
+          "Entrega final deve incluir: base de dados (CSV), figuras (PNG) e apresentação curta (slides ou PDF)."
+        ]
+      }
+    };
+
+    const merged = JSON.parse(JSON.stringify(base));
+    if(extra[id]){
+      for(const k of Object.keys(extra[id])){
+        merged[k] = extra[id][k];
+      }
+    }
+    return merged;
+  }
+
+  // ======== LINKS (só Khan Academy por padrão; você pode editar por semana) ========
+  const DEFAULT_LINKS = [
+    {label:"Khan Academy (PT) – Estatística e probabilidade", url:"https://pt.khanacademy.org/math/statistics-probability"}
+  ];
+
+  // ======== ESTADO ========
+  const KEY = "curso_plataforma_v3";
   let state = {
     currentId: null,
-    done: {},
-    notes: {},
-    quiz: {},
-    editMode: false,
-    // customRefs: { [lessonId]: { links:[{label,url}], reading:[{label,url}] } }
-    customRefs: {}
+    done: {},       // {id:true}
+    notes: {},      // {id:"..."}
+    links: {}       // {id:[{label,url},...]}
   };
 
   function loadState(){
     const raw = localStorage.getItem(KEY);
     if(raw){
-      try{ state = JSON.parse(raw); }catch(e){}
+      try{ state = JSON.parse(raw); } catch(e){}
     }
   }
   function saveState(){
     localStorage.setItem(KEY, JSON.stringify(state));
   }
 
-  function lessonWithCustomRefs(lesson){
-    const custom = state.customRefs?.[lesson.id];
-    if(!custom) return lesson;
-    return {
-      ...lesson,
-      links: Array.isArray(custom.links) ? custom.links : lesson.links,
-      reading: Array.isArray(custom.reading) ? custom.reading : lesson.reading
-    };
+  function getLinksFor(id){
+    const custom = state.links && state.links[id];
+    if(Array.isArray(custom)) return custom;
+    return DEFAULT_LINKS.slice();
   }
 
-  // ==============================
-  // 3) RENDER LISTA
-  // ==============================
-  function calcProgress(){
-    const total = BASE_LESSONS.length;
-    const doneCount = Object.keys(state.done||{}).filter(k=>state.done[k]).length;
-    const pct = total ? Math.round(doneCount*100/total) : 0;
-    document.getElementById("progText").textContent = `${doneCount}/${total} concluídas`;
-    document.getElementById("progBar").style.width = `${pct}%`;
-  }
-
+  // ======== RENDER LISTA (GARANTIDO) ========
   function renderList(){
-    const el = document.getElementById("lessonList");
-    el.innerHTML = "";
-    BASE_LESSONS.forEach(ls=>{
-      const isDone = !!state.done?.[ls.id];
+    const list = document.getElementById("lessonList");
+    list.innerHTML = "";
+
+    for(const ls of LESSONS){
+      const isDone = !!state.done[ls.id];
       const btn = document.createElement("button");
       btn.className = "lessonBtn";
       btn.innerHTML = `
-        <div class="t">
-          <span>Semana ${ls.id} • ${ls.short}</span>
-          <span class="tag ${isDone ? "ok":"todo"}">${isDone ? "Concluída":"Pendente"}</span>
+        <div class="topLine">
+          <span>Semana ${ls.id} • ${ls.title}</span>
+          <span class="tag ${isDone ? "ok" : ""}">${isDone ? "Concluída" : "Pendente"}</span>
         </div>
-        <div class="d">${ls.dates}</div>
+        <div class="dates">${ls.dates}</div>
       `;
       btn.addEventListener("click", ()=>openLesson(ls.id));
-      el.appendChild(btn);
-    });
-    calcProgress();
+      list.appendChild(btn);
+    }
   }
 
-  // ==============================
-  // Helpers
-  // ==============================
-  function elHTML(tag, html){
-    const e = document.createElement(tag);
-    e.innerHTML = html;
-    return e;
-  }
-  function mkList(items){
-    return `<ul>${(items||[]).map(x=>`<li>${x}</li>`).join("")}</ul>`;
-  }
-  function mkLinks(items){
-    const arr = (items||[]).filter(x=>x && (x.label || x.url));
-    if(!arr.length) return `<p class="small">Nenhum link cadastrado ainda (você pode adicionar no modo de edição).</p>`;
-    return `<div class="links">
-      ${arr.map(x=>`<p>• <a href="${x.url||"#"}" target="_blank" rel="noopener noreferrer">${x.label||x.url}</a></p>`).join("")}
-    </div>`;
-  }
+  // ======== QUIZ SIMPLES ========
+  function buildQuiz(id){
+    // 3 perguntas genéricas (suficientes e rápidas)
+    const qs = [
+      {
+        q:"Qual item é indispensável no dossiê semanal?",
+        options:["Somente p-valor","Pergunta científica + gráfico + interpretação","Somente título","Somente média"],
+        correct: 1,
+        fb:["Insuficiente.","Correto.","Insuficiente.","Insuficiente."]
+      },
+      {
+        q:"Réplica significa:",
+        options:["Repetir o mesmo valor","Observações independentes (novos dias/locais)","Mudar método","Excluir variabilidade"],
+        correct: 1,
+        fb:["Não.","Correto.","Não.","Não."]
+      },
+      {
+        q:"Uma boa interpretação deve sempre mencionar:",
+        options:["A cor do gráfico","O padrão observado e pelo menos 1 limitação","Que ‘provou’ causalidade","Que o resultado é perfeito"],
+        correct: 1,
+        fb:["Não.","Correto.","Não.","Não."]
+      }
+    ];
 
-  // ==============================
-  // QUIZ
-  // ==============================
-  function quizBlock(lesson){
-    const q = lesson.quiz;
-    const saved = state.quiz?.[lesson.id] || null;
-
-    const container = document.createElement("div");
-    container.className = "quiz";
-    container.innerHTML = `
-      <div><strong>Quiz da semana</strong></div>
-      <div class="small">${q.intro || ""}</div>
-      <div id="quizQuestions"></div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-        <button class="primary" id="btnGrade">Corrigir</button>
-        <button id="btnClearQuiz">Limpar respostas</button>
+    const box = document.createElement("div");
+    box.className = "quiz";
+    box.innerHTML = `
+      <div><strong>Quiz curto (3 questões)</strong></div>
+      <div class="small" style="color:#475569;margin-top:6px">
+        Objetivo: reforçar o raciocínio. Não é para ser difícil.
       </div>
-      <div class="quizResult" id="quizResult" style="display:none"></div>
+      <div id="qs"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+        <button class="primary" id="grade">Corrigir</button>
+      </div>
+      <div class="result" id="res"></div>
     `;
 
-    const questionsEl = container.querySelector("#quizQuestions");
-    questionsEl.innerHTML = q.questions.map((qq,qi)=>{
-      const opts = qq.options.map((opt,oi)=>{
-        const name = `q_${lesson.id}_${qi}`;
-        const checked = saved?.answers?.[qi] === oi ? "checked" : "";
-        return `<label><input type="radio" name="${name}" value="${oi}" ${checked}/> ${opt}</label>`;
-      }).join("");
-      return `
-        <div class="q">
-          <div class="qtitle">${qi+1}) ${qq.q}</div>
-          <div class="opts">${opts}</div>
+    const qsEl = box.querySelector("#qs");
+    qs.forEach((q,qi)=>{
+      const wrap = document.createElement("div");
+      wrap.className = "q";
+      wrap.innerHTML = `
+        <div class="qtitle">${qi+1}) ${q.q}</div>
+        <div class="opts">
+          ${q.options.map((opt,oi)=>`
+            <label><input type="radio" name="q_${id}_${qi}" value="${oi}"/> ${opt}</label>
+          `).join("")}
         </div>
       `;
-    }).join("");
+      qsEl.appendChild(wrap);
+    });
 
-    const resultEl = container.querySelector("#quizResult");
-
-    function grade(){
-      const answers = [];
+    box.querySelector("#grade").addEventListener("click", ()=>{
       let score = 0;
       const lines = [];
-      q.questions.forEach((qq,qi)=>{
-        const chosen = container.querySelector(`input[name="q_${lesson.id}_${qi}"]:checked`);
+      qs.forEach((q,qi)=>{
+        const chosen = box.querySelector(`input[name="q_${id}_${qi}"]:checked`);
         const a = chosen ? Number(chosen.value) : null;
-        answers.push(a);
-        const ok = (a === qq.correctIndex);
+        const ok = (a === q.correct);
         if(ok) score++;
-        const fb = (a===null) ? "Sem resposta. Revise a explicação e tente novamente."
-          : (qq.feedback?.[a] ?? (ok ? "Correto." : "Revise o conteúdo."));
+        const fb = (a===null) ? "Sem resposta." : q.fb[a];
         lines.push(`${qi+1}) ${ok ? "Certo" : "Errado"} – ${fb}`);
       });
+      const res = box.querySelector("#res");
+      res.style.display = "block";
+      res.textContent = `Pontuação: ${score}/3\n\n` + lines.join("\n");
+    });
 
-      state.quiz = state.quiz || {};
-      state.quiz[lesson.id] = {answers, score};
-      saveState();
-
-      resultEl.style.display = "block";
-      resultEl.textContent = `Pontuação: ${score}/${q.questions.length}\n\n` + lines.join("\n");
-    }
-
-    function clearQuiz(){
-      q.questions.forEach((qq,qi)=>{
-        const checks = container.querySelectorAll(`input[name="q_${lesson.id}_${qi}"]`);
-        checks.forEach(i=>i.checked=false);
-      });
-      if(state.quiz?.[lesson.id]){
-        delete state.quiz[lesson.id];
-        saveState();
-      }
-      resultEl.style.display = "none";
-      resultEl.textContent = "";
-    }
-
-    container.querySelector("#btnGrade").addEventListener("click", grade);
-    container.querySelector("#btnClearQuiz").addEventListener("click", clearQuiz);
-
-    if(saved){
-      resultEl.style.display = "block";
-      resultEl.textContent = `Última pontuação salva: ${saved.score}/${q.questions.length}\n(Se quiser, clique em “Corrigir” novamente.)`;
-    }
-    return container;
+    return box;
   }
 
-  // ==============================
-  // Editor de referências
-  // ==============================
-  function refsEditor(lesson){
-    const wrap = document.createElement("div");
-    const current = state.customRefs?.[lesson.id] || {links: lesson.links || [], reading: lesson.reading || []};
+  // ======== EDITOR DE LINKS (APENAS ISSO) ========
+  function buildLinkEditor(id){
+    const cur = getLinksFor(id).map(x=>({label:x.label||"", url:x.url||""}));
+
+    const holder = document.createElement("div");
+    holder.className = "box";
+    holder.innerHTML = `
+      <strong>Editar links da semana</strong>
+      <div class="small" style="margin-top:6px">
+        Padrão: Khan Academy (PT). Se quiser, adicione YouTube também. Sem artigos.
+      </div>
+      <div id="items"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+        <button class="accent" id="add">+ Adicionar link</button>
+        <button class="primary" id="save">Salvar links</button>
+        <button id="reset">Voltar ao padrão (Khan)</button>
+      </div>
+    `;
+
+    const itemsEl = holder.querySelector("#items");
 
     function render(){
-      wrap.innerHTML = `
-        <div class="box warn">
-          <strong>Modo edição:</strong> edite títulos e URLs das referências desta semana.
-          <div class="small">Dica: cole URLs diretas (YouTube/Khan/PDF) e coloque um título curto e claro.</div>
-          <div class="small">Atalho: links ruins ou quebrados viram dor de cabeça; aqui você resolve em 10 segundos.</div>
-        </div>
-
-        <div class="box">
-          <strong>Links (vídeos/aulas)</strong> <span class="kbd">links[]</span>
-          <div id="linksArea"></div>
-          <div class="refActions">
-            <button class="accent" id="addLink">+ Adicionar link</button>
-          </div>
-        </div>
-
-        <div class="box">
-          <strong>Leituras (PDF/artigo/texto)</strong> <span class="kbd">reading[]</span>
-          <div id="readingArea"></div>
-          <div class="refActions">
-            <button class="accent" id="addRead">+ Adicionar leitura</button>
-          </div>
-        </div>
-
-        <div class="refActions">
-          <button class="primary" id="saveRefs">Salvar referências</button>
-          <button id="resetRefs">Voltar ao padrão</button>
-        </div>
-      `;
-
-      const linksArea = wrap.querySelector("#linksArea");
-      const readingArea = wrap.querySelector("#readingArea");
-
-      function itemUI(item, idx, type){
-        const el = document.createElement("div");
-        el.className = "refItem";
-        el.innerHTML = `
+      itemsEl.innerHTML = "";
+      cur.forEach((it,idx)=>{
+        const item = document.createElement("div");
+        item.className = "linkItem";
+        item.innerHTML = `
           <div class="row">
             <div>
               <div class="small"><strong>Título</strong></div>
-              <input type="text" value="${(item.label||"").replaceAll('"','&quot;')}" data-k="label" data-i="${idx}" data-t="${type}" placeholder="Ex.: Vídeo (PT) – Amostragem do zero"/>
+              <input type="text" value="${it.label.replaceAll('"','&quot;')}" data-i="${idx}" data-k="label" placeholder="Ex.: Khan – Amostragem"/>
             </div>
             <div>
               <div class="small"><strong>URL</strong></div>
-              <input type="url" value="${(item.url||"").replaceAll('"','&quot;')}" data-k="url" data-i="${idx}" data-t="${type}" placeholder="https://..."/>
+              <input type="url" value="${it.url.replaceAll('"','&quot;')}" data-i="${idx}" data-k="url" placeholder="https://..."/>
             </div>
           </div>
-          <div class="refActions">
-            <button class="warn" data-del="${idx}" data-t="${type}">Remover</button>
+          <div style="margin-top:10px">
+            <button class="warn" data-del="${idx}">Remover</button>
           </div>
         `;
-        return el;
-      }
+        itemsEl.appendChild(item);
+      });
 
-      current.links.forEach((it,idx)=> linksArea.appendChild(itemUI(it, idx, "links")));
-      current.reading.forEach((it,idx)=> readingArea.appendChild(itemUI(it, idx, "reading")));
-
-      // change handlers
-      wrap.querySelectorAll("input").forEach(inp=>{
+      itemsEl.querySelectorAll("input").forEach(inp=>{
         inp.addEventListener("input", ()=>{
-          const type = inp.dataset.t;
           const i = Number(inp.dataset.i);
           const k = inp.dataset.k;
-          current[type][i][k] = inp.value;
+          cur[i][k] = inp.value;
         });
       });
-
-      // delete handlers
-      wrap.querySelectorAll("button[data-del]").forEach(btn=>{
+      itemsEl.querySelectorAll("button[data-del]").forEach(btn=>{
         btn.addEventListener("click", ()=>{
-          const type = btn.dataset.t;
           const i = Number(btn.dataset.del);
-          current[type].splice(i,1);
+          cur.splice(i,1);
           render();
         });
-      });
-
-      wrap.querySelector("#addLink").addEventListener("click", ()=>{
-        current.links.push({label:"", url:""});
-        render();
-      });
-      wrap.querySelector("#addRead").addEventListener("click", ()=>{
-        current.reading.push({label:"", url:""});
-        render();
-      });
-
-      wrap.querySelector("#saveRefs").addEventListener("click", ()=>{
-        state.customRefs = state.customRefs || {};
-        state.customRefs[lesson.id] = {
-          links: current.links,
-          reading: current.reading
-        };
-        saveState();
-        alert("Referências salvas para esta semana.");
-        // reabrir para atualizar painel de materiais
-        openLesson(lesson.id);
-      });
-
-      wrap.querySelector("#resetRefs").addEventListener("click", ()=>{
-        if(!confirm("Voltar ao padrão desta semana? (apaga suas edições)")) return;
-        if(state.customRefs?.[lesson.id]) delete state.customRefs[lesson.id];
-        saveState();
-        alert("Voltado ao padrão.");
-        openLesson(lesson.id);
       });
     }
 
     render();
-    return wrap;
+
+    holder.querySelector("#add").addEventListener("click", ()=>{
+      cur.push({label:"", url:""});
+      render();
+    });
+
+    holder.querySelector("#save").addEventListener("click", ()=>{
+      state.links[id] = cur.filter(x=>x.label || x.url);
+      saveState();
+      alert("Links salvos.");
+      openLesson(id);
+    });
+
+    holder.querySelector("#reset").addEventListener("click", ()=>{
+      delete state.links[id];
+      saveState();
+      alert("Voltou para o padrão (Khan).");
+      openLesson(id);
+    });
+
+    return holder;
   }
 
-  // ==============================
-  // Abrir aula
-  // ==============================
-  function openLesson(id){
-    const base = BASE_LESSONS.find(x=>x.id===id);
-    if(!base) return;
-    const lesson = lessonWithCustomRefs(base);
+  function renderLinks(list){
+    const ok = (list||[]).filter(x=>x && x.url);
+    if(!ok.length){
+      return `<p class="small">Sem links cadastrados.</p>`;
+    }
+    return `<div class="links">
+      ${ok.map(x=>`<p>• <a href="${x.url}" target="_blank" rel="noopener noreferrer">${x.label || x.url}</a></p>`).join("")}
+    </div>`;
+  }
 
+  // ======== ABRIR SEMANA ========
+  function openLesson(id){
     state.currentId = id;
     saveState();
 
-    document.getElementById("lessonTitle").textContent = `Semana ${lesson.id} – ${lesson.short}`;
-    document.getElementById("lessonDates").textContent = `Período: ${lesson.dates}`;
-    document.getElementById("lessonShort").textContent = lesson.short;
-    document.getElementById("lessonHint").textContent = "";
+    const ls = LESSONS.find(x=>x.id===id);
+    if(!ls) return;
 
-    const panels = document.getElementById("lessonPanels");
+    document.getElementById("title").textContent = `Semana ${ls.id} – ${ls.title}`;
+    document.getElementById("meta").textContent = `Período: ${ls.dates}`;
+
+    const t = lessonText(id);
+    const links = getLinksFor(id);
+
+    const panels = document.getElementById("panels");
     panels.innerHTML = "";
 
-    // Objetivos
-    const obj = elHTML("details", `
-      <summary>Objetivos da semana <span class="chip">o que dominar</span></summary>
-      <div class="content">
-        <p><strong>Ao final desta semana, você deve conseguir:</strong></p>
-        ${mkList(lesson.objectives || [])}
-        <div class="box ok">
-          <strong>Como isso vira nota e aprendizado:</strong> o dossiê fica mais fácil quando você escreve com base nesses objetivos.
-          Se você cumpriu os objetivos, a análise está “no trilho”.
+    const block = (title, chip, html, open=true)=>{
+      const d = document.createElement("details");
+      if(open) d.open = true;
+      d.innerHTML = `
+        <summary>${title} <span class="chip">${chip}</span></summary>
+        <div class="sec">${html}</div>
+      `;
+      return d;
+    };
+
+    panels.appendChild(block("Objetivos da semana", "essencial",
+      `<ul>${t.objectives.map(x=>`<li>${x}</li>`).join("")}</ul>
+       <div class="box ok"><strong>Regra de ouro:</strong> nesta disciplina, “entender” = conseguir explicar com suas palavras + mostrar no gráfico.</div>`
+    ));
+
+    panels.appendChild(block("Antes da aula", "preparação",
+      t.before.map(p=>`<p>${p}</p>`).join("")
+    ));
+
+    panels.appendChild(block("Durante a aula", "explicação",
+      t.during.map(p=>`<p>${p}</p>`).join("") +
+      `<div class="box ok"><strong>Réplica e qualidade:</strong><ul>${t.replica.map(x=>`<li>${x}</li>`).join("")}</ul></div>`
+    ));
+
+    panels.appendChild(block("Depois da aula", "entrega",
+      t.after.map(p=>`<p>${p}</p>`).join("")
+    , false));
+
+    panels.appendChild(block("Links (Khan / YouTube)", "editável",
+      `<p><strong>Links desta semana:</strong></p>
+       ${renderLinks(links)}
+       <div style="margin-top:10px"></div>`
+    , false));
+
+    // Editor (somente isso)
+    const edit = document.createElement("details");
+    edit.open = false;
+    edit.innerHTML = `<summary>Editar links da semana <span class="chip">apenas links</span></summary><div class="sec" id="ed"></div>`;
+    edit.querySelector("#ed").appendChild(buildLinkEditor(id));
+    panels.appendChild(edit);
+
+    // Notas (opcional)
+    const notes = document.createElement("details");
+    notes.open = false;
+    notes.innerHTML = `
+      <summary>Notas do aluno (rascunho do dossiê) <span class="chip">opcional</span></summary>
+      <div class="sec">
+        <p class="small">Se quiser, o aluno pode rascunhar aqui. Fica salvo no navegador.</p>
+        <textarea id="notes" placeholder="Pergunta científica, dados, gráfico gerado, interpretação e limitação..."></textarea>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+          <button class="accent" id="saveNotes">Salvar notas</button>
         </div>
       </div>
-    `);
-    obj.open = true;
-    panels.appendChild(obj);
-
-    // Antes
-    const before = elHTML("details", `
-      <summary>${lesson.before?.title || "Antes da aula"} <span class="chip">preparação</span></summary>
-      <div class="content">
-        ${(lesson.before?.text||[]).map(p=>`<p>${p}</p>`).join("")}
-        ${lesson.before?.steps?.length ? `<div class="box"><strong>Passo a passo:</strong>${mkList(lesson.before.steps)}</div>` : ""}
-      </div>
-    `);
-    panels.appendChild(before);
-
-    // Durante
-    const during = elHTML("details", `
-      <summary>${lesson.during?.title || "Durante a aula"} <span class="chip">explicação</span></summary>
-      <div class="content">
-        ${(lesson.during?.text||[]).map(p=>`<p>${p}</p>`).join("")}
-        ${lesson.during?.commonMistakes?.length ? `<div class="box warn"><strong>Erros comuns (evite):</strong>${mkList(lesson.during.commonMistakes)}</div>` : ""}
-        ${lesson.during?.replicaBox?.length ? `<div class="box ok"><strong>Lembrete de réplicas:</strong>${mkList(lesson.during.replicaBox)}</div>` : ""}
-        <div class="box">
-          <strong>Como saber se você “entendeu”:</strong>
-          <ul>
-            <li>Você consegue explicar com suas palavras o que o método responde?</li>
-            <li>Você consegue dizer qual gráfico combina com a sua pergunta?</li>
-            <li>Você consegue listar 1 limitação do seu dado?</li>
-          </ul>
-        </div>
-      </div>
-    `);
-    panels.appendChild(during);
-
-    // Depois
-    const after = elHTML("details", `
-      <summary>${lesson.after?.title || "Depois da aula"} <span class="chip">entrega</span></summary>
-      <div class="content">
-        ${(lesson.after?.text||[]).map(p=>`<p>${p}</p>`).join("")}
-        ${lesson.after?.tasks?.length ? `<div class="box"><strong>Entregas da semana:</strong>${mkList(lesson.after.tasks)}</div>` : ""}
-      </div>
-    `);
-    panels.appendChild(after);
-
-    // Materiais
-    const refs = document.createElement("details");
-    refs.innerHTML = `
-      <summary>Materiais (links e leitura) <span class="chip">editáveis</span></summary>
-      <div class="content" id="refsContent"></div>
     `;
-    panels.appendChild(refs);
-
-    const refsContent = refs.querySelector("#refsContent");
-    refsContent.innerHTML = `
-      <p><strong>Links (vídeos/aulas):</strong></p>
-      ${mkLinks(lesson.links)}
-      <p><strong>Leituras (PDF/texto/artigo):</strong></p>
-      ${mkLinks(lesson.reading)}
-      <div class="box">
-        <strong>Dica para o aluno:</strong> não é para consumir tudo. É para ver o suficiente para escrever a 1 lauda com clareza.
-      </div>
-    `;
-
-    // Editor de refs (só aparece se modo edição ligado)
-    if(state.editMode){
-      const ed = document.createElement("details");
-      ed.open = true;
-      ed.innerHTML = `<summary>Editar referências desta semana <span class="chip">modo edição</span></summary><div class="content" id="editorMount"></div>`;
-      panels.appendChild(ed);
-      ed.querySelector("#editorMount").appendChild(refsEditor(base));
-    }
-
-    // Notas
-    const notes = elHTML("details", `
-      <summary>Notas da semana <span class="chip">rascunho do dossiê</span></summary>
-      <div class="content">
-        <p class="small">${lesson.notesPrompt || "Notas:"}</p>
-        <textarea id="notesArea" placeholder="Escreva aqui: pergunta científica, variável Y, regra de coleta, réplicas, resultado, limitação..."></textarea>
-        <p class="small">As notas ficam salvas neste navegador.</p>
-      </div>
-    `);
     panels.appendChild(notes);
 
+    const ta = notes.querySelector("#notes");
+    ta.value = state.notes[id] || "";
+    notes.querySelector("#saveNotes").addEventListener("click", ()=>{
+      state.notes[id] = ta.value;
+      saveState();
+      alert("Notas salvas.");
+    });
+
     // Quiz
-    const qb = elHTML("details", `
-      <summary>Quiz da semana <span class="chip">3 questões</span></summary>
-      <div class="content" id="quizMount"></div>
-    `);
-    panels.appendChild(qb);
-    qb.querySelector("#quizMount").appendChild(quizBlock(lesson));
+    const quiz = document.createElement("details");
+    quiz.open = false;
+    quiz.innerHTML = `<summary>Quiz da semana <span class="chip">3 questões</span></summary><div class="sec" id="qm"></div>`;
+    quiz.querySelector("#qm").appendChild(buildQuiz(id));
+    panels.appendChild(quiz);
 
-    // Load notes
-    const area = panels.querySelector("#notesArea");
-    area.value = (state.notes && state.notes[id]) ? state.notes[id] : "";
-
-    updateDoneButtons();
+    updateButtons();
   }
 
-  function updateDoneButtons(){
+  function updateButtons(){
     const id = state.currentId;
-    const done = !!state.done?.[id];
+    const done = !!state.done[id];
     document.getElementById("btnDone").disabled = !id || done;
     document.getElementById("btnUndone").disabled = !id || !done;
   }
 
-  // ==============================
-  // Ações topo
-  // ==============================
+  // ======== BOTÕES TOPO ========
   document.getElementById("btnDone").addEventListener("click", ()=>{
-    const id = state.currentId;
-    if(!id) return;
-    state.done = state.done || {};
-    state.done[id] = true;
+    if(!state.currentId) return;
+    state.done[state.currentId] = true;
     saveState();
     renderList();
-    updateDoneButtons();
+    updateButtons();
   });
 
   document.getElementById("btnUndone").addEventListener("click", ()=>{
-    const id = state.currentId;
-    if(!id) return;
-    state.done = state.done || {};
-    delete state.done[id];
+    if(!state.currentId) return;
+    delete state.done[state.currentId];
     saveState();
     renderList();
-    updateDoneButtons();
-  });
-
-  document.getElementById("btnSaveNotes").addEventListener("click", ()=>{
-    const id = state.currentId;
-    if(!id) return alert("Selecione uma semana primeiro.");
-    const ta = document.querySelector("#lessonPanels #notesArea");
-    if(!ta) return;
-    state.notes = state.notes || {};
-    state.notes[id] = ta.value;
-    saveState();
-    alert("Notas salvas.");
-  });
-
-  document.getElementById("btnToggleEdit").addEventListener("click", ()=>{
-    state.editMode = !state.editMode;
-    saveState();
-    document.getElementById("btnToggleEdit").textContent = `Editar referências: ${state.editMode ? "ON" : "OFF"}`;
-    if(state.currentId) openLesson(state.currentId);
+    updateButtons();
   });
 
   document.getElementById("btnExport").addEventListener("click", ()=>{
     const payload = {
       exportedAt: new Date().toISOString(),
-      done: state.done || {},
-      notes: state.notes || {},
-      quiz: state.quiz || {},
-      customRefs: state.customRefs || {}
+      done: state.done,
+      notes: state.notes,
+      links: state.links
     };
     const blob = new Blob([JSON.stringify(payload,null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = "relatorio-curso.json";
+    a.download = "progresso-curso.json";
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -1109,27 +719,23 @@
   });
 
   document.getElementById("btnReset").addEventListener("click", ()=>{
-    if(!confirm("Tem certeza? Isso apaga progresso, notas, quizzes e referências editadas deste navegador.")) return;
+    if(!confirm("Resetar tudo neste navegador?")) return;
     localStorage.removeItem(KEY);
-    state = {currentId:null, done:{}, notes:{}, quiz:{}, editMode:false, customRefs:{}};
-    document.getElementById("btnToggleEdit").textContent = "Editar referências: OFF";
+    state = {currentId:null, done:{}, notes:{}, links:{}};
     renderList();
-    document.getElementById("lessonTitle").textContent = "Selecione uma semana";
-    document.getElementById("lessonDates").textContent = "—";
-    document.getElementById("lessonShort").textContent = "—";
-    document.getElementById("lessonHint").textContent = "Clique numa semana à esquerda para ver a explicação completa e o quiz.";
-    document.getElementById("lessonPanels").innerHTML = "";
-    calcProgress();
-    updateDoneButtons();
+    document.getElementById("title").textContent = "Selecione uma semana acima";
+    document.getElementById("meta").textContent = "—";
+    document.getElementById("panels").innerHTML = "";
+    updateButtons();
   });
 
-  // ==============================
-  // Init
-  // ==============================
+  // ======== INIT (GARANTIDO) ========
   loadState();
-  document.getElementById("btnToggleEdit").textContent = `Editar referências: ${state.editMode ? "ON" : "OFF"}`;
   renderList();
-  openLesson(state.currentId || 1);
+
+  // Se não tiver semana selecionada ainda, abre a semana 1 automaticamente
+  const startId = state.currentId || 1;
+  openLesson(startId);
 </script>
 </body>
 </html>
