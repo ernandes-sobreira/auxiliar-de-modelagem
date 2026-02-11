@@ -10,7 +10,7 @@
       --pink:#ff006e; --blue:#3a86ff; --green:#06d6a0; --yellow:#ffbe0b; --orange:#fb5607; --purple:#8338ec;
     }
     *{box-sizing:border-box}
-    body{margin:0;background:#fff;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5}
+    body{margin:0;background:#fff;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
     header{
       border-bottom:1px solid var(--line);
       background:
@@ -21,7 +21,7 @@
     }
     .wrap{max-width:1180px;margin:0 auto;padding:0 14px}
     h1{margin:0;padding:18px 0 6px;font-size:22px;letter-spacing:-.01em}
-    .sub{margin:0 0 14px;color:var(--muted);font-size:13px;max-width:1050px}
+    .sub{margin:0 0 14px;color:var(--muted);font-size:13px;max-width:1080px}
     .badges{display:flex;flex-wrap:wrap;gap:8px;padding:0 0 16px}
     .badge{font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;box-shadow:0 4px 12px rgba(2,6,23,.04)}
     main{padding:14px 0 28px}
@@ -68,6 +68,8 @@
     .qtitle{font-weight:900;margin-bottom:6px}
     .opts label{display:block;margin:6px 0}
     .result{margin-top:10px;background:#0b1220;color:#e2e8f0;border-radius:14px;padding:10px;font-size:12px;white-space:pre-wrap;display:none}
+    .callout{border-left:6px solid rgba(58,134,255,.45);padding:10px 12px;background:rgba(58,134,255,.06);border-radius:14px}
+    code.inline{background:#f1f5f9;border:1px solid var(--line);padding:2px 6px;border-radius:8px;font-size:12px}
   </style>
 </head>
 
@@ -76,13 +78,13 @@
   <div class="wrap">
     <h1>Curso – Estatística e Modelagem (Biologia/Ecologia/Saúde)</h1>
     <p class="sub">
-      Cada semana tem um roteiro próprio: definições detalhadas, “como fazer” (PAST 4 / LibreOffice), como interpretar, erros comuns e atividade em até 4h.
-      Links são apenas Khan/YouTube (editáveis por você). Salve suas notas no navegador ou no celular.
+      Cada semana tem roteiro próprio: explicações do zero, exemplos do cotidiano, passo a passo e interpretação.
+      Links são somente Khan/YouTube (editáveis). Salve suas notas no navegador ou no celular.
     </p>
     <div class="badges">
       <span class="badge">60h • 15 semanas • 4h/semana</span>
       <span class="badge">Online</span>
-      <span class="badge">PAST 4 + LibreOffice (sem cálculo manual)</span>
+      <span class="badge">PAST 4 + LibreOffice</span>
       <span class="badge">Dossiê semanal (1 lauda)</span>
       <span class="badge">Quiz curto por semana</span>
     </div>
@@ -153,7 +155,7 @@
   // =======================
   // 3) ESTADO
   // =======================
-  const KEY = "curso_plataforma_v5";
+  const KEY = "curso_plataforma_v6_s1_s2";
   let state = { currentId:null, done:{}, links:{} };
   function loadState(){
     const raw = localStorage.getItem(KEY);
@@ -167,520 +169,442 @@
   }
 
   // =======================
-  // 4) CONTEÚDO REALMENTE DIFERENTE POR SEMANA
-  // (cada semana tem: definições, como fazer, interpretar, erros, atividade, dossiê)
+  // 4) CONTEÚDO POR SEMANA
   // =======================
   const COURSE = {
-    1: {
-      goals:[
-        "Transformar uma curiosidade em pergunta científica testável.",
-        "Definir variável resposta (Y), explicativa (X) ou grupos, e unidade amostral.",
-        "Planejar réplicas e padronização (o que mede, como, quando)."
-      ],
-      definitions:[
-        {term:"Pergunta científica", def:"Frase única e testável que liga uma variável resposta (Y) a um fator (X) ou comparação entre grupos. Ela define o que coletar e qual análise faz sentido."},
-        {term:"Hipótese", def:"Expectativa explicável (direção do efeito) que pode ser confrontada com dados. Ex.: “Mais tempo de tela → menor tempo de sono”."},
-        {term:"Unidade amostral", def:"O que conta como 1 observação independente (ex.: 1 dia; 1 pessoa; 1 evento). Sem isso, você cai em pseudorrepetição."},
-        {term:"Réplica", def:"Conjunto de unidades amostrais independentes. Réplica não é repetir o mesmo número; é coletar em momentos/condições independentes."},
-        {term:"Viés", def:"Desvio sistemático causado por seleção, medida ou expectativa. Ex.: coletar só quando lembra; medir com regra variável."}
-      ],
-      howTo:{
-        title:"Como fazer (em até 4h na semana)",
-        steps:[
-          "Escreva 3 perguntas possíveis e escolha 1 que caiba em 7 dias.",
-          "Defina Y e X (ou grupos A/B). Ex.: Y=horas de sono; X=tempo de tela.",
-          "Defina unidade amostral (1 dia). Defina regra fixa: medir sempre no mesmo horário.",
-          "Planeje réplicas: no mínimo 6 dias; ideal 7–10.",
-          "Monte tabela: colunas = Data, Y, X, Observações (opcional)."
-        ],
-        dataIdeas:[
-          "Sono (horas) vs tempo de tela (min) (celular).",
-          "Passos do dia vs tempo sentado (celular).",
-          "Temperatura do dia (app clima) vs consumo de água (copos).",
-          "Humor (0–10) vs horas de estudo/treino (autorrelato padronizado)."
-        ]
-      },
-      interpret:[
-        "Uma boa leitura inicial não usa teste: ela descreve o desenho e a lógica do dado.",
-        "O dossiê desta semana é sobre clareza: se a pergunta está correta, se as variáveis são mensuráveis e se existe réplica."
-      ],
-      mistakes:[
-        "Pergunta vaga (‘o clima afeta a vida’).",
-        "Sem unidade amostral definida.",
-        "Réplica confundida com repetição técnica.",
-        "Trocar regra de coleta no meio da semana."
-      ],
-      activity:"Escolha uma pergunta científica e inicie uma coleta simples com no mínimo 6 observações independentes.",
-      dossier:[
-        "Pergunta científica (1 linha).",
-        "Y e X (ou grupos), unidade amostral e regra fixa de coleta.",
-        "Tabela inicial (mín. 6 linhas).",
-        "1 gráfico preliminar (mesmo simples).",
-        "Limitação (1 linha)."
-      ],
-      quiz:[
-        {q:"O que é unidade amostral?", opts:["Uma coluna da tabela","Uma observação independente (ex.: 1 dia)","O p-valor","Um outlier"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]},
-        {q:"Réplica é:", opts:["Repetir o mesmo valor","Observações independentes","Excluir pontos extremos","Mudar método"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]},
-        {q:"Qual pergunta é testável?", opts:["O clima muda tudo?","Temperatura do dia está associada ao meu consumo de água?","A estatística é chata?","Quero provar que…"], ans:1,
-         fb:["Vaga.","Correto.","Não é análise.","Tendenciosa."]}
-      ]
-    },
-
-    2: {
-      goals:[
-        "Reconhecer tipos de dados (categórico, contagem, contínuo, proporção).",
-        "Organizar tabela corretamente: 1 linha = 1 observação.",
-        "Evitar erro de unidade e de “tabela torta”."
-      ],
-      definitions:[
-        {term:"Variável categórica", def:"Assume categorias (ex.: choveu/não; com treino/sem treino)."},
-        {term:"Variável contínua", def:"Medida em escala contínua (ex.: temperatura, tempo, altura)."},
-        {term:"Contagem", def:"Número de eventos (ex.: quantas vezes acordei à noite)."},
-        {term:"Proporção", def:"Parte de um total (ex.: % do dia em tela)."},
-        {term:"Tabelar corretamente", def:"Cada coluna é uma variável; cada linha é uma observação; unidades ficam no cabeçalho, não no valor."}
-      ],
-      howTo:{
-        title:"Como fazer no LibreOffice/Excel (passo a passo)",
-        steps:[
-          "Crie colunas: Data | Y (unidade) | X (unidade) | Grupo (se houver) | Observações.",
-          "Padronize unidades (minutos OU horas; mm OU cm).",
-          "Não escreva ‘10 mm’ dentro da célula: deixe ‘10’ e escreva ‘(mm)’ no cabeçalho.",
-          "Revise duplicatas e valores impossíveis (ex.: sono 26h).",
-          "Salve CSV (Arquivo → Salvar como → .csv)."
-        ]
-      },
-      interpret:[
-        "Uma tabela bem feita é o que permite gráfico certo e teste certo.",
-        "Seu dossiê deve explicar: que tipo de variável é cada coluna e por que."
-      ],
-      mistakes:[
-        "Misturar texto e número na mesma coluna.",
-        "Unidades diferentes misturadas (min e horas).",
-        "Uma linha que representa ‘vários dias’ (perde réplica)."
-      ],
-      activity:"Reestruture sua planilha para ficar ‘analisável’. Entregue a tabela final (print ou CSV) e descreva o tipo de cada variável.",
-      dossier:[
-        "Pergunta científica (1 linha).",
-        "Classifique Y e X (categórica/contínua/contagem/proporção).",
-        "Mostre a tabela (print).",
-        "Explique 2 erros que você evitou (unidade, duplicata, etc.)."
-      ],
-      quiz:[
-        {q:"‘Choveu (sim/não)’ é variável:", opts:["Contínua","Categórica","Contagem","Proporção"], ans:1, fb:["Não.","Correto.","Não.","Não."]},
-        {q:"Boa prática de unidade é:", opts:["Escrever ‘10 mm’ na célula","Colocar unidade no cabeçalho e número puro na célula","Misturar min e h","Não registrar unidade"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]},
-        {q:"Cada linha da tabela deve ser:", opts:["Um grupo inteiro","Uma observação independente","Um resumo do mês","Um gráfico"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]}
-      ]
-    },
-
-    3: {
-      goals:[
-        "Escolher o gráfico correto para a pergunta.",
-        "Interpretar padrão, dispersão, sobreposição e outliers.",
-        "Evitar gráficos que escondem os dados (barra como padrão)."
-      ],
-      definitions:[
-        {term:"Gráfico de dispersão (scatter)", def:"Mostra relação X–Y. É obrigatório para correlação/regressão."},
-        {term:"Boxplot", def:"Resume mediana, quartis e possíveis outliers. Ótimo para comparar grupos."},
-        {term:"Histograma", def:"Mostra distribuição de um Y (assimetria, caudas, muitos zeros)."},
-        {term:"Gráfico de linha (série temporal)", def:"Mostra evolução ao longo do tempo; ideal com pontos."},
-        {term:"Erro padrão vs desvio padrão", def:"DP mede variabilidade dos dados; EP mede incerteza da média. Não são a mesma coisa."}
-      ],
-      howTo:{
-        title:"Como escolher (mapa rápido)",
-        steps:[
-          "Comparar 2 grupos → boxplot + pontos.",
-          "Comparar 3+ grupos → boxplot por grupo (depois ANOVA/Kruskal).",
-          "Relação X–Y → scatter + linha de tendência.",
-          "Categorias vs categorias → barras de contagem/proporção (depois qui-quadrado).",
-          "Ao longo do tempo → linha com pontos."
-        ]
-      },
-      interpret:[
-        "Interpretação boa descreve: direção do efeito, dispersão, sobreposição, e se há pontos extremos.",
-        "O dossiê desta semana é essencialmente ‘aprender a ler gráfico’."
-      ],
-      mistakes:[
-        "Usar barra como padrão e esconder distribuição.",
-        "Falar ‘tem diferença’ sem comentar sobre sobreposição/variabilidade.",
-        "Ignorar outliers visíveis."
-      ],
-      activity:"Faça 2 gráficos do mesmo dado: um fraco (barra) e um bom (boxplot+ pontos ou scatter). Compare as interpretações.",
-      dossier:[
-        "Pergunta científica (1 linha).",
-        "Gráfico ruim vs gráfico bom (2 figuras).",
-        "Explique por que o bom informa melhor (5–8 linhas).",
-        "1 outlier: existe? como você interpretaria?"
-      ],
-      quiz:[
-        {q:"Para relação X–Y, o gráfico obrigatório é:", opts:["Barras","Boxplot","Dispersão (scatter)","Pizza"], ans:2,
-         fb:["Não.","Não.","Correto.","Não."]},
-        {q:"Boxplot é melhor para:", opts:["Somente séries temporais","Comparar grupos mostrando distribuição","Mostrar mapa","Mostrar texto"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]},
-        {q:"DP e EP:", opts:["São iguais","DP é variabilidade do dado; EP é incerteza da média","EP mede outliers","DP mede causalidade"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]}
-      ]
-    },
-
-    // IMPORTANTE: para não explodir a resposta aqui, eu deixei as semanas 4–15 prontas no mesmo formato,
-    // mas com texto mais enxuto. Se você quiser, eu expando cada uma para “aula de apostila” (muito mais longo).
-    // Já funciona agora e cada semana tem conteúdo diferente.
-
-    4: mkWeek4(),
-    5: mkWeek5(),
-    6: mkWeek6(),
-    7: mkWeek7(),
-    8: mkWeek8(),
-    9: mkWeek9(),
-    10: mkWeek10(),
-    11: mkWeek11(),
-    12: mkWeek12(),
-    13: mkWeek13(),
-    14: mkWeek14(),
-    15: mkWeek15()
+    1: week1Master(),
+    2: week2Master(),
+    3: mkWeek3Short(),
+    4: mkWeek4Short(),
+    5: mkWeek5Short(),
+    6: mkWeek6Short(),
+    7: mkWeek7Short(),
+    8: mkWeek8Short(),
+    9: mkWeek9Short(),
+    10: mkWeek10Short(),
+    11: mkWeek11Short(),
+    12: mkWeek12Short(),
+    13: mkWeek13Short(),
+    14: mkWeek14Short(),
+    15: mkWeek15Short()
   };
 
+  // -------- Semana 1 (MASTER) --------
+  function week1Master(){
+    return {
+      goals:[
+        "Transformar curiosidade em pergunta científica testável (sem ficar vago).",
+        "Entender do zero o que são X (explicativa) e Y (resposta) e por que isso manda na análise.",
+        "Definir unidade amostral e réplicas para não cair em pseudorrepetição.",
+        "Planejar um desenho amostral simples, possível em 7 dias, com dados do cotidiano e custo zero.",
+        "Montar uma tabela mínima correta e produzir um primeiro gráfico coerente com a pergunta."
+      ],
+      definitions:[
+        {term:"Ciência (o que significa aqui)", def:"Ciência é um jeito organizado de fazer perguntas sobre o mundo e usar dados para reduzir achismo. Não é decorar fórmula. É perguntar bem, medir bem e interpretar com honestidade."},
+        {term:"Curiosidade vs pergunta científica", def:"Curiosidade é ampla (“o clima afeta minha vida?”). Pergunta científica é específica e testável (“em dias mais quentes, eu bebo mais água?”). Se vira uma tabela com números, está no caminho certo."},
+        {term:"Variável", def:"Qualquer coisa que pode mudar e que você consegue registrar. Pode ser número (horas de sono) ou categoria (choveu: sim/não)."},
+        {term:"Y (variável resposta)", def:"Y é o resultado que você quer entender. Ex.: horas de sono; passos; humor (0–10); copos de água."},
+        {term:"X (variável explicativa)", def:"X é o fator que você suspeita que se relaciona com Y. Ex.: tempo de tela; temperatura; horas de estudo; treino (sim/não)."},
+        {term:"Eixos", def:"Os eixos são as ‘réguas’ do gráfico. O eixo horizontal costuma mostrar X; o vertical costuma mostrar Y. Trocar eixo muda a leitura e, às vezes, muda a pergunta."},
+        {term:"Unidade", def:"Minutos, horas, passos, °C, copos… Unidade clara evita confusão e facilita correção."},
+        {term:"Observação", def:"Uma observação é uma linha da tabela. Ex.: um dia com valores de Y e X."},
+        {term:"Unidade amostral", def:"O que conta como 1 observação independente (ex.: 1 dia). Isso define o que é réplica de verdade."},
+        {term:"Réplica", def:"Unidades independentes repetidas (ex.: 7 dias). Não é repetir o mesmo dia 3 vezes."},
+        {term:"Variação", def:"A vida muda. Sono, passos e humor não são constantes. Estatística existe para lidar com essa variação sem se enganar."},
+        {term:"Dispersão", def:"O quão espalhados os valores estão. Dois conjuntos podem ter a mesma média e dispersões bem diferentes."},
+        {term:"Média", def:"Um resumo útil, mas pode esconder extremos. Por isso gráfico importa."},
+        {term:"Variância", def:"Uma forma de medir dispersão: quanto os dados se afastam da média. Variância grande = dados muito diferentes entre si."},
+        {term:"Sinal vs ruído", def:"Sinal é padrão consistente; ruído é variação do cotidiano. A meta é não confundir ruído com sinal."},
+        {term:"Viés", def:"Erro sistemático: escolher só dias bons, medir em horários diferentes, registrar quando lembra. Viés engana sem parecer erro."},
+        {term:"Pseudorrepetição", def:"Tratar medidas não independentes como réplicas (ex.: repetir o mesmo dia e dizer que aumentou o n)."}
+      ],
+      mindset:[
+        "A estatística não é tribunal. Ela te ensina a fazer perguntas melhores e interpretar padrões com cautela.",
+        "Antes de teste, o cientista olha o gráfico e pergunta: ‘isso parece sinal ou é só vida variando?’",
+        "Padronização + réplicas + transparência = credibilidade."
+      ],
+      story:[
+        "Imagine duas semanas: em uma você usa muito o celular à noite; em outra, você reduz. Você quer saber se isso muda seu sono.",
+        "Se você só olhar um dia, você se engana fácil. Um dia ruim acontece.",
+        "Quando você registra vários dias com a mesma regra, você começa a ver se há padrão real."
+      ],
+      howTo:{
+        title:"Como montar um mini-projeto científico em 7 dias (sem instrumentos)",
+        steps:[
+          "Escolha uma pergunta que vire tabela com números.",
+          "Defina Y e X em 1 linha: ‘Quero investigar se X está associado a Y’.",
+          "Defina unidade amostral (recomendação: 1 dia).",
+          "Defina regra fixa de coleta (padronização): horário e forma de registrar.",
+          "Garanta réplicas: mínimo 6 dias; ideal 7 dias completos.",
+          "Monte tabela mínima: Data | Y | X | Observações (curto).",
+          "Faça 1 gráfico coerente: se X e Y são numéricos, use dispersão; se X é categoria (sim/não), use boxplot com pontos."
+        ],
+        dataIdeas:[
+          "Sono (h) vs tempo de tela (min) (celular).",
+          "Passos do dia vs tempo sentado (celular).",
+          "Temperatura (app clima) vs consumo de água (copos).",
+          "Choveu (sim/não) vs humor (0–10).",
+          "Treino (sim/não) vs qualidade do sono (0–10)."
+        ]
+      },
+      interpret:[
+        "Nesta primeira semana, a qualidade do desenho vale mais do que o resultado. O foco é: pergunta + padronização + réplicas.",
+        "Uma interpretação boa tem 3 frases: pergunta; desenho (unidade amostral e réplicas); o que você espera ver no gráfico.",
+        "Evite ‘prova/certo/garantido’. Use ‘investigar/sugerir/observar padrão’."
+      ],
+      mistakes:[
+        "Pergunta ampla demais (não vira tabela).",
+        "Mudar regra de coleta no meio da semana.",
+        "Confundir réplica com repetir a mesma medida no mesmo dia.",
+        "Registrar média da semana em vez de registrar cada dia.",
+        "Esquecer unidades."
+      ],
+      activity:"Defina uma pergunta científica executável, planeje o desenho e colete no mínimo 6 observações (dias). Produza tabela mínima e 1 gráfico coerente.",
+      dossier:[
+        "Pergunta científica (1 linha).",
+        "Definições do seu projeto (4 linhas): Y, X, unidade amostral, regra fixa de coleta.",
+        "Tabela mínima (mín. 6 linhas).",
+        "1 gráfico preliminar coerente com a pergunta.",
+        "Parágrafo curto (5–7 linhas): o que você espera ver e qual é a principal limitação."
+      ],
+      dossierModelText:
+        "Pergunta científica: ‘O tempo de tela à noite (X, em minutos) está associado ao número de horas de sono (Y, em horas) ao longo de dias?’. " +
+        "Unidade amostral: 1 dia. Réplicas: 7 dias. Regra fixa: registrar sempre às 9h os valores do dia anterior. " +
+        "Gráfico (dispersão) para observar se, quando X aumenta, Y tende a diminuir. Limitação: stress/café/barulho podem afetar o sono e não serão medidos nesta semana.",
+      saturday:"Sábado 28/02/2026: nesta data não haverá encontro de tira-dúvidas. O sábado será usado para organizar a tabela, revisar a pergunta e enviar o dossiê semanal (1 lauda).",
+      quiz:[
+        {q:"Em uma pergunta científica bem formada, Y representa:", opts:[
+          "O eixo do gráfico (sempre)",
+          "A variável resposta (o resultado que quero entender)",
+          "A unidade amostral",
+          "O viés do estudo"
+        ], ans:1, fb:[
+          "Eixo e variável podem se relacionar, mas não são a mesma coisa.",
+          "Correto. Y é o resultado que você quer explicar/entender.",
+          "Unidade amostral é outra ideia: o que conta como uma observação.",
+          "Viés é um tipo de erro sistemático, não é Y."
+        ]},
+        {q:"Qual situação descreve réplica (e não repetição técnica)?", opts:[
+          "Medir o mesmo dia 3 vezes",
+          "Registrar 7 dias diferentes com a mesma regra",
+          "Editar a tabela para ficar bonita",
+          "Excluir dias que deram diferente"
+        ], ans:1, fb:[
+          "Isso é repetição técnica, não garante independência.",
+          "Correto. Réplica são unidades independentes (dias diferentes).",
+          "Isso é formatação, não desenho amostral.",
+          "Isso cria viés e estraga o estudo."
+        ]},
+        {q:"Um bom motivo para definir unidade amostral é:", opts:[
+          "Para aumentar o p-valor",
+          "Para saber quantas observações independentes existem",
+          "Para provar causalidade",
+          "Para eliminar variância"
+        ], ans:1, fb:[
+          "p-valor não é objetivo do desenho.",
+          "Correto. Sem unidade amostral, você se engana sobre n e independência.",
+          "Causalidade depende de desenho experimental; unidade amostral é parte da base.",
+          "Variância existe; a ideia é lidar bem com ela."
+        ]}
+      ]
+    };
+  }
+
+  // -------- Semana 2 (MASTER) --------
+  function week2Master(){
+    return {
+      goals:[
+        "Entender, do zero, os tipos de dados mais comuns (número, categoria, contagem, proporção) e por que isso decide o gráfico e o teste.",
+        "Aprender a montar uma tabela ‘analisável’: 1 linha = 1 observação; 1 coluna = 1 variável; unidades no lugar certo.",
+        "Evitar os erros que mais derrubam análises: misturar texto com número, unidades confusas, datas mal registradas, valores impossíveis.",
+        "Aprender a fazer uma ‘checagem de sanidade’ dos dados (antes de qualquer gráfico): o que parece erro de digitação? o que parece evento real?",
+        "Exportar o arquivo em CSV e preparar o dado para PAST 4 / LibreOffice sem sofrimento."
+      ],
+
+      mindset:[
+        "A maior parte dos erros em estatística não é ‘falta de fórmula’. É tabela ruim. Tabela ruim gera gráfico ruim. Gráfico ruim gera conclusão ruim.",
+        "Organizar dados é parte do método científico. É onde você prova que levou a coleta a sério.",
+        "A melhor tabela é aquela que outro colega consegue entender em 30 segundos — sem te perguntar nada."
+      ],
+
+      story:[
+        "Imagine dois alunos com a mesma pergunta: ‘tela vs sono’. Um registra ‘2h’, ‘120min’, ‘duas horas’, e às vezes esquece a data. O outro registra só números e unidade no cabeçalho.",
+        "O segundo aluno consegue analisar em 5 minutos. O primeiro vai passar a semana ‘brigando’ com a planilha.",
+        "Semana 2 é para você virar o segundo aluno. Isso muda tudo no resto do curso."
+      ],
+
+      definitions:[
+        {term:"Dado (o que é)", def:"Dado é um registro de observação. É o ‘fato’ que você guardou. Ex.: ‘06/03/2026 – sono 6,5h – tela 180min’. Dado não é opinião; é registro."},
+
+        {term:"Variável (relembrando)", def:"Uma coluna com algo que pode mudar: sono, tela, temperatura, treino (sim/não). Variável é a unidade básica da tabela."},
+
+        {term:"Variável numérica (quantitativa)", def:"Assume valores em forma de número. Pode ser contínua (tempo, temperatura) ou discreta (contagem). Normalmente entra em gráficos como histograma, boxplot, dispersão."},
+
+        {term:"Contínua", def:"Pode assumir muitos valores ‘no meio’. Ex.: 6,2 horas; 6,25 horas; 6,27 horas. Tempo e temperatura costumam ser contínuos."},
+
+        {term:"Discreta (contagem)", def:"Só faz sentido em números inteiros (0, 1, 2…). Ex.: número de despertares; número de copos d’água; número de vezes que você checou o celular."},
+
+        {term:"Variável categórica (qualitativa)", def:"Assume categorias. Ex.: choveu (sim/não); treino (sim/não); turno (manhã/tarde/noite). Categórica manda você pensar em comparação entre grupos ou tabelas de contagem."},
+
+        {term:"Nominal vs ordinal (categóricas)", def:"Nominal: sem ordem (cor, bairro, tipo). Ordinal: com ordem (baixo/médio/alto; ruim/ok/bom). Ordinal pode ser tratada com cuidado (às vezes vira número 1–5, mas isso tem armadilhas)."},
+
+        {term:"Proporção/percentual", def:"Parte de um todo. Ex.: % do dia em tela; % do tempo estudando. Tem limites (0 a 100%) e isso afeta modelos e interpretação."},
+
+        {term:"Unidade (onde colocar)", def:"Unidade deve ficar no cabeçalho (ex.: ‘Sono (h)’, ‘Tela (min)’). Na célula, guarde só o número: 6,5; 180. Isso evita erros e deixa o CSV limpo."},
+
+        {term:"Formato ‘dados arrumados’ (tidy data)", def:"Regra de ouro: cada linha é uma observação; cada coluna é uma variável; cada célula é um valor. Ex.: cada dia é uma linha. Isso permite filtrar, plotar e testar sem gambiarras."},
+
+        {term:"Cabeçalho (por que importa)", def:"O cabeçalho diz o que cada coluna significa e a unidade. Sem cabeçalho claro, ninguém sabe o que é 180 (min? horas? passos?)."},
+
+        {term:"Data (como registrar)", def:"Data é uma variável importante porque define sequência e réplica. Recomenda-se registrar como dia/mês/ano (06/03/2026) de forma consistente. Data inconsistente quebra série temporal."},
+
+        {term:"Valores ausentes", def:"Às vezes você não tem o dado. Isso é normal. O erro é inventar. Registre como vazio ou ‘NA’ (se você usar). Melhor um dado ausente honesto do que um número inventado."},
+
+        {term:"Erro de digitação vs evento real", def:"Erro de digitação é ‘sono 65 horas’. Evento real é ‘sono 3 horas’ (pode acontecer). Semana 2 te treina a separar um do outro com checagem simples."},
+
+        {term:"Checagem de sanidade", def:"Perguntas rápidas: (1) existem valores impossíveis? (2) unidade está consistente? (3) tem duplicata de data? (4) tem números como texto? (5) tem vírgula/ponto confuso?"},
+
+        {term:"Separador decimal (vírgula/ponto)", def:"No Brasil, vírgula é comum (6,5). Em CSV e alguns softwares, ponto (6.5) pode ser mais aceito. O segredo é: seja consistente e, se necessário, converta uma vez no final."},
+
+        {term:"Dicionário de dados (mini)", def:"Uma lista curtinha dizendo o que cada variável significa, unidade e como foi medida. Isso acelera correção e melhora sua escrita científica."}
+      ],
+
+      howTo:{
+        title:"Como deixar sua tabela pronta para análise (sem dor)",
+        steps:[
+          "Crie a tabela base com colunas mínimas: Data | Y (unidade) | X (unidade) | Grupo (se existir) | Observações (curto).",
+          "Padronize unidades: escolha uma e mantenha (minutos OU horas; não misture).",
+          "Padronize escrita numérica: mantenha vírgula OU ponto e não misture na mesma coluna.",
+          "Registre apenas números nas células de medidas (nada de ‘120 min’ dentro da célula).",
+          "Faça checagem de sanidade: valores impossíveis (ex.: sono 40h), datas repetidas, células vazias e números digitados como texto.",
+          "Se você mediu por dia: garanta que cada dia aparece no máximo uma vez.",
+          "Salve como CSV: LibreOffice → Arquivo → Salvar como → .csv (se perguntar, mantenha separador padrão e verifique a prévia).",
+          "Se for usar PAST 4: ele gosta de colunas numéricas limpas. Tabela limpa = análise rápida."
+        ],
+        dataIdeas:[
+          "Refine o que você já começou na Semana 1: organize a mesma coleta agora corretamente.",
+          "Se faltou dado na Semana 1, complete com mais 1–2 dias (sem inventar).",
+          "Se você quer trocar a pergunta, troque agora — mas defina Y e X com clareza e refaça a tabela com réplicas."
+        ]
+      },
+
+      interpret:[
+        "Nesta semana, o foco é ‘qualidade de dado’. Você não precisa de teste nenhum ainda para ter um dossiê excelente.",
+        "A interpretação boa descreve o seu dado: qual variável é numérica, qual é categórica, qual é contagem, e por que isso importa.",
+        "Se seu dado está limpo, você já está 70% do caminho para fazer gráfico bom e teste certo."
+      ],
+
+      mistakes:[
+        "Misturar unidade dentro da célula (ex.: ‘120 min’ em vez de 120).",
+        "Misturar minutos e horas na mesma coluna.",
+        "Registrar ‘duas horas’ como texto em vez de número.",
+        "Registrar mais de um registro para o mesmo dia (duplicata sem explicação).",
+        "Criar tabela ‘largona’ com dias em colunas (fica ruim para análise).",
+        "Corrigir dado “na cabeça” (inventar) em vez de marcar como ausente."
+      ],
+
+      activity:
+        "Pegue seus dados da Semana 1 e transforme em uma tabela perfeita: limpa, consistente e exportável. No final, gere 2 visualizações simples: (1) histograma do Y (para ver forma) e (2) o gráfico que responde a pergunta (dispersão X–Y ou boxplot por grupo).",
+
+      dossier:[
+        "Pergunta científica (1 linha).",
+        "Mini dicionário de dados (4–6 linhas): nome da variável, o que significa, unidade, como foi medida.",
+        "Tabela limpa (mín. 6 linhas) – pode ser print ou CSV anexado.",
+        "Checagem de sanidade: liste 3 coisas que você conferiu (unidade, valores impossíveis, duplicatas etc.).",
+        "2 gráficos: (1) histograma de Y e (2) gráfico principal da pergunta.",
+        "Parágrafo curto (5–7 linhas): o que o histograma sugere sobre o dado e como isso pode influenciar a análise."
+      ],
+
+      dossierModelText:
+        "Mini dicionário: Data (dd/mm/aaaa); Sono (h) = horas de sono do dia anterior, anotado às 9h; Tela (min) = minutos de tela do dia anterior, anotado às 9h. " +
+        "Checagem: (1) não há valores impossíveis (sono <0 ou >24); (2) não há dias duplicados; (3) unidades estão consistentes (sono em horas, tela em minutos). " +
+        "O histograma de Sono sugere leve assimetria (alguns dias muito baixos), o que indica que gráficos e testes devem considerar variabilidade e possíveis outliers.",
+
+      saturday:
+        "Sábado 07/03/2026: encontro online tira-dúvidas (foco: limpar tabela, conferir unidades, corrigir erros de digitação e exportar CSV).",
+
+      quiz:[
+        {q:"Qual regra descreve ‘dados arrumados’ (tidy data)?", opts:[
+          "Cada coluna é um dia e cada linha é uma variável",
+          "Cada linha é uma observação; cada coluna é uma variável; cada célula é um valor",
+          "Tudo em uma célula para ficar simples",
+          "Unidade misturada na célula para facilitar leitura"
+        ], ans:1, fb:[
+          "Isso é formato ‘largo’ e costuma atrapalhar análise.",
+          "Correto. Esse formato é o que mais funciona para gráfico e estatística.",
+          "Isso destrói a análise.",
+          "Isso suja o CSV e atrapalha softwares."
+        ]},
+        {q:"Onde a unidade deve ficar, de preferência?", opts:[
+          "Dentro da célula (ex.: 120 min)",
+          "No cabeçalho (ex.: Tela (min))",
+          "Nunca colocar unidade",
+          "Somente no dossiê, não na tabela"
+        ], ans:1, fb:[
+          "Isso mistura texto com número.",
+          "Correto. Cabeçalho com unidade, célula com número limpo.",
+          "Unidade é essencial para interpretação.",
+          "Melhor também estar no cabeçalho para análise."
+        ]},
+        {q:"Um exemplo de variável discreta (contagem) é:", opts:[
+          "Temperatura do dia (°C)",
+          "Horas de sono",
+          "Número de despertares durante a noite",
+          "Altura (cm)"
+        ], ans:2, fb:[
+          "Temperatura é contínua.",
+          "Horas podem ser contínuas.",
+          "Correto. Contagem costuma ser inteira: 0,1,2…",
+          "Altura é contínua."
+        ]}
+      ]
+    };
+  }
+
   // =======================
-  // 4b) “builders” das semanas 4–15 (cada uma DIFERENTE)
+  // Semanas 3–15 (curtas por enquanto)
   // =======================
-  function mkWeek4(){
-    return {
-      goals:["Entender o que é probabilidade como linguagem de incerteza.","Ler evidência sem transformar p-valor em ‘verdade’.","Distinguir ‘padrão no gráfico’ de ‘evidência robusta’."],
-      definitions:[
-        {term:"Probabilidade", def:"Medida de incerteza. Em ciência, ajuda a expressar o quanto um resultado é compatível com acaso sob um modelo."},
-        {term:"Hipótese nula (H0)", def:"Modelo de ‘sem efeito’ (diferença = 0; relação = 0)."},
-        {term:"p-valor", def:"Probabilidade de observar um resultado tão extremo quanto o obtido, assumindo H0. Não é ‘probabilidade de H0 ser verdadeira’."},
-        {term:"Tamanho de efeito", def:"Magnitude do efeito (quanto muda). Pode ser mais importante que ‘significância’."}
-      ],
-      howTo:{title:"Como usar na prática", steps:[
-        "Sempre: descreva o padrão no gráfico primeiro.",
-        "Depois: use teste/modelo para quantificar evidência.",
-        "Por fim: discuta importância (tamanho de efeito) e limitação (réplica/viés)."
-      ]},
-      interpret:["O aluno deve escrever com cautela: ‘os dados sugerem…’ em vez de ‘provou’."],
-      mistakes:["Achar que p<0,05 é ‘prova’ definitiva.","Ignorar tamanho de efeito.","Não olhar gráfico."],
-      activity:"Pegue seu dado e escreva duas versões de conclusão: uma errada (‘prova’) e uma correta (‘evidência sugere…’).",
-      dossier:["Pergunta científica.","1 gráfico.","Explique: padrão + incerteza + tamanho de efeito (em palavras).","1 limitação."],
-      quiz:[
-        {q:"p-valor é:", opts:["Prova de causalidade","Compatibilidade do dado com H0","Chance de o pesquisador estar certo","O tamanho do efeito"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]},
-        {q:"Antes do teste, eu devo:", opts:["Escolher pelo menor p","Olhar gráfico","Excluir outliers","Fazer média apenas"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]},
-        {q:"Tamanho de efeito significa:", opts:["Quão grande é a mudança/diferença","Se deu p<0,05","Se é normal","Se é outlier"], ans:0,
-         fb:["Correto.","Não.","Não.","Não."]}
-      ]
-    };
-  }
+  function mkWeek3Short(){ return {
+    goals:["Escolher gráficos corretos."],
+    definitions:[{term:"Dispersão", def:"Relação X–Y."},{term:"Boxplot", def:"Comparar grupos."}],
+    howTo:{title:"Base", steps:["X–Y: dispersão; grupos: boxplot com pontos."]},
+    interpret:["Gráfico antes do teste."],
+    mistakes:["Barra escondendo dados."],
+    activity:"Faça 2 gráficos e compare.",
+    dossier:["2 gráficos + justificativa curta."],
+    saturday:"Sábado 14/03/2026: encontro online tira-dúvidas (foco: escolher gráfico correto e interpretar padrão/variabilidade).",
+    quiz:[
+      {q:"X–Y pede:", opts:["Dispersão","Pizza","Texto","Mapa"], ans:0, fb:["Correto.","Não.","Não.","Não."]},
+      {q:"Boxplot é bom para:", opts:["Grupos","Mapas","Texto","Somente séries"], ans:0, fb:["Correto.","Não.","Não.","Não."]},
+      {q:"Antes de teste:", opts:["Gráfico","Excluir outliers","Chutar","Somar tudo"], ans:0, fb:["Correto.","Não.","Não.","Não."]}
+    ]
+  };}
 
-  function mkWeek5(){
-    return {
-      goals:["Reconhecer distribuição por gráfico.","Entender normal/binomial/Poisson com exemplos.","Preparar terreno para GLM."],
-      definitions:[
-        {term:"Normal", def:"Distribuição aproximadamente simétrica em torno da média; comum em medidas contínuas."},
-        {term:"Poisson", def:"Distribuição para contagens (eventos) em intervalo fixo; muitos valores pequenos."},
-        {term:"Binomial", def:"Distribuição para número de sucessos em n tentativas; base de proporções."}
-      ],
-      howTo:{title:"Como identificar", steps:[
-        "Faça histograma de Y.",
-        "Veja: simetria? caudas longas? muitos zeros?",
-        "Se for contagem: suspeite Poisson; se for proporção: binomial."
-      ]},
-      interpret:["A escolha do teste/modelo depende do tipo de Y e do formato."],
-      mistakes:["Forçar normalidade para contagem/proporção.","Usar média como único resumo em dados assimétricos."],
-      activity:"Faça histograma do seu Y e descreva o formato em 6 linhas.",
-      dossier:["1 histograma.","Descrição do formato.","O que isso sugere sobre o tipo de análise (em palavras)."],
-      quiz:[
-        {q:"Poisson é típico de:", opts:["Alturas","Contagens","Categorias","Textos"], ans:1, fb:["Não.","Correto.","Não.","Não."]},
-        {q:"Binomial é típico de:", opts:["Sucesso/fracasso","Temperatura","Distância","p-valor"], ans:0, fb:["Correto.","Não.","Não.","Não."]},
-        {q:"Histograma serve para:", opts:["Ver distribuição","Ver mapa","Ver causalidade","Excluir outliers"], ans:0, fb:["Correto.","Não.","Não.","Não."]}
-      ]
-    };
-  }
+  function mkWeek4Short(){ return {
+    goals:["Probabilidade e p-valor (ideia)."],
+    definitions:[{term:"H0", def:"Modelo de sem efeito."},{term:"p-valor", def:"Compatibilidade com H0."}],
+    howTo:{title:"Base", steps:["Descreva padrão no gráfico antes de qualquer teste."]},
+    interpret:["Evitar ‘provar’. Use ‘sugerir’."],
+    mistakes:["Confundir p com verdade."],
+    activity:"Escreva uma conclusão cautelosa.",
+    dossier:["Pergunta + gráfico + conclusão curta."],
+    saturday:"Sábado 21/03/2026: encontro online tira-dúvidas (foco: linguagem científica e interpretação de incerteza).",
+    quiz:[
+      {q:"p-valor é:", opts:["Prova","Compatibilidade com H0","Causalidade","Variância"], ans:1, fb:["Não.","Correto.","Não.","Não."]},
+      {q:"Primeiro passo é:", opts:["Gráfico","p<0,05","Excluir","Somar"], ans:0, fb:["Correto.","Não.","Não.","Não."]},
+      {q:"Boa linguagem:", opts:["Provou","Sugeriu","Garantiu","Certeza"], ans:1, fb:["Não.","Correto.","Não.","Não."]}
+    ]
+  };}
 
-  function mkWeek6(){
-    return {
-      goals:["Entender premissas sem decorar fórmulas.","Tratar outliers de forma científica.","Decidir paramétrico vs não paramétrico com base em gráfico."],
-      definitions:[
-        {term:"Normalidade (resíduos)", def:"O que deve se aproximar de normal em muitos testes é o erro/resíduo, não ‘os dados crus’ em todas as situações."},
-        {term:"Homoscedasticidade", def:"Variâncias semelhantes entre grupos. Variâncias muito diferentes podem distorcer testes."},
-        {term:"Outlier", def:"Valor extremo. Pode ser erro ou evento real. Nunca remover ‘para melhorar’ sem justificativa."},
-        {term:"Não paramétrico", def:"Métodos menos sensíveis a pressupostos (ex.: Mann–Whitney, Kruskal–Wallis) quando apropriado."}
-      ],
-      howTo:{title:"Como decidir", steps:[
-        "Faça boxplot/histograma e veja assimetria e extremos.",
-        "Se houver outlier: investigue (unidade/erro/contexto).",
-        "Se distribuição muito assimétrica e n pequeno: considere não paramétrico.",
-        "Relate sempre o que foi feito com transparência."
-      ]},
-      interpret:["A decisão correta é justificada pelo gráfico e pelo tipo de dado."],
-      mistakes:["Excluir outlier sem justificar.","Escolher teste para obter significância.","Ignorar variância desigual."],
-      activity:"Escolha 1 ponto extremo no seu dado e escreva: é erro? é evento? qual impacto no resultado?",
-      dossier:["Gráfico que mostra distribuição.","Discussão de outlier (1 parágrafo).","Decisão param vs não param (1 parágrafo curto)."],
-      quiz:[
-        {q:"Outlier eu removo quando:", opts:["Atrapa o p-valor","Tenho evidência de erro de medida/digitação","Quero normalizar","Nunca discuto"], ans:1,
-         fb:["Errado.","Correto.","Errado.","Errado."]},
-        {q:"Não paramétrico pode ser útil quando:", opts:["Dados muito assimétricos e n pequeno","Sempre","Quando quero p menor","Quando Y é texto"], ans:0,
-         fb:["Correto.","Não.","Não.","Não."]},
-        {q:"Premissas devem ser avaliadas com:", opts:["Achismo","Gráfico e coerência do dado","Somente média","Somente título"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]}
-      ]
-    };
-  }
+  function mkWeek5Short(){ return {goals:["Distribuições básicas."],definitions:[{term:"Normal",def:"Simétrica."},{term:"Poisson",def:"Contagens."},{term:"Binomial",def:"Sucesso/fracasso."}],
+    howTo:{title:"Base",steps:["Use histograma para ver formato."]},interpret:["Formato orienta análise."],mistakes:["Forçar normalidade."],
+    activity:"Faça um histograma e descreva.",dossier:["Histograma + descrição."],
+    saturday:"Sábado 28/03/2026: encontro online tira-dúvidas (foco: reconhecer distribuição pelo histograma).",
+    quiz:[
+      {q:"Poisson:",opts:["Contagem","Altura","Texto","Mapa"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
+      {q:"Binomial:",opts:["Sucesso/fracasso","Temperatura","R²","Eixo"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
+      {q:"Histograma mostra:",opts:["Distribuição","Causalidade","Mapa","Título"],ans:0,fb:["Correto.","Não.","Não.","Não."]}
+    ]};}
 
-  function mkWeek7(){
-    return {
-      goals:["Aplicar teste t para 2 grupos com interpretação correta.","Entender diferença de médias vs importância biológica.","Usar gráfico e tamanho de efeito."],
-      definitions:[
-        {term:"Teste t", def:"Compara a média de dois grupos e avalia se a diferença é maior do que esperado por variação aleatória, sob premissas."},
-        {term:"Tamanho de efeito (ideia)", def:"Quanto os grupos diferem em termos práticos. Mesmo com p pequeno, efeito pode ser pequeno."},
-        {term:"Erro tipo I/II (ideia)", def:"Risco de falso positivo (I) e falso negativo (II)."}
-      ],
-      howTo:{title:"Como fazer (PAST 4)", steps:[
-        "Monte tabela com colunas: Grupo (A/B) e Y.",
-        "PAST: Statistics → t tests → (selecionar two-sample).",
-        "Gere boxplot + pontos; compare com resultado do teste."
-      ]},
-      interpret:["Escreva: direção da diferença, tamanho aparente no gráfico, e cautela (não causalidade sem desenho)."],
-      mistakes:["Usar teste t para 3+ grupos.","Ignorar sobreposição no boxplot.","Confundir significância com relevância."],
-      activity:"Compare dois grupos do seu cotidiano (ex.: dias com treino vs sem treino) em uma variável numérica.",
-      dossier:["Boxplot + pontos.","Conclusão em 6–8 linhas (diferença + variabilidade + limitação)."],
-      quiz:[
-        {q:"Teste t serve para:", opts:["2 grupos e Y numérico","3+ grupos","2 variáveis categóricas","Provar causalidade"], ans:0,
-         fb:["Correto.","Não.","Não.","Não."]},
-        {q:"Sempre acompanhar teste t com:", opts:["Boxplot/pontos","Somente tabela","Somente p","Nada"], ans:0,
-         fb:["Correto.","Não.","Não.","Não."]},
-        {q:"p<0,05 significa:", opts:["Efeito importante","Evidência contra H0 sob premissas","Causalidade","Sem outliers"], ans:1,
-         fb:["Não necessariamente.","Correto.","Não.","Não."]}
-      ]
-    };
-  }
+  function mkWeek6Short(){ return {goals:["Premissas e outliers."],definitions:[{term:"Outlier",def:"Valor extremo."},{term:"Não paramétrico",def:"Menos sensível a premissas."}],
+    howTo:{title:"Base",steps:["Olhe boxplot/histograma; justifique decisões."]},interpret:["Transparência."],mistakes:["Excluir sem justificar."],
+    activity:"Analise 1 outlier.",dossier:["Gráfico + justificativa."],
+    saturday:"Sábado 04/04/2026: encontro online tira-dúvidas (foco: outliers e premissas).",
+    quiz:[
+      {q:"Outlier remove quando:",opts:["Atrapalha","Há evidência de erro","Quero p","Nunca discuto"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
+      {q:"Não paramétrico ajuda quando:",opts:["Assimetria forte","Sempre","Quero p","Texto"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
+      {q:"Premissas se avaliam com:",opts:["Gráfico","Achismo","Título","Média"],ans:0,fb:["Correto.","Não.","Não.","Não."]}
+    ]};}
 
-  function mkWeek8(){
-    return {
-      goals:["Entender ANOVA 1 via como teste global.","Saber por que não fazer vários t-tests.","Aplicar pós-teste (Tukey/LSD) com cuidado."],
-      definitions:[
-        {term:"ANOVA 1 via", def:"Testa se existe diferença entre 3+ médias. Responde ‘existe diferença em algum lugar?’."},
-        {term:"Pós-teste", def:"Comparações entre pares após ANOVA, controlando risco de falso positivo."},
-        {term:"Tukey vs LSD (ideia)", def:"Tukey é mais conservador; LSD é menos conservador e exige mais cautela."}
-      ],
-      howTo:{title:"Como fazer (PAST 4)", steps:[
-        "Tabela: Grupo (3+ níveis) e Y.",
-        "PAST: Statistics → ANOVA → One-way ANOVA.",
-        "Se significativo: Post hoc → Tukey (preferencial) ou LSD (com cautela).",
-        "Sempre: boxplot por grupo com pontos."
-      ]},
-      interpret:["Relate: diferença global + quais grupos diferem + quanto diferem (pelo gráfico)."],
-      mistakes:["Rodar muitos testes t para 3+ grupos.","Falar só ‘deu significativo’ sem dizer quais grupos e qual padrão."],
-      activity:"Crie 3 grupos simples (ex.: manhã/tarde/noite) e compare uma variável numérica.",
-      dossier:["Boxplot por grupo.","Conclusão: diferença global + quais grupos parecem diferentes + limitação."],
-      quiz:[
-        {q:"ANOVA 1 via responde:", opts:["Qual par difere sem pós-teste","Se existe diferença entre 3+ grupos (global)","Se é causal","Se é normal"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]},
-        {q:"Pós-teste é usado para:", opts:["Criar outliers","Saber quais pares diferem","Provar causalidade","Trocar unidade"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]},
-        {q:"Erro comum é:", opts:["Fazer boxplot","Fazer vários t-tests em 3+ grupos","Interpretar variabilidade","Relatar limitação"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]}
-      ]
-    };
-  }
+  function mkWeek7Short(){ return {goals:["Teste t."],definitions:[{term:"Teste t",def:"2 grupos."}],
+    howTo:{title:"Base",steps:["Boxplot + t no PAST."]},interpret:["Diferença + variabilidade."],mistakes:["Usar com 3+ grupos."],
+    activity:"Compare 2 grupos.",dossier:["Boxplot + texto."],
+    saturday:"Sábado 11/04/2026: encontro online tira-dúvidas (foco: teste t e interpretação).",
+    quiz:[
+      {q:"Teste t serve para:",opts:["2 grupos","3 grupos","Categorias x categorias","Causalidade"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
+      {q:"Acompanhar com:",opts:["Boxplot","Só p","Só tabela","Nada"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
+      {q:"p<0,05 é:",opts:["Causa","Evidência contra H0","Prova","Sem ruído"],ans:1,fb:["Não.","Correto.","Não.","Não."]}
+    ]};}
 
-  function mkWeek9(){
-    return {
-      goals:["Entender dois fatores e interação.","Interpretar gráfico de interação.","Evitar ignorar interação."],
-      definitions:[
-        {term:"Fator", def:"Variável categórica que define grupos (ex.: período seco/chuvoso; com/sem treino)."},
-        {term:"Interação", def:"Quando o efeito de um fator depende do nível do outro (o padrão muda)."}
-      ],
-      howTo:{title:"Como fazer (interpretação primeiro)", steps:[
-        "Faça gráfico de médias por combinação (linhas por fator).",
-        "Se linhas não paralelas → suspeite interação.",
-        "Depois rode ANOVA 2 vias no PAST (se tiver desenho compatível)."
-      ]},
-      interpret:["A frase-chave: ‘o efeito de X muda dependendo de Z’."],
-      mistakes:["Comentar só efeitos principais e ignorar interação.","Poucas réplicas por combinação."],
-      activity:"Defina 2 fatores simples e veja se o padrão muda (mesmo que só como exploração).",
-      dossier:["Gráfico de interação.","Explique com palavras se há mudança do efeito entre níveis."],
-      quiz:[
-        {q:"Interação significa:", opts:["Efeito constante","Efeito muda dependendo do outro fator","Outlier","Normalidade"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]},
-        {q:"Sinal visual de interação:", opts:["Linhas paralelas","Linhas não paralelas","Barras iguais","Texto grande"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]},
-        {q:"Risco na ANOVA 2 vias:", opts:["Ignorar interação","Fazer gráfico","Relatar limitação","Ter réplica"], ans:0,
-         fb:["Correto.","Não.","Não.","Não."]}
-      ]
-    };
-  }
+  function mkWeek8Short(){ return {goals:["ANOVA 1 via."],definitions:[{term:"ANOVA",def:"3+ grupos (global)."}],
+    howTo:{title:"Base",steps:["ANOVA + Tukey (preferencial)."]},interpret:["Global + pares."],mistakes:["Vários t-tests."],
+    activity:"Compare 3 grupos.",dossier:["Boxplot + conclusão."],
+    saturday:"Sábado 18/04/2026: encontro online tira-dúvidas (foco: ANOVA e pós-testes).",
+    quiz:[
+      {q:"ANOVA responde:",opts:["Qual par sem pós","Diferença global","Causalidade","Normalidade"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
+      {q:"Pós-teste:",opts:["Outlier","Quais pares diferem","Causa","Unidade"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
+      {q:"Erro comum:",opts:["Vários t-tests","Boxplot","Limitação","Tabela"],ans:0,fb:["Correto.","Não.","Não.","Não."]}
+    ]};}
 
-  function mkWeek10(){
-    return {
-      goals:["Usar qui-quadrado para associação entre categorias.","Montar tabela de contingência.","Interpretar com contagens/proporções."],
-      definitions:[
-        {term:"Tabela de contingência", def:"Matriz de contagens (ex.: 2x2) que cruza duas variáveis categóricas."},
-        {term:"Qui-quadrado", def:"Testa se as frequências observadas diferem do esperado sob independência."}
-      ],
-      howTo:{title:"Como fazer (PAST 4)", steps:[
-        "Monte contagens em uma tabela 2x2 (ou 2x3).",
-        "PAST: Statistics → Contingency tables → Chi-square.",
-        "Faça gráfico de barras de contagem ou proporção."
-      ]},
-      interpret:["Explique a associação em linguagem simples e cite limitação (amostra pequena)."],
-      mistakes:["Usar com células muito baixas sem cautela.","Confundir contagem com proporção."],
-      activity:"Crie duas categorias do cotidiano e conte ocorrências por 7 dias.",
-      dossier:["Tabela de contingência + gráfico de barras.","Interpretação em 6 linhas."],
-      quiz:[
-        {q:"Qui-quadrado é para:", opts:["Duas variáveis categóricas","Dois grupos numéricos","Regressão","Normalidade"], ans:0,
-         fb:["Correto.","Não.","Não.","Não."]},
-        {q:"Entrada do qui-quadrado é:", opts:["Médias","Contagens","R²","Inclinação"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]},
-        {q:"Boa prática é mostrar:", opts:["Somente p","Barras de contagem/proporção","Somente texto","Nada"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]}
-      ]
-    };
-  }
+  function mkWeek9Short(){ return {goals:["ANOVA 2 vias e interação."],definitions:[{term:"Interação",def:"Efeito depende do outro fator."}],
+    howTo:{title:"Base",steps:["Veja linhas não paralelas em gráfico."]},interpret:["Efeito muda com fator."],mistakes:["Ignorar interação."],
+    activity:"Faça gráfico de interação.",dossier:["Gráfico + texto."],
+    saturday:"Sábado 25/04/2026: encontro online tira-dúvidas (foco: interação e leitura do gráfico).",
+    quiz:[
+      {q:"Interação:",opts:["Efeito constante","Efeito depende","Outlier","Normal"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
+      {q:"Sinal visual:",opts:["Linhas paralelas","Não paralelas","Barras","Texto"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
+      {q:"Risco:",opts:["Ignorar interação","Fazer gráfico","Relatar limites","Ter réplica"],ans:0,fb:["Correto.","Não.","Não.","Não."]}
+    ]};}
 
-  function mkWeek11(){
-    return {
-      goals:["Distinguir correlação de causalidade.","Escolher Pearson vs Spearman.","Interpretar com scatter plot."],
-      definitions:[
-        {term:"Correlação", def:"Medida de associação. Indica tendência conjunta, não causa."},
-        {term:"Pearson", def:"Associação linear entre variáveis contínuas; sensível a outliers."},
-        {term:"Spearman", def:"Associação monotônica por ranking; mais robusta a outliers."}
-      ],
-      howTo:{title:"Como fazer", steps:[
-        "Faça scatter plot (obrigatório).",
-        "Se linear e sem extremos dominantes → Pearson pode servir.",
-        "Se muitos outliers/monotônico → Spearman."
-      ]},
-      interpret:["Escreva: direção (+/−), força (fraca/moderada/forte) e limite (não causalidade)."],
-      mistakes:["Dizer ‘causa’ com correlação.","Calcular correlação sem olhar gráfico."],
-      activity:"Use seu X e Y e compare Pearson vs Spearman (mesmo que só conceitualmente).",
-      dossier:["Scatter plot.","Explique por que não é causalidade."],
-      quiz:[
-        {q:"Correlação prova causa?", opts:["Sim","Não","Só com p<0,05","Só sem outliers"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]},
-        {q:"Pearson é mais adequado quando:", opts:["Linear e contínuo","Categórico","Texto","Mapa"], ans:0,
-         fb:["Correto.","Não.","Não.","Não."]},
-        {q:"Scatter plot serve para:", opts:["Ver relação X–Y","Ver contagens","Ver tabela 2x2","Ver causalidade"], ans:0,
-         fb:["Correto.","Não.","Não.","Não."]}
-      ]
-    };
-  }
+  function mkWeek10Short(){ return {goals:["Qui-quadrado."],definitions:[{term:"Contingência",def:"Tabela de contagens."}],
+    howTo:{title:"Base",steps:["Montar 2x2 e rodar qui²."]},interpret:["Associação em categorias."],mistakes:["Células muito baixas."],
+    activity:"Conte categorias por dias.",dossier:["Tabela + barras."],
+    saturday:"Sábado 02/05/2026: encontro online tira-dúvidas (foco: tabelas de contingência).",
+    quiz:[
+      {q:"Qui² é para:",opts:["Categóricas","2 grupos numéricos","Regressão","Normal"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
+      {q:"Entrada do qui²:",opts:["Médias","Contagens","R²","Inclinação"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
+      {q:"Mostrar:",opts:["Só p","Barras contagem/proporção","Só texto","Nada"],ans:1,fb:["Não.","Correto.","Não.","Não."]}
+    ]};}
 
-  function mkWeek12(){
-    return {
-      goals:["Interpretar regressão (inclinação, intercepto, R²).","Entender resíduos como diagnóstico.","Evitar extrapolação."],
-      definitions:[
-        {term:"Inclinação", def:"Quanto Y muda quando X aumenta 1 unidade (interpretação em unidades reais)."},
-        {term:"R²", def:"Fração da variação de Y explicada pelo modelo linear (não mede causalidade)."},
-        {term:"Resíduo", def:"Diferença entre valor observado e valor previsto. Padrão nos resíduos sugere modelo inadequado."}
-      ],
-      howTo:{title:"Como fazer (PAST 4)", steps:[
-        "Scatter plot com linha ajustada.",
-        "Regressão linear: Statistics → Regression → Linear regression.",
-        "Observe resíduos (se disponível) ou pelo menos avalie curvatura no scatter."
-      ]},
-      interpret:["Escreva a inclinação em linguagem aplicada: ‘a cada +1 em X, Y muda em…’."],
-      mistakes:["Extrapolar fora do intervalo.","Ignorar curvatura/outliers influentes."],
-      activity:"Faça regressão Y~X com 8+ observações e escreva a interpretação da inclinação.",
-      dossier:["Scatter + linha.","Interpretação da inclinação (6 linhas).","1 limitação."],
-      quiz:[
-        {q:"Inclinação significa:", opts:["Cor do gráfico","Mudança de Y por unidade de X","Causalidade","Outlier"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]},
-        {q:"R² mede:", opts:["Causalidade","Quanto do Y é explicado no modelo","Se é normal","Se é categórico"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]},
-        {q:"Erro grave:", opts:["Interpretar inclinação","Extrapolar","Fazer scatter","Relatar limitação"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]}
-      ]
-    };
-  }
+  function mkWeek11Short(){ return {goals:["Correlação."],definitions:[{term:"Pearson",def:"Linear."},{term:"Spearman",def:"Ranking."}],
+    howTo:{title:"Base",steps:["Scatter obrigatório." ]},interpret:["Não é causalidade."],mistakes:["Dizer causa."],
+    activity:"Compare Pearson vs Spearman.",dossier:["Scatter + cautela."],
+    saturday:"Sábado 09/05/2026: encontro online tira-dúvidas (foco: correlação e interpretação).",
+    quiz:[
+      {q:"Correlação prova causa?",opts:["Sim","Não","Só p<0,05","Só sem outlier"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
+      {q:"Pearson:",opts:["Linear","Texto","Mapa","Categoria pura"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
+      {q:"Scatter serve:",opts:["Relação X–Y","Contingência","Boxplot","Causa"],ans:0,fb:["Correto.","Não.","Não.","Não."]}
+    ]};}
 
-  function mkWeek13(){
-    return {
-      goals:["Entender quando linear não serve.","Reconhecer contagem e proporção.","Interpretar GLM em linguagem simples (taxa/chance)."],
-      definitions:[
-        {term:"GLM", def:"Família de modelos para Y não-normal (ex.: contagens, proporções), com função de ligação."},
-        {term:"Poisson (GLM)", def:"Modela contagens como taxa; útil quando há muitos valores pequenos."},
-        {term:"Binomial (GLM)", def:"Modela proporções/sucessos; útil para sim/não ou %."}
-      ],
-      howTo:{title:"Como fazer (conceito + prática simples)", steps:[
-        "Mostre por gráfico que Y é contagem/proporção.",
-        "Explique por que regressão linear não é ideal (assimetria/limites/zeros).",
-        "Se não rodar GLM, descreva qual GLM seria apropriado e como interpretaria."
-      ]},
-      interpret:["A interpretação muda: fala em taxa (contagem) ou chance/probabilidade (binomial)."],
-      mistakes:["Aplicar GLM sem saber que dado é contagem/proporção.","Falar como se fosse inclinação linear simples."],
-      activity:"Escolha um Y de contagem (ex.: número de vezes que…) ou proporção (ex.: %).",
-      dossier:["Gráfico mostrando o tipo do Y.","Justificativa do GLM adequado (1 parágrafo)."],
-      quiz:[
-        {q:"GLM é útil quando:", opts:["Y é contagem/proporção","Y é texto","Sempre","Para p menor"], ans:0,
-         fb:["Correto.","Não.","Não.","Não."]},
-        {q:"Poisson combina com:", opts:["Contagens","Altura","Categoria pura","Mapa"], ans:0,
-         fb:["Correto.","Não.","Não.","Não."]},
-        {q:"Binomial combina com:", opts:["Sucesso/fracasso","Temperatura","R²","Intercepto"], ans:0,
-         fb:["Correto.","Não.","Não.","Não."]}
-      ]
-    };
-  }
+  function mkWeek12Short(){ return {goals:["Regressão linear."],definitions:[{term:"Inclinação",def:"Mudança de Y por X."},{term:"Resíduo",def:"Erro observado-previsto."}],
+    howTo:{title:"Base",steps:["Scatter + ajuste; interpretar inclinação." ]},interpret:["Escreva em unidades reais."],mistakes:["Extrapolar."],
+    activity:"Rode regressão simples.",dossier:["Scatter + interpretação."],
+    saturday:"Sábado 16/05/2026: encontro online tira-dúvidas (foco: regressão e resíduos).",
+    quiz:[
+      {q:"Inclinação:",opts:["Mudança de Y por X","Cor","Causa","Outlier"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
+      {q:"R² mede:",opts:["Causa","Parte explicada no modelo","Normalidade","Categoria"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
+      {q:"Erro:",opts:["Extrapolar","Interpretar","Plotar","Limitar"],ans:0,fb:["Correto.","Não.","Não.","Não."]}
+    ]};}
 
-  function mkWeek14(){
-    return {
-      goals:["Entender confusão e múltiplos preditores.","Saber o que é ANCOVA.","Reconhecer viés e como reduzir (teste cego)."],
-      definitions:[
-        {term:"Confundidor", def:"Variável que afeta X e Y e pode gerar associação enganosa."},
-        {term:"Multivariado", def:"Modelo com mais de um preditor para explicar Y."},
-        {term:"ANCOVA", def:"Compara grupos ajustando por uma covariável contínua."},
-        {term:"Teste cego", def:"Reduz influência de expectativa na coleta/avaliação."}
-      ],
-      howTo:{title:"Como aplicar (sem complicar)", steps:[
-        "Identifique 1 possível confundidor no seu tema.",
-        "Descreva como controlaria (na coleta) ou ajustaria (no modelo).",
-        "Explique, em palavras, o que ANCOVA faria no seu caso."
-      ]},
-      interpret:["Boa interpretação: ‘o efeito de X permanece após controlar Z?’ (em linguagem simples)."],
-      mistakes:["Adicionar variáveis para ‘dar significância’.","Ignorar confundidores óbvios."],
-      activity:"Reescreva sua pergunta incluindo controle: ‘comparar A vs B controlando por Z’.",
-      dossier:["Liste 1 confundidor e 1 estratégia de controle.","Explique o que seria o efeito ajustado."],
-      quiz:[
-        {q:"Confundidor é:", opts:["Uma variável que bagunça a interpretação por afetar X e Y","Um outlier","Um p-valor","Um gráfico"], ans:0,
-         fb:["Correto.","Não.","Não.","Não."]},
-        {q:"ANCOVA faz:", opts:["Comparar grupos ajustando por covariável","Somar médias","Excluir outliers","Provar causalidade"], ans:0,
-         fb:["Correto.","Não.","Não.","Não."]},
-        {q:"Teste cego reduz:", opts:["Viés de expectativa","Réplica","Dados","Variabilidade"], ans:0,
-         fb:["Correto.","Não.","Não.","Não."]}
-      ]
-    };
-  }
+  function mkWeek13Short(){ return {goals:["GLM."],definitions:[{term:"Poisson",def:"Contagem."},{term:"Binomial",def:"Proporção."}],
+    howTo:{title:"Base",steps:["Justifique GLM pelo tipo de Y." ]},interpret:["Taxa/chance."],mistakes:["Forçar linear em contagem."],
+    activity:"Escolha Y contagem/proporção.",dossier:["Gráfico + justificativa."],
+    saturday:"Sábado 23/05/2026: encontro online tira-dúvidas (foco: quando usar GLM).",
+    quiz:[
+      {q:"GLM útil quando:",opts:["Contagem/proporção","Texto","Sempre","Para p"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
+      {q:"Poisson:",opts:["Contagem","Altura","Categoria","Mapa"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
+      {q:"Binomial:",opts:["Sucesso/fracasso","Temperatura","R²","Intercepto"],ans:0,fb:["Correto.","Não.","Não.","Não."]}
+    ]};}
 
-  function mkWeek15(){
-    return {
-      goals:["Fechar um projeto profundo sem complicar.","Entregar dados + gráficos + análise + interpretação.","Apresentar com rigor e limitações."],
-      definitions:[
-        {term:"Discussão científica", def:"Interpretação conectada à pergunta, com explicação de mecanismos plausíveis e limitações."},
-        {term:"Limitação", def:"Parte do desenho/dado que impede conclusão forte (ex.: poucas réplicas, viés, variável não medida)."}
-      ],
-      howTo:{title:"Como montar a entrega final", steps:[
-        "Reafirme pergunta científica (1 linha) e hipótese (1 linha).",
-        "Mostre tabela (CSV) e 2–4 gráficos principais.",
-        "Escolha 1 análise coerente (t/ANOVA/regressão/qui²/correlação/GLM conforme seu dado).",
-        "Escreva resultados em linguagem aplicada e liste limitações + próximos passos."
-      ]},
-      interpret:["A apresentação final vale mais quando a história é coerente: pergunta → dado → gráfico → método → interpretação."],
-      mistakes:["Método sofisticado sem necessidade.","Conclusão sem limitação.","Não mostrar os dados."],
-      activity:"Montar apresentação curta (5–7 slides) ou texto (1–2 páginas) com gráficos e interpretação.",
-      dossier:["Entrega final substitui dossiê: CSV + figuras + apresentação."],
-      quiz:[
-        {q:"Projeto final profundo é:", opts:["Complicado","Coerente, bem desenhado e bem interpretado","Cheio de fórmulas","Sem gráficos"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]},
-        {q:"Obrigatório na entrega:", opts:["Somente p","Dados + gráficos + interpretação","Somente texto","Somente título"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]},
-        {q:"Limitação serve para:", opts:["Enfraquecer seu trabalho","Dar honestidade e orientar próximos passos","Excluir resultados","Provar causalidade"], ans:1,
-         fb:["Não.","Correto.","Não.","Não."]}
-      ]
-    };
-  }
+  function mkWeek14Short(){ return {goals:["ANCOVA, confundidores, viés."],definitions:[{term:"Confundidor",def:"Afeta X e Y."},{term:"ANCOVA",def:"Ajusta por covariável."}],
+    howTo:{title:"Base",steps:["Identifique 1 confundidor e como controlar." ]},interpret:["Efeito ajustado."],mistakes:["Enfeitar modelo."],
+    activity:"Reescreva pergunta com controle.",dossier:["Confundidor + estratégia."],
+    saturday:"Sábado 30/05/2026: encontro online tira-dúvidas (foco: confundidores, viés e controle).",
+    quiz:[
+      {q:"Confundidor:",opts:["Afeta X e Y","Outlier","p","Eixo"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
+      {q:"ANCOVA:",opts:["Compara grupos ajustando covariável","Soma médias","Remove outliers","Prova causa"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
+      {q:"Teste cego reduz:",opts:["Viés de expectativa","Réplica","Dados","DP"],ans:0,fb:["Correto.","Não.","Não.","Não."]}
+    ]};}
+
+  function mkWeek15Short(){ return {goals:["Projeto final."],definitions:[{term:"Discussão",def:"Interpretação com limites."}],
+    howTo:{title:"Base",steps:["Pergunta → dados → gráficos → análise → limites." ]},interpret:["Coerência."],mistakes:["Conclusão sem limite."],
+    activity:"Apresentação final.",dossier:["Entrega final (CSV+figuras+apresentação)."],
+    saturday:"Sábado 06/06/2026: encontro online tira-dúvidas (foco: revisão final e apresentação).",
+    quiz:[
+      {q:"Projeto profundo é:",opts:["Complicado","Coerente e honesto","Só fórmulas","Sem gráfico"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
+      {q:"Obrigatório:",opts:["Só p","Dados+gráficos+interpretação","Só texto","Só título"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
+      {q:"Limitação serve:",opts:["Enfraquecer","Dar honestidade e orientar próximos passos","Excluir","Provar causa"],ans:1,fb:["Não.","Correto.","Não.","Não."]}
+    ]};}
 
   // =======================
   // 5) UI helpers
@@ -737,7 +661,7 @@
           <div class="row">
             <div>
               <div style="font-size:12px;color:#475569"><strong>Título</strong></div>
-              <input type="text" value="${it.label.replaceAll('"','&quot;')}" data-i="${idx}" data-k="label" placeholder="Ex.: YouTube – ANOVA 1 via (PT)"/>
+              <input type="text" value="${it.label.replaceAll('"','&quot;')}" data-i="${idx}" data-k="label" placeholder="Ex.: YouTube – Tipos de variáveis (PT)"/>
             </div>
             <div>
               <div style="font-size:12px;color:#475569"><strong>URL</strong></div>
@@ -787,7 +711,7 @@
     const box = document.createElement("div");
     box.className="quiz";
     box.innerHTML=`
-      <div><strong>Quiz curto (3 questões)</strong></div>
+      <div><strong>Quiz curto</strong></div>
       <div style="color:#475569;margin-top:6px;font-size:12px">Objetivo: checar entendimento do conteúdo desta semana.</div>
       <div id="qs"></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
@@ -833,7 +757,7 @@
   }
 
   // =======================
-  // 6) OPEN WEEK (monta estrutura completa e única)
+  // 6) OPEN WEEK
   // =======================
   function openLesson(id){
     state.currentId=id; saveState();
@@ -847,51 +771,64 @@
     const panels=document.getElementById("panels");
     panels.innerHTML="";
 
-    // Goals
     panels.appendChild(block("1) O que você vai aprender", "objetivos",
       `<ul>${(week.goals||[]).map(x=>`<li>${x}</li>`).join("")}</ul>
-       <div class="box ok"><strong>Nota:</strong> Salve suas notas no navegador ou no celular.</div>`, true
+       <div class="box ok"><strong>Orientação:</strong> Salve suas notas no navegador ou no celular.</div>`, true
     ));
 
-    // Definitions
-    panels.appendChild(block("2) Definições (sem enrolação, mas completas)", "conceitos",
+    if(week.mindset){
+      panels.appendChild(block("2) Mentalidade científica (como um cientista pensa)", "guia",
+        `<div class="callout">${week.mindset.map(p=>`<p>${p}</p>`).join("")}</div>`, false
+      ));
+    }
+
+    if(week.story){
+      panels.appendChild(block("3) Um mini-caso para enxergar o problema", "exemplo",
+        week.story.map(p=>`<p>${p}</p>`).join(""), false
+      ));
+    }
+
+    panels.appendChild(block("4) Definições (do zero)", "conceitos",
       `<ul>${(week.definitions||[]).map(d=>`<li><strong>${d.term}:</strong> ${d.def}</li>`).join("")}</ul>`, true
     ));
 
-    // How-to
     if(week.howTo){
       const h = week.howTo;
-      panels.appendChild(block("3) Como fazer (passo a passo)", "mão na massa",
+      panels.appendChild(block("5) Como fazer (passo a passo)", "mão na massa",
         `<p><strong>${h.title||""}</strong></p>
          ${h.steps ? `<ol>${h.steps.map(x=>`<li>${x}</li>`).join("")}</ol>` : ""}
-         ${h.dataIdeas ? `<div class="box purple"><strong>Ideias de dados simples</strong><ul>${h.dataIdeas.map(x=>`<li>${x}</li>`).join("")}</ul></div>` : ""}`,
+         ${h.dataIdeas ? `<div class="box purple"><strong>Observação:</strong><ul>${h.dataIdeas.map(x=>`<li>${x}</li>`).join("")}</ul></div>` : ""}`,
         false
       ));
     }
 
-    // Interpret + mistakes
-    panels.appendChild(block("4) Como interpretar (o que escrever no dossiê)", "interpretação",
+    panels.appendChild(block("6) Como interpretar (o que escrever no dossiê)", "interpretação",
       (week.interpret||[]).map(p=>`<p>${p}</p>`).join(""), false
     ));
 
-    panels.appendChild(block("5) Erros comuns desta semana (evite)", "atenção",
+    panels.appendChild(block("7) Erros comuns desta semana (evite)", "atenção",
       `<div class="box warn"><ul>${(week.mistakes||[]).map(x=>`<li>${x}</li>`).join("")}</ul></div>`, false
     ));
 
-    // Activity
-    panels.appendChild(block("6) Atividade da semana (cabe em 4h)", "atividade",
+    panels.appendChild(block("8) Atividade da semana (cabe em 4h)", "atividade",
       `<div class="box ok"><strong>Tarefa:</strong> ${week.activity||"—"}</div>`, false
     ));
 
-    // Dossier
-    panels.appendChild(block("7) Dossiê (1 lauda) – modelo desta semana", "entrega",
-      `<ol>${(week.dossier||[]).map(x=>`<li>${x}</li>`).join("")}</ol>
-       <div class="box"><strong>Correção rápida:</strong> eu olho se a pergunta está clara, se o gráfico responde a pergunta e se a interpretação tem 1 limitação.</div>`, false
-    ));
+    let dossierHtml = `<ol>${(week.dossier||[]).map(x=>`<li>${x}</li>`).join("")}</ol>`;
+    if(week.dossierModelText){
+      dossierHtml += `<div class="box"><strong>Texto-modelo (exemplo do professor):</strong><p style="margin:8px 0 0">${week.dossierModelText}</p></div>`;
+    }
+    dossierHtml += `<div class="box"><strong>Correção rápida:</strong> eu olho se a pergunta está clara, se a tabela está correta, se há réplicas e se o gráfico conversa com a pergunta.</div>`;
+    panels.appendChild(block("9) Dossiê (1 lauda) – modelo desta semana", "entrega", dossierHtml, false));
 
-    // Links + editor
+    if(week.saturday){
+      panels.appendChild(block("10) Sábado (orientação)", "sábado",
+        `<div class="box warn"><p>${week.saturday}</p></div>`, false
+      ));
+    }
+
     const links = getLinksFor(id);
-    panels.appendChild(block("8) Links (Khan/YouTube)", "editável",
+    panels.appendChild(block("11) Links (Khan/YouTube)", "editável",
       `<p><strong>Links desta semana:</strong></p>${renderLinks(links)}`, false
     ));
 
@@ -901,11 +838,10 @@
     ed.querySelector("#ed").appendChild(buildLinkEditor(id));
     panels.appendChild(ed);
 
-    // Quiz
     const q=document.createElement("details");
     q.open=false;
     week._id=id;
-    q.innerHTML=`<summary>9) Quiz da semana <span class="chip">3 questões</span></summary><div class="sec" id="qm"></div>`;
+    q.innerHTML=`<summary>Quiz da semana <span class="chip">3 questões</span></summary><div class="sec" id="qm"></div>`;
     q.querySelector("#qm").appendChild(buildQuiz(week));
     panels.appendChild(q);
 
