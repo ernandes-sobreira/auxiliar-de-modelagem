@@ -3,894 +3,917 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Curso – Estatística e Modelagem (Biologia/Ecologia/Saúde)</title>
+  <title>Estatística e Modelagem – Biologia, Ecologia e Saúde</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --text:#0b1220; --muted:#475569; --line:#e5e7eb; --shadow:0 10px 24px rgba(2,6,23,.08);
-      --pink:#ff006e; --blue:#3a86ff; --green:#06d6a0; --yellow:#ffbe0b; --orange:#fb5607; --purple:#8338ec;
+    :root {
+      --bg: #ffffff;
+      --surface: #f8f9fc;
+      --border: #e8ecf2;
+      --text: #111827;
+      --muted: #5a6480;
+      --accent1: #2563eb;
+      --accent2: #7c3aed;
+      --accent3: #059669;
+      --accent4: #dc2626;
+      --accent5: #d97706;
+      --accent6: #db2777;
+      --shadow-sm: 0 2px 8px rgba(17,24,39,.06);
+      --shadow: 0 6px 24px rgba(17,24,39,.09);
+      --shadow-lg: 0 16px 48px rgba(17,24,39,.12);
+      --r: 16px;
     }
-    *{box-sizing:border-box}
-    body{margin:0;background:#fff;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
-    header{
-      border-bottom:1px solid var(--line);
-      background:
-        radial-gradient(1000px 380px at 10% -10%, rgba(255,0,110,.14), transparent 55%),
-        radial-gradient(1000px 380px at 90% -10%, rgba(58,134,255,.14), transparent 55%),
-        radial-gradient(1000px 380px at 50% 10%, rgba(6,214,160,.08), transparent 60%),
-        #fff;
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
     }
-    .wrap{max-width:1180px;margin:0 auto;padding:0 14px}
-    h1{margin:0;padding:18px 0 6px;font-size:22px;letter-spacing:-.01em}
-    .sub{margin:0 0 14px;color:var(--muted);font-size:13px;max-width:1080px}
-    .badges{display:flex;flex-wrap:wrap;gap:8px;padding:0 0 16px}
-    .badge{font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;box-shadow:0 4px 12px rgba(2,6,23,.04)}
-    main{padding:14px 0 28px}
-    .grid{display:grid;grid-template-columns:430px 1fr;gap:12px}
-    @media (max-width:980px){.grid{grid-template-columns:1fr}}
-    .card{border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:var(--shadow);overflow:hidden}
-    .cardHead{padding:12px;border-bottom:1px solid var(--line);display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
-    .cardHead strong{font-size:14px}
-    .btnRow{display:flex;gap:10px;flex-wrap:wrap}
-    button{border:none;border-radius:12px;padding:10px 12px;cursor:pointer;font-weight:900;background:#f1f5f9;border:1px solid var(--line);color:var(--text)}
-    button.primary{background:linear-gradient(90deg,var(--blue),var(--pink));color:#fff;border:none}
-    button.accent{background:linear-gradient(90deg,var(--green),var(--yellow));border:none}
-    button.warn{background:linear-gradient(90deg,var(--orange),var(--pink));color:#fff;border:none}
-    button:disabled{opacity:.55;cursor:not-allowed}
-    .list{padding:10px 12px;max-height:72vh;overflow:auto}
-    .lessonBtn{width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;cursor:pointer;margin:10px 0;transition:.12s transform ease}
-    .lessonBtn:hover{transform:translateY(-1px)}
-    .topLine{display:flex;justify-content:space-between;gap:10px;font-weight:900;font-size:13px}
-    .dates{margin-top:4px;color:var(--muted);font-size:12px}
-    .tag{font-size:11px;padding:4px 8px;border-radius:999px;color:#fff;background:linear-gradient(90deg,var(--orange),var(--pink));white-space:nowrap}
-    .tag.ok{background:linear-gradient(90deg,var(--green),var(--yellow));color:#0b1220}
-    .content{padding:12px 12px 14px}
-    .title{font-size:18px;margin:0 0 6px}
-    .meta{color:var(--muted);font-size:12px;margin-bottom:12px}
-    details{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;margin:10px 0}
-    summary{list-style:none;cursor:pointer;padding:12px;font-weight:900;display:flex;justify-content:space-between;gap:10px;align-items:center}
-    summary::-webkit-details-marker{display:none}
-    .chip{font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:#fff;white-space:nowrap}
-    .sec{padding:0 12px 12px}
-    .sec p{margin:10px 0}
-    .sec ul,.sec ol{margin:8px 0 10px 18px}
-    .box{border-radius:14px;border:1px dashed rgba(58,134,255,.35);background:rgba(58,134,255,.06);padding:10px;margin:10px 0}
-    .box.ok{border:1px dashed rgba(6,214,160,.45);background:rgba(6,214,160,.08)}
-    .box.warn{border:1px dashed rgba(251,86,7,.45);background:rgba(251,86,7,.08)}
-    .box.purple{border:1px dashed rgba(131,56,236,.45);background:rgba(131,56,236,.08)}
-    .links a{color:#0b1220;font-weight:900;text-decoration:none;border-bottom:2px solid rgba(58,134,255,.35);word-break:break-word}
-    .linkItem{border:1px solid var(--line);border-radius:14px;padding:10px;margin:10px 0;background:#fff}
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    @media (max-width:720px){.row{grid-template-columns:1fr}}
-    input[type="text"],input[type="url"]{width:100%;border:1px solid var(--line);border-radius:12px;padding:10px;outline:none;font-size:13px;font-family:inherit}
-    .quiz{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff;margin-top:10px}
-    .q{border-top:1px solid var(--line);padding-top:10px;margin-top:10px}
-    .q:first-child{border-top:none;padding-top:0;margin-top:0}
-    .qtitle{font-weight:900;margin-bottom:6px}
-    .opts label{display:block;margin:6px 0}
-    .result{margin-top:10px;background:#0b1220;color:#e2e8f0;border-radius:14px;padding:10px;font-size:12px;white-space:pre-wrap;display:none}
-    .callout{border-left:6px solid rgba(58,134,255,.45);padding:10px 12px;background:rgba(58,134,255,.06);border-radius:14px}
-    code.inline{background:#f1f5f9;border:1px solid var(--line);padding:2px 6px;border-radius:8px;font-size:12px}
+
+    /* ── HEADER ── */
+    .site-header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #312e81 40%, #4c1d95 100%);
+      color: #fff;
+      padding: 40px 0 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .site-header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 800px 400px at 80% -20%, rgba(165,180,252,.18), transparent),
+                  radial-gradient(ellipse 600px 300px at 10% 120%, rgba(167,243,208,.12), transparent);
+      pointer-events: none;
+    }
+    .header-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+      position: relative;
+    }
+    .course-label {
+      display: inline-block;
+      font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25);
+      padding: 5px 12px; border-radius: 999px; margin-bottom: 16px;
+    }
+    .site-header h1 {
+      margin: 0 0 10px; font-family: 'Lora', Georgia, serif;
+      font-size: clamp(22px, 4vw, 32px); font-weight: 700; line-height: 1.25;
+    }
+    .site-header p {
+      margin: 0 0 20px; color: rgba(255,255,255,.8); max-width: 640px; font-size: 14px;
+    }
+    .meta-pills {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .meta-pill {
+      font-size: 12px; font-weight: 600;
+      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+      color: rgba(255,255,255,.9); padding: 5px 12px; border-radius: 999px;
+    }
+
+    /* ── LAYOUT ── */
+    .layout {
+      max-width: 1100px; margin: 0 auto; padding: 28px 24px 60px;
+      display: grid; grid-template-columns: 280px 1fr; gap: 28px; align-items: start;
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: sticky; top: 24px;
+    }
+    .sidebar-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--r); box-shadow: var(--shadow-sm); overflow: hidden;
+    }
+    .sidebar-title {
+      padding: 14px 16px; font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .1em; color: var(--muted);
+      border-bottom: 1px solid var(--border); background: var(--surface);
+    }
+    .week-nav { padding: 8px; }
+    .week-btn {
+      width: 100%; background: none; border: none; cursor: pointer;
+      text-align: left; padding: 9px 10px; border-radius: 10px;
+      display: flex; align-items: center; gap: 10px;
+      transition: background .15s; font-family: inherit;
+    }
+    .week-btn:hover { background: var(--surface); }
+    .week-btn.active {
+      background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+      border: 1px solid #c7d2fe;
+    }
+    .week-num {
+      width: 28px; height: 28px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; flex-shrink: 0;
+      background: var(--surface); border: 1px solid var(--border); color: var(--muted);
+    }
+    .week-btn.active .week-num {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      border-color: transparent; color: #fff;
+    }
+    .week-info { min-width: 0; }
+    .week-info strong { display: block; font-size: 12px; font-weight: 600; line-height: 1.3; }
+    .week-info span { font-size: 11px; color: var(--muted); }
+
+    /* ── MAIN CONTENT ── */
+    .main-content { min-width: 0; }
+
+    .week-header {
+      background: linear-gradient(135deg, var(--surface), #f0f4ff);
+      border: 1px solid var(--border); border-radius: var(--r);
+      padding: 24px 28px 20px; margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .week-header .week-tag {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--accent1); margin-bottom: 8px;
+    }
+    .week-header h2 {
+      font-family: 'Lora', Georgia, serif;
+      margin: 0 0 8px; font-size: clamp(18px, 3vw, 24px); line-height: 1.3;
+    }
+    .week-header .dates-line {
+      font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px;
+    }
+    .dates-line svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ── SECTIONS ── */
+    .section {
+      border: 1px solid var(--border); border-radius: var(--r);
+      background: var(--bg); margin-bottom: 14px;
+      box-shadow: var(--shadow-sm); overflow: hidden;
+    }
+    .section-toggle {
+      width: 100%; background: none; border: none; cursor: pointer;
+      padding: 16px 20px; display: flex; align-items: center; gap: 12px;
+      text-align: left; font-family: inherit; transition: background .15s;
+    }
+    .section-toggle:hover { background: var(--surface); }
+    .section-icon {
+      width: 34px; height: 34px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .section-toggle h3 {
+      margin: 0; font-size: 14px; font-weight: 700; flex: 1;
+    }
+    .section-toggle .chip {
+      font-size: 11px; padding: 3px 9px; border-radius: 999px;
+      border: 1px solid var(--border); color: var(--muted); white-space: nowrap;
+    }
+    .chevron {
+      width: 18px; height: 18px; color: var(--muted);
+      transition: transform .25s; flex-shrink: 0;
+    }
+    .section.open .chevron { transform: rotate(180deg); }
+    .section-body {
+      display: none; padding: 0 20px 20px; border-top: 1px solid var(--border);
+    }
+    .section.open .section-body { display: block; }
+
+    /* ── CONTENT ELEMENTS ── */
+    .section-body p { margin: 12px 0; color: #1e293b; }
+    .section-body h4 {
+      font-family: 'Lora', serif; font-size: 15px; font-weight: 600;
+      margin: 20px 0 8px; color: var(--text); border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+    }
+    .section-body ul, .section-body ol {
+      margin: 8px 0 14px; padding-left: 20px;
+    }
+    .section-body li { margin: 6px 0; }
+
+    /* callout boxes */
+    .box {
+      border-radius: 12px; padding: 14px 16px; margin: 14px 0;
+      font-size: 14px; line-height: 1.65;
+    }
+    .box.blue { background: #eff6ff; border: 1px solid #bfdbfe; }
+    .box.green { background: #ecfdf5; border: 1px solid #a7f3d0; }
+    .box.yellow { background: #fffbeb; border: 1px solid #fde68a; }
+    .box.red { background: #fef2f2; border: 1px solid #fecaca; }
+    .box.purple { background: #f5f3ff; border: 1px solid #ddd6fe; }
+    .box.gray { background: var(--surface); border: 1px solid var(--border); }
+    .box strong { display: block; margin-bottom: 6px; }
+
+    /* definition grid */
+    .def-grid { display: grid; gap: 10px; margin: 10px 0; }
+    .def-card {
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 12px 14px; background: var(--surface);
+    }
+    .def-term {
+      font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px;
+    }
+    .def-text { font-size: 13px; color: #334155; line-height: 1.6; }
+
+    /* accent left border */
+    .callout {
+      border-left: 4px solid var(--accent1);
+      background: #eff6ff; padding: 12px 16px;
+      border-radius: 0 12px 12px 0; margin: 14px 0; font-size: 14px;
+    }
+    .callout.green { border-color: var(--accent3); background: #ecfdf5; }
+    .callout.purple { border-color: var(--accent2); background: #f5f3ff; }
+    .callout.red { border-color: var(--accent4); background: #fef2f2; }
+    .callout.yellow { border-color: var(--accent5); background: #fffbeb; }
+
+    /* story block */
+    .story-block {
+      font-family: 'Lora', serif; font-style: italic;
+      background: #fafafa; border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 20px; margin: 14px 0;
+      font-size: 14px; line-height: 1.75; color: #374151;
+    }
+    .story-block p { margin: 8px 0; }
+
+    /* numbered steps */
+    .steps { counter-reset: step; margin: 14px 0; }
+    .step-item {
+      display: flex; gap: 14px; align-items: flex-start; margin: 10px 0;
+    }
+    .step-num {
+      counter-increment: step;
+      min-width: 28px; height: 28px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      color: #fff; font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .step-num::before { content: counter(step); }
+    .step-text { font-size: 14px; padding-top: 4px; }
+
+    /* tags */
+    .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+    .tag {
+      font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px;
+    }
+    .tag.blue { background: #dbeafe; color: #1e40af; }
+    .tag.green { background: #d1fae5; color: #065f46; }
+    .tag.purple { background: #ede9fe; color: #5b21b6; }
+    .tag.red { background: #fee2e2; color: #991b1b; }
+    .tag.yellow { background: #fef3c7; color: #92400e; }
+
+    /* section color coding */
+    .icon-goals { background: #dbeafe; }
+    .icon-mind  { background: #d1fae5; }
+    .icon-story { background: #fce7f3; }
+    .icon-defs  { background: #ede9fe; }
+    .icon-how   { background: #fef3c7; }
+    .icon-interp{ background: #d1fae5; }
+    .icon-err   { background: #fee2e2; }
+    .icon-links { background: #e0f2fe; }
+
+    /* saturday highlight */
+    .saturday-box {
+      background: linear-gradient(135deg, #fef9c3, #fef3c7);
+      border: 1px solid #fde68a; border-radius: 12px; padding: 14px 16px;
+      font-size: 14px; display: flex; gap: 12px; align-items: flex-start;
+    }
+    .saturday-icon { font-size: 20px; flex-shrink: 0; }
+
+    /* quote highlight */
+    blockquote {
+      border-left: 4px solid var(--accent2);
+      margin: 14px 0; padding: 8px 16px;
+      background: #f5f3ff; border-radius: 0 10px 10px 0;
+      font-style: italic; font-size: 14px; color: #4c1d95;
+    }
+
+    /* no-content state */
+    .empty-state {
+      text-align: center; padding: 60px 24px; color: var(--muted);
+    }
+    .empty-state .big { font-size: 48px; margin-bottom: 16px; }
+    .empty-state p { max-width: 360px; margin: 0 auto; font-size: 14px; }
+
+    /* mobile tweaks */
+    @media (max-width: 600px) {
+      .layout { padding: 16px 14px 40px; gap: 16px; }
+      .week-header { padding: 18px 16px; }
+      .section-toggle { padding: 13px 14px; }
+      .section-body { padding: 0 14px 16px; }
+    }
   </style>
 </head>
-
 <body>
-<header>
-  <div class="wrap">
-    <h1>Curso – Estatística e Modelagem (Biologia/Ecologia/Saúde)</h1>
-    <p class="sub">
-      Cada semana tem roteiro próprio: explicações do zero, exemplos do cotidiano, passo a passo e interpretação.
-      Links são somente Khan/YouTube (editáveis). Salve suas notas no navegador ou no celular.
-    </p>
-    <div class="badges">
-      <span class="badge">60h • 15 semanas • 4h/semana</span>
-      <span class="badge">Online</span>
-      <span class="badge">PAST 4 + LibreOffice</span>
-      <span class="badge">Dossiê semanal (1 lauda)</span>
-      <span class="badge">Quiz curto por semana</span>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="course-label">Material de Estudo</div>
+    <h1>Estatística e Modelagem<br>Biologia, Ecologia e Saúde</h1>
+    <p>Roteiro semanal completo para leitura e acompanhamento. Cada semana traz explicações do zero, exemplos do cotidiano e orientações de interpretação.</p>
+    <div class="meta-pills">
+      <span class="meta-pill">60 horas</span>
+      <span class="meta-pill">15 semanas</span>
+      <span class="meta-pill">4 h / semana</span>
+      <span class="meta-pill">PAST 4 + LibreOffice</span>
+      <span class="meta-pill">Online</span>
     </div>
   </div>
 </header>
 
-<main class="wrap">
-  <div class="grid">
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">Semanas do curso</div>
+      <div class="week-nav" id="weekNav"></div>
+    </div>
+  </aside>
 
-    <section class="card">
-      <div class="cardHead">
-        <strong>Semanas</strong>
-        <div class="btnRow">
-          <button class="accent" id="btnExport">Exportar progresso (JSON)</button>
-          <button class="warn" id="btnReset">Resetar</button>
-        </div>
-      </div>
-      <div class="list" id="lessonList"></div>
-    </section>
-
-    <section class="card">
-      <div class="cardHead">
-        <strong>Semana selecionada</strong>
-        <div class="btnRow">
-          <button class="primary" id="btnDone">Marcar como concluída</button>
-          <button id="btnUndone">Desmarcar</button>
-        </div>
-      </div>
-      <div class="content">
-        <h2 class="title" id="title">Selecione uma semana</h2>
-        <div class="meta" id="meta">—</div>
-        <div id="panels"></div>
-      </div>
-    </section>
-
-  </div>
-</main>
+  <main class="main-content" id="mainContent">
+    <div class="empty-state">
+      <div class="big">📖</div>
+      <p>Selecione uma semana no menu ao lado para começar a leitura.</p>
+    </div>
+  </main>
+</div>
 
 <script>
-  // =======================
-  // 1) SEMANAS (títulos + datas)
-  // =======================
-  const LESSONS = [
-    {id:1,  dates:"23/02/2026 a 28/02/2026", title:"Pergunta científica + desenho amostral"},
-    {id:2,  dates:"02/03/2026 a 07/03/2026", title:"Tipos de dados/variáveis + organização da tabela"},
-    {id:3,  dates:"09/03/2026 a 14/03/2026", title:"Gráficos (semana exclusiva) + como escolher e interpretar"},
-    {id:4,  dates:"16/03/2026 a 21/03/2026", title:"Probabilidade e inferência na prática"},
-    {id:5,  dates:"23/03/2026 a 28/03/2026", title:"Distribuições (normal, binomial, Poisson) com exemplos simples"},
-    {id:6,  dates:"30/03/2026 a 04/04/2026", title:"Premissas + outliers + decisão paramétrico vs não paramétrico"},
-    {id:7,  dates:"06/04/2026 a 11/04/2026", title:"Teste t (2 grupos) + tamanho de efeito e interpretação"},
-    {id:8,  dates:"13/04/2026 a 18/04/2026", title:"ANOVA 1 via (3+ grupos) + pós-testes (Tukey/LSD)"},
-    {id:9,  dates:"20/04/2026 a 25/04/2026", title:"ANOVA 2 vias + interação"},
-    {id:10, dates:"27/04/2026 a 02/05/2026", title:"Qui-quadrado (categorias) + tabelas de contingência"},
-    {id:11, dates:"04/05/2026 a 09/05/2026", title:"Correlação (Pearson/Spearman) + por que não é causalidade"},
-    {id:12, dates:"11/05/2026 a 16/05/2026", title:"Regressão linear + resíduos + previsões"},
-    {id:13, dates:"18/05/2026 a 23/05/2026", title:"GLM (Poisson/Binomial) – contagens e proporções"},
-    {id:14, dates:"25/05/2026 a 30/05/2026", title:"Multivariado + ANCOVA + viés + teste cego"},
-    {id:15, dates:"01/06/2026 a 06/06/2026", title:"Projeto final: pergunta, dados, análise e apresentação"}
-  ];
+// ══════════════════════════════════════════════════════
+// DADOS DAS SEMANAS
+// ══════════════════════════════════════════════════════
+const LESSONS = [
+  {id:1,  dates:"23/02 – 28/02/2026", title:"Pergunta científica e desenho amostral"},
+  {id:2,  dates:"02/03 – 07/03/2026", title:"Tipos de dados e organização da tabela"},
+  {id:3,  dates:"09/03 – 14/03/2026", title:"Gráficos: como escolher e interpretar"},
+  {id:4,  dates:"16/03 – 21/03/2026", title:"Probabilidade e inferência na prática"},
+  {id:5,  dates:"23/03 – 28/03/2026", title:"Distribuições: normal, binomial, Poisson"},
+  {id:6,  dates:"30/03 – 04/04/2026", title:"Premissas, outliers e decisão paramétrica"},
+  {id:7,  dates:"06/04 – 11/04/2026", title:"Teste t: dois grupos, efeito e interpretação"},
+  {id:8,  dates:"13/04 – 18/04/2026", title:"ANOVA 1 via e pós-testes"},
+  {id:9,  dates:"20/04 – 25/04/2026", title:"ANOVA 2 vias e interação"},
+  {id:10, dates:"27/04 – 02/05/2026", title:"Qui-quadrado e tabelas de contingência"},
+  {id:11, dates:"04/05 – 09/05/2026", title:"Correlação: Pearson, Spearman e causalidade"},
+  {id:12, dates:"11/05 – 16/05/2026", title:"Regressão linear, resíduos e previsões"},
+  {id:13, dates:"18/05 – 23/05/2026", title:"GLM: contagens e proporções"},
+  {id:14, dates:"25/05 – 30/05/2026", title:"Multivariado, ANCOVA, viés e controle"},
+  {id:15, dates:"01/06 – 06/06/2026", title:"Projeto final: do dado à interpretação"}
+];
 
-  // =======================
-  // 2) LINKS – padrão só Khan (PT). Você edita por semana.
-  // =======================
-  const DEFAULT_LINKS = [
-    {label:"Khan Academy (PT) – Estatística e probabilidade", url:"https://pt.khanacademy.org/math/statistics-probability"}
-  ];
+// ══════════════════════════════════════════════════════
+// CONTEÚDO EXPANDIDO
+// ══════════════════════════════════════════════════════
+const CONTENT = {};
 
-  // =======================
-  // 3) ESTADO
-  // =======================
-  const KEY = "curso_plataforma_v6_s1_s2";
-  let state = { currentId:null, done:{}, links:{} };
-  function loadState(){
-    const raw = localStorage.getItem(KEY);
-    if(raw){ try{ state = JSON.parse(raw); } catch(e){} }
-  }
-  function saveState(){ localStorage.setItem(KEY, JSON.stringify(state)); }
-  function getLinksFor(id){
-    const custom = state.links?.[id];
-    if(Array.isArray(custom)) return custom;
-    return DEFAULT_LINKS.slice();
-  }
-
-  // =======================
-  // 4) CONTEÚDO POR SEMANA
-  // =======================
-  const COURSE = {
-    1: week1Master(),
-    2: week2Master(),
-    3: mkWeek3Short(),
-    4: mkWeek4Short(),
-    5: mkWeek5Short(),
-    6: mkWeek6Short(),
-    7: mkWeek7Short(),
-    8: mkWeek8Short(),
-    9: mkWeek9Short(),
-    10: mkWeek10Short(),
-    11: mkWeek11Short(),
-    12: mkWeek12Short(),
-    13: mkWeek13Short(),
-    14: mkWeek14Short(),
-    15: mkWeek15Short()
-  };
-
-  // -------- Semana 1 (MASTER) --------
-  function week1Master(){
-    return {
-      goals:[
-        "Transformar curiosidade em pergunta científica testável (sem ficar vago).",
-        "Entender do zero o que são X (explicativa) e Y (resposta) e por que isso manda na análise.",
-        "Definir unidade amostral e réplicas para não cair em pseudorrepetição.",
-        "Planejar um desenho amostral simples, possível em 7 dias, com dados do cotidiano e custo zero.",
-        "Montar uma tabela mínima correta e produzir um primeiro gráfico coerente com a pergunta."
-      ],
-      definitions:[
-        {term:"Ciência (o que significa aqui)", def:"Ciência é um jeito organizado de fazer perguntas sobre o mundo e usar dados para reduzir achismo. Não é decorar fórmula. É perguntar bem, medir bem e interpretar com honestidade."},
-        {term:"Curiosidade vs pergunta científica", def:"Curiosidade é ampla (“o clima afeta minha vida?”). Pergunta científica é específica e testável (“em dias mais quentes, eu bebo mais água?”). Se vira uma tabela com números, está no caminho certo."},
-        {term:"Variável", def:"Qualquer coisa que pode mudar e que você consegue registrar. Pode ser número (horas de sono) ou categoria (choveu: sim/não)."},
-        {term:"Y (variável resposta)", def:"Y é o resultado que você quer entender. Ex.: horas de sono; passos; humor (0–10); copos de água."},
-        {term:"X (variável explicativa)", def:"X é o fator que você suspeita que se relaciona com Y. Ex.: tempo de tela; temperatura; horas de estudo; treino (sim/não)."},
-        {term:"Eixos", def:"Os eixos são as ‘réguas’ do gráfico. O eixo horizontal costuma mostrar X; o vertical costuma mostrar Y. Trocar eixo muda a leitura e, às vezes, muda a pergunta."},
-        {term:"Unidade", def:"Minutos, horas, passos, °C, copos… Unidade clara evita confusão e facilita correção."},
-        {term:"Observação", def:"Uma observação é uma linha da tabela. Ex.: um dia com valores de Y e X."},
-        {term:"Unidade amostral", def:"O que conta como 1 observação independente (ex.: 1 dia). Isso define o que é réplica de verdade."},
-        {term:"Réplica", def:"Unidades independentes repetidas (ex.: 7 dias). Não é repetir o mesmo dia 3 vezes."},
-        {term:"Variação", def:"A vida muda. Sono, passos e humor não são constantes. Estatística existe para lidar com essa variação sem se enganar."},
-        {term:"Dispersão", def:"O quão espalhados os valores estão. Dois conjuntos podem ter a mesma média e dispersões bem diferentes."},
-        {term:"Média", def:"Um resumo útil, mas pode esconder extremos. Por isso gráfico importa."},
-        {term:"Variância", def:"Uma forma de medir dispersão: quanto os dados se afastam da média. Variância grande = dados muito diferentes entre si."},
-        {term:"Sinal vs ruído", def:"Sinal é padrão consistente; ruído é variação do cotidiano. A meta é não confundir ruído com sinal."},
-        {term:"Viés", def:"Erro sistemático: escolher só dias bons, medir em horários diferentes, registrar quando lembra. Viés engana sem parecer erro."},
-        {term:"Pseudorrepetição", def:"Tratar medidas não independentes como réplicas (ex.: repetir o mesmo dia e dizer que aumentou o n)."}
-      ],
-      mindset:[
-        "A estatística não é tribunal. Ela te ensina a fazer perguntas melhores e interpretar padrões com cautela.",
-        "Antes de teste, o cientista olha o gráfico e pergunta: ‘isso parece sinal ou é só vida variando?’",
-        "Padronização + réplicas + transparência = credibilidade."
-      ],
-      story:[
-        "Imagine duas semanas: em uma você usa muito o celular à noite; em outra, você reduz. Você quer saber se isso muda seu sono.",
-        "Se você só olhar um dia, você se engana fácil. Um dia ruim acontece.",
-        "Quando você registra vários dias com a mesma regra, você começa a ver se há padrão real."
-      ],
-      howTo:{
-        title:"Como montar um mini-projeto científico em 7 dias (sem instrumentos)",
-        steps:[
-          "Escolha uma pergunta que vire tabela com números.",
-          "Defina Y e X em 1 linha: ‘Quero investigar se X está associado a Y’.",
-          "Defina unidade amostral (recomendação: 1 dia).",
-          "Defina regra fixa de coleta (padronização): horário e forma de registrar.",
-          "Garanta réplicas: mínimo 6 dias; ideal 7 dias completos.",
-          "Monte tabela mínima: Data | Y | X | Observações (curto).",
-          "Faça 1 gráfico coerente: se X e Y são numéricos, use dispersão; se X é categoria (sim/não), use boxplot com pontos."
-        ],
-        dataIdeas:[
-          "Sono (h) vs tempo de tela (min) (celular).",
-          "Passos do dia vs tempo sentado (celular).",
-          "Temperatura (app clima) vs consumo de água (copos).",
-          "Choveu (sim/não) vs humor (0–10).",
-          "Treino (sim/não) vs qualidade do sono (0–10)."
-        ]
-      },
-      interpret:[
-        "Nesta primeira semana, a qualidade do desenho vale mais do que o resultado. O foco é: pergunta + padronização + réplicas.",
-        "Uma interpretação boa tem 3 frases: pergunta; desenho (unidade amostral e réplicas); o que você espera ver no gráfico.",
-        "Evite ‘prova/certo/garantido’. Use ‘investigar/sugerir/observar padrão’."
-      ],
-      mistakes:[
-        "Pergunta ampla demais (não vira tabela).",
-        "Mudar regra de coleta no meio da semana.",
-        "Confundir réplica com repetir a mesma medida no mesmo dia.",
-        "Registrar média da semana em vez de registrar cada dia.",
-        "Esquecer unidades."
-      ],
-      activity:"Defina uma pergunta científica executável, planeje o desenho e colete no mínimo 6 observações (dias). Produza tabela mínima e 1 gráfico coerente.",
-      dossier:[
-        "Pergunta científica (1 linha).",
-        "Definições do seu projeto (4 linhas): Y, X, unidade amostral, regra fixa de coleta.",
-        "Tabela mínima (mín. 6 linhas).",
-        "1 gráfico preliminar coerente com a pergunta.",
-        "Parágrafo curto (5–7 linhas): o que você espera ver e qual é a principal limitação."
-      ],
-      dossierModelText:
-        "Pergunta científica: ‘O tempo de tela à noite (X, em minutos) está associado ao número de horas de sono (Y, em horas) ao longo de dias?’. " +
-        "Unidade amostral: 1 dia. Réplicas: 7 dias. Regra fixa: registrar sempre às 9h os valores do dia anterior. " +
-        "Gráfico (dispersão) para observar se, quando X aumenta, Y tende a diminuir. Limitação: stress/café/barulho podem afetar o sono e não serão medidos nesta semana.",
-      saturday:"Sábado 28/02/2026: nesta data não haverá encontro de tira-dúvidas. O sábado será usado para organizar a tabela, revisar a pergunta e enviar o dossiê semanal (1 lauda).",
-      quiz:[
-        {q:"Em uma pergunta científica bem formada, Y representa:", opts:[
-          "O eixo do gráfico (sempre)",
-          "A variável resposta (o resultado que quero entender)",
-          "A unidade amostral",
-          "O viés do estudo"
-        ], ans:1, fb:[
-          "Eixo e variável podem se relacionar, mas não são a mesma coisa.",
-          "Correto. Y é o resultado que você quer explicar/entender.",
-          "Unidade amostral é outra ideia: o que conta como uma observação.",
-          "Viés é um tipo de erro sistemático, não é Y."
-        ]},
-        {q:"Qual situação descreve réplica (e não repetição técnica)?", opts:[
-          "Medir o mesmo dia 3 vezes",
-          "Registrar 7 dias diferentes com a mesma regra",
-          "Editar a tabela para ficar bonita",
-          "Excluir dias que deram diferente"
-        ], ans:1, fb:[
-          "Isso é repetição técnica, não garante independência.",
-          "Correto. Réplica são unidades independentes (dias diferentes).",
-          "Isso é formatação, não desenho amostral.",
-          "Isso cria viés e estraga o estudo."
-        ]},
-        {q:"Um bom motivo para definir unidade amostral é:", opts:[
-          "Para aumentar o p-valor",
-          "Para saber quantas observações independentes existem",
-          "Para provar causalidade",
-          "Para eliminar variância"
-        ], ans:1, fb:[
-          "p-valor não é objetivo do desenho.",
-          "Correto. Sem unidade amostral, você se engana sobre n e independência.",
-          "Causalidade depende de desenho experimental; unidade amostral é parte da base.",
-          "Variância existe; a ideia é lidar bem com ela."
-        ]}
-      ]
-    };
-  }
-
-  // -------- Semana 2 (MASTER) --------
-  function week2Master(){
-    return {
-      goals:[
-        "Entender, do zero, os tipos de dados mais comuns (número, categoria, contagem, proporção) e por que isso decide o gráfico e o teste.",
-        "Aprender a montar uma tabela ‘analisável’: 1 linha = 1 observação; 1 coluna = 1 variável; unidades no lugar certo.",
-        "Evitar os erros que mais derrubam análises: misturar texto com número, unidades confusas, datas mal registradas, valores impossíveis.",
-        "Aprender a fazer uma ‘checagem de sanidade’ dos dados (antes de qualquer gráfico): o que parece erro de digitação? o que parece evento real?",
-        "Exportar o arquivo em CSV e preparar o dado para PAST 4 / LibreOffice sem sofrimento."
-      ],
-
-      mindset:[
-        "A maior parte dos erros em estatística não é ‘falta de fórmula’. É tabela ruim. Tabela ruim gera gráfico ruim. Gráfico ruim gera conclusão ruim.",
-        "Organizar dados é parte do método científico. É onde você prova que levou a coleta a sério.",
-        "A melhor tabela é aquela que outro colega consegue entender em 30 segundos — sem te perguntar nada."
-      ],
-
-      story:[
-        "Imagine dois alunos com a mesma pergunta: ‘tela vs sono’. Um registra ‘2h’, ‘120min’, ‘duas horas’, e às vezes esquece a data. O outro registra só números e unidade no cabeçalho.",
-        "O segundo aluno consegue analisar em 5 minutos. O primeiro vai passar a semana ‘brigando’ com a planilha.",
-        "Semana 2 é para você virar o segundo aluno. Isso muda tudo no resto do curso."
-      ],
-
-      definitions:[
-        {term:"Dado (o que é)", def:"Dado é um registro de observação. É o ‘fato’ que você guardou. Ex.: ‘06/03/2026 – sono 6,5h – tela 180min’. Dado não é opinião; é registro."},
-
-        {term:"Variável (relembrando)", def:"Uma coluna com algo que pode mudar: sono, tela, temperatura, treino (sim/não). Variável é a unidade básica da tabela."},
-
-        {term:"Variável numérica (quantitativa)", def:"Assume valores em forma de número. Pode ser contínua (tempo, temperatura) ou discreta (contagem). Normalmente entra em gráficos como histograma, boxplot, dispersão."},
-
-        {term:"Contínua", def:"Pode assumir muitos valores ‘no meio’. Ex.: 6,2 horas; 6,25 horas; 6,27 horas. Tempo e temperatura costumam ser contínuos."},
-
-        {term:"Discreta (contagem)", def:"Só faz sentido em números inteiros (0, 1, 2…). Ex.: número de despertares; número de copos d’água; número de vezes que você checou o celular."},
-
-        {term:"Variável categórica (qualitativa)", def:"Assume categorias. Ex.: choveu (sim/não); treino (sim/não); turno (manhã/tarde/noite). Categórica manda você pensar em comparação entre grupos ou tabelas de contagem."},
-
-        {term:"Nominal vs ordinal (categóricas)", def:"Nominal: sem ordem (cor, bairro, tipo). Ordinal: com ordem (baixo/médio/alto; ruim/ok/bom). Ordinal pode ser tratada com cuidado (às vezes vira número 1–5, mas isso tem armadilhas)."},
-
-        {term:"Proporção/percentual", def:"Parte de um todo. Ex.: % do dia em tela; % do tempo estudando. Tem limites (0 a 100%) e isso afeta modelos e interpretação."},
-
-        {term:"Unidade (onde colocar)", def:"Unidade deve ficar no cabeçalho (ex.: ‘Sono (h)’, ‘Tela (min)’). Na célula, guarde só o número: 6,5; 180. Isso evita erros e deixa o CSV limpo."},
-
-        {term:"Formato ‘dados arrumados’ (tidy data)", def:"Regra de ouro: cada linha é uma observação; cada coluna é uma variável; cada célula é um valor. Ex.: cada dia é uma linha. Isso permite filtrar, plotar e testar sem gambiarras."},
-
-        {term:"Cabeçalho (por que importa)", def:"O cabeçalho diz o que cada coluna significa e a unidade. Sem cabeçalho claro, ninguém sabe o que é 180 (min? horas? passos?)."},
-
-        {term:"Data (como registrar)", def:"Data é uma variável importante porque define sequência e réplica. Recomenda-se registrar como dia/mês/ano (06/03/2026) de forma consistente. Data inconsistente quebra série temporal."},
-
-        {term:"Valores ausentes", def:"Às vezes você não tem o dado. Isso é normal. O erro é inventar. Registre como vazio ou ‘NA’ (se você usar). Melhor um dado ausente honesto do que um número inventado."},
-
-        {term:"Erro de digitação vs evento real", def:"Erro de digitação é ‘sono 65 horas’. Evento real é ‘sono 3 horas’ (pode acontecer). Semana 2 te treina a separar um do outro com checagem simples."},
-
-        {term:"Checagem de sanidade", def:"Perguntas rápidas: (1) existem valores impossíveis? (2) unidade está consistente? (3) tem duplicata de data? (4) tem números como texto? (5) tem vírgula/ponto confuso?"},
-
-        {term:"Separador decimal (vírgula/ponto)", def:"No Brasil, vírgula é comum (6,5). Em CSV e alguns softwares, ponto (6.5) pode ser mais aceito. O segredo é: seja consistente e, se necessário, converta uma vez no final."},
-
-        {term:"Dicionário de dados (mini)", def:"Uma lista curtinha dizendo o que cada variável significa, unidade e como foi medida. Isso acelera correção e melhora sua escrita científica."}
-      ],
-
-      howTo:{
-        title:"Como deixar sua tabela pronta para análise (sem dor)",
-        steps:[
-          "Crie a tabela base com colunas mínimas: Data | Y (unidade) | X (unidade) | Grupo (se existir) | Observações (curto).",
-          "Padronize unidades: escolha uma e mantenha (minutos OU horas; não misture).",
-          "Padronize escrita numérica: mantenha vírgula OU ponto e não misture na mesma coluna.",
-          "Registre apenas números nas células de medidas (nada de ‘120 min’ dentro da célula).",
-          "Faça checagem de sanidade: valores impossíveis (ex.: sono 40h), datas repetidas, células vazias e números digitados como texto.",
-          "Se você mediu por dia: garanta que cada dia aparece no máximo uma vez.",
-          "Salve como CSV: LibreOffice → Arquivo → Salvar como → .csv (se perguntar, mantenha separador padrão e verifique a prévia).",
-          "Se for usar PAST 4: ele gosta de colunas numéricas limpas. Tabela limpa = análise rápida."
-        ],
-        dataIdeas:[
-          "Refine o que você já começou na Semana 1: organize a mesma coleta agora corretamente.",
-          "Se faltou dado na Semana 1, complete com mais 1–2 dias (sem inventar).",
-          "Se você quer trocar a pergunta, troque agora — mas defina Y e X com clareza e refaça a tabela com réplicas."
-        ]
-      },
-
-      interpret:[
-        "Nesta semana, o foco é ‘qualidade de dado’. Você não precisa de teste nenhum ainda para ter um dossiê excelente.",
-        "A interpretação boa descreve o seu dado: qual variável é numérica, qual é categórica, qual é contagem, e por que isso importa.",
-        "Se seu dado está limpo, você já está 70% do caminho para fazer gráfico bom e teste certo."
-      ],
-
-      mistakes:[
-        "Misturar unidade dentro da célula (ex.: ‘120 min’ em vez de 120).",
-        "Misturar minutos e horas na mesma coluna.",
-        "Registrar ‘duas horas’ como texto em vez de número.",
-        "Registrar mais de um registro para o mesmo dia (duplicata sem explicação).",
-        "Criar tabela ‘largona’ com dias em colunas (fica ruim para análise).",
-        "Corrigir dado “na cabeça” (inventar) em vez de marcar como ausente."
-      ],
-
-      activity:
-        "Pegue seus dados da Semana 1 e transforme em uma tabela perfeita: limpa, consistente e exportável. No final, gere 2 visualizações simples: (1) histograma do Y (para ver forma) e (2) o gráfico que responde a pergunta (dispersão X–Y ou boxplot por grupo).",
-
-      dossier:[
-        "Pergunta científica (1 linha).",
-        "Mini dicionário de dados (4–6 linhas): nome da variável, o que significa, unidade, como foi medida.",
-        "Tabela limpa (mín. 6 linhas) – pode ser print ou CSV anexado.",
-        "Checagem de sanidade: liste 3 coisas que você conferiu (unidade, valores impossíveis, duplicatas etc.).",
-        "2 gráficos: (1) histograma de Y e (2) gráfico principal da pergunta.",
-        "Parágrafo curto (5–7 linhas): o que o histograma sugere sobre o dado e como isso pode influenciar a análise."
-      ],
-
-      dossierModelText:
-        "Mini dicionário: Data (dd/mm/aaaa); Sono (h) = horas de sono do dia anterior, anotado às 9h; Tela (min) = minutos de tela do dia anterior, anotado às 9h. " +
-        "Checagem: (1) não há valores impossíveis (sono <0 ou >24); (2) não há dias duplicados; (3) unidades estão consistentes (sono em horas, tela em minutos). " +
-        "O histograma de Sono sugere leve assimetria (alguns dias muito baixos), o que indica que gráficos e testes devem considerar variabilidade e possíveis outliers.",
-
-      saturday:
-        "Sábado 07/03/2026: encontro online tira-dúvidas (foco: limpar tabela, conferir unidades, corrigir erros de digitação e exportar CSV).",
-
-      quiz:[
-        {q:"Qual regra descreve ‘dados arrumados’ (tidy data)?", opts:[
-          "Cada coluna é um dia e cada linha é uma variável",
-          "Cada linha é uma observação; cada coluna é uma variável; cada célula é um valor",
-          "Tudo em uma célula para ficar simples",
-          "Unidade misturada na célula para facilitar leitura"
-        ], ans:1, fb:[
-          "Isso é formato ‘largo’ e costuma atrapalhar análise.",
-          "Correto. Esse formato é o que mais funciona para gráfico e estatística.",
-          "Isso destrói a análise.",
-          "Isso suja o CSV e atrapalha softwares."
-        ]},
-        {q:"Onde a unidade deve ficar, de preferência?", opts:[
-          "Dentro da célula (ex.: 120 min)",
-          "No cabeçalho (ex.: Tela (min))",
-          "Nunca colocar unidade",
-          "Somente no dossiê, não na tabela"
-        ], ans:1, fb:[
-          "Isso mistura texto com número.",
-          "Correto. Cabeçalho com unidade, célula com número limpo.",
-          "Unidade é essencial para interpretação.",
-          "Melhor também estar no cabeçalho para análise."
-        ]},
-        {q:"Um exemplo de variável discreta (contagem) é:", opts:[
-          "Temperatura do dia (°C)",
-          "Horas de sono",
-          "Número de despertares durante a noite",
-          "Altura (cm)"
-        ], ans:2, fb:[
-          "Temperatura é contínua.",
-          "Horas podem ser contínuas.",
-          "Correto. Contagem costuma ser inteira: 0,1,2…",
-          "Altura é contínua."
-        ]}
-      ]
-    };
-  }
-
-  // =======================
-  // Semanas 3–15 (curtas por enquanto)
-  // =======================
-  function mkWeek3Short(){ return {
-    goals:["Escolher gráficos corretos."],
-    definitions:[{term:"Dispersão", def:"Relação X–Y."},{term:"Boxplot", def:"Comparar grupos."}],
-    howTo:{title:"Base", steps:["X–Y: dispersão; grupos: boxplot com pontos."]},
-    interpret:["Gráfico antes do teste."],
-    mistakes:["Barra escondendo dados."],
-    activity:"Faça 2 gráficos e compare.",
-    dossier:["2 gráficos + justificativa curta."],
-    saturday:"Sábado 14/03/2026: encontro online tira-dúvidas (foco: escolher gráfico correto e interpretar padrão/variabilidade).",
-    quiz:[
-      {q:"X–Y pede:", opts:["Dispersão","Pizza","Texto","Mapa"], ans:0, fb:["Correto.","Não.","Não.","Não."]},
-      {q:"Boxplot é bom para:", opts:["Grupos","Mapas","Texto","Somente séries"], ans:0, fb:["Correto.","Não.","Não.","Não."]},
-      {q:"Antes de teste:", opts:["Gráfico","Excluir outliers","Chutar","Somar tudo"], ans:0, fb:["Correto.","Não.","Não.","Não."]}
-    ]
-  };}
-
-  function mkWeek4Short(){ return {
-    goals:["Probabilidade e p-valor (ideia)."],
-    definitions:[{term:"H0", def:"Modelo de sem efeito."},{term:"p-valor", def:"Compatibilidade com H0."}],
-    howTo:{title:"Base", steps:["Descreva padrão no gráfico antes de qualquer teste."]},
-    interpret:["Evitar ‘provar’. Use ‘sugerir’."],
-    mistakes:["Confundir p com verdade."],
-    activity:"Escreva uma conclusão cautelosa.",
-    dossier:["Pergunta + gráfico + conclusão curta."],
-    saturday:"Sábado 21/03/2026: encontro online tira-dúvidas (foco: linguagem científica e interpretação de incerteza).",
-    quiz:[
-      {q:"p-valor é:", opts:["Prova","Compatibilidade com H0","Causalidade","Variância"], ans:1, fb:["Não.","Correto.","Não.","Não."]},
-      {q:"Primeiro passo é:", opts:["Gráfico","p<0,05","Excluir","Somar"], ans:0, fb:["Correto.","Não.","Não.","Não."]},
-      {q:"Boa linguagem:", opts:["Provou","Sugeriu","Garantiu","Certeza"], ans:1, fb:["Não.","Correto.","Não.","Não."]}
-    ]
-  };}
-
-  function mkWeek5Short(){ return {goals:["Distribuições básicas."],definitions:[{term:"Normal",def:"Simétrica."},{term:"Poisson",def:"Contagens."},{term:"Binomial",def:"Sucesso/fracasso."}],
-    howTo:{title:"Base",steps:["Use histograma para ver formato."]},interpret:["Formato orienta análise."],mistakes:["Forçar normalidade."],
-    activity:"Faça um histograma e descreva.",dossier:["Histograma + descrição."],
-    saturday:"Sábado 28/03/2026: encontro online tira-dúvidas (foco: reconhecer distribuição pelo histograma).",
-    quiz:[
-      {q:"Poisson:",opts:["Contagem","Altura","Texto","Mapa"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
-      {q:"Binomial:",opts:["Sucesso/fracasso","Temperatura","R²","Eixo"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
-      {q:"Histograma mostra:",opts:["Distribuição","Causalidade","Mapa","Título"],ans:0,fb:["Correto.","Não.","Não.","Não."]}
-    ]};}
-
-  function mkWeek6Short(){ return {goals:["Premissas e outliers."],definitions:[{term:"Outlier",def:"Valor extremo."},{term:"Não paramétrico",def:"Menos sensível a premissas."}],
-    howTo:{title:"Base",steps:["Olhe boxplot/histograma; justifique decisões."]},interpret:["Transparência."],mistakes:["Excluir sem justificar."],
-    activity:"Analise 1 outlier.",dossier:["Gráfico + justificativa."],
-    saturday:"Sábado 04/04/2026: encontro online tira-dúvidas (foco: outliers e premissas).",
-    quiz:[
-      {q:"Outlier remove quando:",opts:["Atrapalha","Há evidência de erro","Quero p","Nunca discuto"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
-      {q:"Não paramétrico ajuda quando:",opts:["Assimetria forte","Sempre","Quero p","Texto"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
-      {q:"Premissas se avaliam com:",opts:["Gráfico","Achismo","Título","Média"],ans:0,fb:["Correto.","Não.","Não.","Não."]}
-    ]};}
-
-  function mkWeek7Short(){ return {goals:["Teste t."],definitions:[{term:"Teste t",def:"2 grupos."}],
-    howTo:{title:"Base",steps:["Boxplot + t no PAST."]},interpret:["Diferença + variabilidade."],mistakes:["Usar com 3+ grupos."],
-    activity:"Compare 2 grupos.",dossier:["Boxplot + texto."],
-    saturday:"Sábado 11/04/2026: encontro online tira-dúvidas (foco: teste t e interpretação).",
-    quiz:[
-      {q:"Teste t serve para:",opts:["2 grupos","3 grupos","Categorias x categorias","Causalidade"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
-      {q:"Acompanhar com:",opts:["Boxplot","Só p","Só tabela","Nada"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
-      {q:"p<0,05 é:",opts:["Causa","Evidência contra H0","Prova","Sem ruído"],ans:1,fb:["Não.","Correto.","Não.","Não."]}
-    ]};}
-
-  function mkWeek8Short(){ return {goals:["ANOVA 1 via."],definitions:[{term:"ANOVA",def:"3+ grupos (global)."}],
-    howTo:{title:"Base",steps:["ANOVA + Tukey (preferencial)."]},interpret:["Global + pares."],mistakes:["Vários t-tests."],
-    activity:"Compare 3 grupos.",dossier:["Boxplot + conclusão."],
-    saturday:"Sábado 18/04/2026: encontro online tira-dúvidas (foco: ANOVA e pós-testes).",
-    quiz:[
-      {q:"ANOVA responde:",opts:["Qual par sem pós","Diferença global","Causalidade","Normalidade"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
-      {q:"Pós-teste:",opts:["Outlier","Quais pares diferem","Causa","Unidade"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
-      {q:"Erro comum:",opts:["Vários t-tests","Boxplot","Limitação","Tabela"],ans:0,fb:["Correto.","Não.","Não.","Não."]}
-    ]};}
-
-  function mkWeek9Short(){ return {goals:["ANOVA 2 vias e interação."],definitions:[{term:"Interação",def:"Efeito depende do outro fator."}],
-    howTo:{title:"Base",steps:["Veja linhas não paralelas em gráfico."]},interpret:["Efeito muda com fator."],mistakes:["Ignorar interação."],
-    activity:"Faça gráfico de interação.",dossier:["Gráfico + texto."],
-    saturday:"Sábado 25/04/2026: encontro online tira-dúvidas (foco: interação e leitura do gráfico).",
-    quiz:[
-      {q:"Interação:",opts:["Efeito constante","Efeito depende","Outlier","Normal"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
-      {q:"Sinal visual:",opts:["Linhas paralelas","Não paralelas","Barras","Texto"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
-      {q:"Risco:",opts:["Ignorar interação","Fazer gráfico","Relatar limites","Ter réplica"],ans:0,fb:["Correto.","Não.","Não.","Não."]}
-    ]};}
-
-  function mkWeek10Short(){ return {goals:["Qui-quadrado."],definitions:[{term:"Contingência",def:"Tabela de contagens."}],
-    howTo:{title:"Base",steps:["Montar 2x2 e rodar qui²."]},interpret:["Associação em categorias."],mistakes:["Células muito baixas."],
-    activity:"Conte categorias por dias.",dossier:["Tabela + barras."],
-    saturday:"Sábado 02/05/2026: encontro online tira-dúvidas (foco: tabelas de contingência).",
-    quiz:[
-      {q:"Qui² é para:",opts:["Categóricas","2 grupos numéricos","Regressão","Normal"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
-      {q:"Entrada do qui²:",opts:["Médias","Contagens","R²","Inclinação"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
-      {q:"Mostrar:",opts:["Só p","Barras contagem/proporção","Só texto","Nada"],ans:1,fb:["Não.","Correto.","Não.","Não."]}
-    ]};}
-
-  function mkWeek11Short(){ return {goals:["Correlação."],definitions:[{term:"Pearson",def:"Linear."},{term:"Spearman",def:"Ranking."}],
-    howTo:{title:"Base",steps:["Scatter obrigatório." ]},interpret:["Não é causalidade."],mistakes:["Dizer causa."],
-    activity:"Compare Pearson vs Spearman.",dossier:["Scatter + cautela."],
-    saturday:"Sábado 09/05/2026: encontro online tira-dúvidas (foco: correlação e interpretação).",
-    quiz:[
-      {q:"Correlação prova causa?",opts:["Sim","Não","Só p<0,05","Só sem outlier"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
-      {q:"Pearson:",opts:["Linear","Texto","Mapa","Categoria pura"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
-      {q:"Scatter serve:",opts:["Relação X–Y","Contingência","Boxplot","Causa"],ans:0,fb:["Correto.","Não.","Não.","Não."]}
-    ]};}
-
-  function mkWeek12Short(){ return {goals:["Regressão linear."],definitions:[{term:"Inclinação",def:"Mudança de Y por X."},{term:"Resíduo",def:"Erro observado-previsto."}],
-    howTo:{title:"Base",steps:["Scatter + ajuste; interpretar inclinação." ]},interpret:["Escreva em unidades reais."],mistakes:["Extrapolar."],
-    activity:"Rode regressão simples.",dossier:["Scatter + interpretação."],
-    saturday:"Sábado 16/05/2026: encontro online tira-dúvidas (foco: regressão e resíduos).",
-    quiz:[
-      {q:"Inclinação:",opts:["Mudança de Y por X","Cor","Causa","Outlier"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
-      {q:"R² mede:",opts:["Causa","Parte explicada no modelo","Normalidade","Categoria"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
-      {q:"Erro:",opts:["Extrapolar","Interpretar","Plotar","Limitar"],ans:0,fb:["Correto.","Não.","Não.","Não."]}
-    ]};}
-
-  function mkWeek13Short(){ return {goals:["GLM."],definitions:[{term:"Poisson",def:"Contagem."},{term:"Binomial",def:"Proporção."}],
-    howTo:{title:"Base",steps:["Justifique GLM pelo tipo de Y." ]},interpret:["Taxa/chance."],mistakes:["Forçar linear em contagem."],
-    activity:"Escolha Y contagem/proporção.",dossier:["Gráfico + justificativa."],
-    saturday:"Sábado 23/05/2026: encontro online tira-dúvidas (foco: quando usar GLM).",
-    quiz:[
-      {q:"GLM útil quando:",opts:["Contagem/proporção","Texto","Sempre","Para p"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
-      {q:"Poisson:",opts:["Contagem","Altura","Categoria","Mapa"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
-      {q:"Binomial:",opts:["Sucesso/fracasso","Temperatura","R²","Intercepto"],ans:0,fb:["Correto.","Não.","Não.","Não."]}
-    ]};}
-
-  function mkWeek14Short(){ return {goals:["ANCOVA, confundidores, viés."],definitions:[{term:"Confundidor",def:"Afeta X e Y."},{term:"ANCOVA",def:"Ajusta por covariável."}],
-    howTo:{title:"Base",steps:["Identifique 1 confundidor e como controlar." ]},interpret:["Efeito ajustado."],mistakes:["Enfeitar modelo."],
-    activity:"Reescreva pergunta com controle.",dossier:["Confundidor + estratégia."],
-    saturday:"Sábado 30/05/2026: encontro online tira-dúvidas (foco: confundidores, viés e controle).",
-    quiz:[
-      {q:"Confundidor:",opts:["Afeta X e Y","Outlier","p","Eixo"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
-      {q:"ANCOVA:",opts:["Compara grupos ajustando covariável","Soma médias","Remove outliers","Prova causa"],ans:0,fb:["Correto.","Não.","Não.","Não."]},
-      {q:"Teste cego reduz:",opts:["Viés de expectativa","Réplica","Dados","DP"],ans:0,fb:["Correto.","Não.","Não.","Não."]}
-    ]};}
-
-  function mkWeek15Short(){ return {goals:["Projeto final."],definitions:[{term:"Discussão",def:"Interpretação com limites."}],
-    howTo:{title:"Base",steps:["Pergunta → dados → gráficos → análise → limites." ]},interpret:["Coerência."],mistakes:["Conclusão sem limite."],
-    activity:"Apresentação final.",dossier:["Entrega final (CSV+figuras+apresentação)."],
-    saturday:"Sábado 06/06/2026: encontro online tira-dúvidas (foco: revisão final e apresentação).",
-    quiz:[
-      {q:"Projeto profundo é:",opts:["Complicado","Coerente e honesto","Só fórmulas","Sem gráfico"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
-      {q:"Obrigatório:",opts:["Só p","Dados+gráficos+interpretação","Só texto","Só título"],ans:1,fb:["Não.","Correto.","Não.","Não."]},
-      {q:"Limitação serve:",opts:["Enfraquecer","Dar honestidade e orientar próximos passos","Excluir","Provar causa"],ans:1,fb:["Não.","Correto.","Não.","Não."]}
-    ]};}
-
-  // =======================
-  // 5) UI helpers
-  // =======================
-  function renderList(){
-    const list = document.getElementById("lessonList");
-    list.innerHTML = "";
-    LESSONS.forEach(ls=>{
-      const isDone = !!state.done[ls.id];
-      const btn = document.createElement("button");
-      btn.className="lessonBtn";
-      btn.innerHTML = `
-        <div class="topLine">
-          <span>Semana ${ls.id} • ${ls.title}</span>
-          <span class="tag ${isDone?"ok":""}">${isDone?"Concluída":"Pendente"}</span>
+CONTENT[1] = {
+  saturday: "Sábado 28/02/2026: não haverá encontro de tira-dúvidas. Use o sábado para organizar a tabela e revisar o que foi lido durante a semana.",
+  sections: [
+    {
+      icon:"🎯", colorClass:"icon-goals", title:"O que você vai aprender esta semana", chip:"objetivos",
+      html: `
+        <p>Esta semana é a fundação de tudo o que vem depois. Você vai aprender a transformar uma curiosidade vaga em uma pergunta científica que pode ser respondida com dados. Essa habilidade vale mais do que qualquer fórmula.</p>
+        <ul>
+          <li>Transformar curiosidade em pergunta científica testável, sem ficar vago ou genérico.</li>
+          <li>Entender o que são variável resposta (Y) e variável explicativa (X), e por que essa distinção define o gráfico e o teste.</li>
+          <li>Definir unidade amostral e réplicas para não cair em pseudorrepetição.</li>
+          <li>Planejar um desenho amostral simples, possível em 7 dias, com dados do cotidiano.</li>
+          <li>Reconhecer as principais fontes de viés em um estudo informal.</li>
+        </ul>
+        <div class="box blue"><strong>Perspectiva do curso:</strong> Não existe estatística sem pergunta bem feita. Antes de abrir qualquer software, o cientista sabe o que quer entender. Esse é o ponto de partida.</div>
+      `
+    },
+    {
+      icon:"🧠", colorClass:"icon-mind", title:"Mentalidade científica: como um cientista pensa", chip:"reflexão",
+      html: `
+        <p>Existe uma diferença entre <em>achar</em> alguma coisa e <em>investigar</em> alguma coisa. A estatística é um conjunto de ferramentas para investigar com rigor, de forma que outros possam repetir, criticar e melhorar o que você fez.</p>
+        <div class="callout">A estatística não é um tribunal que declara verdades. Ela é uma forma organizada de reduzir o achismo e aumentar a credibilidade das conclusões.</div>
+        <p>Um erro muito comum na vida acadêmica é começar pela fórmula. O aluno abre o software, coloca números e espera que o resultado "diga alguma coisa". Mas o resultado só faz sentido se a pergunta foi bem feita antes.</p>
+        <p>Outro erro é confundir padrão com prova. Você pode observar um padrão em 7 dias de dados. Mas isso não prova nada: é uma evidência inicial que merece investigação mais profunda. A linguagem científica usa palavras como <em>sugerir</em>, <em>indicar</em>, <em>observar tendência</em>, nunca <em>provar</em> ou <em>garantir</em>.</p>
+        <div class="box green"><strong>Regra de ouro desta semana:</strong> Se a sua pergunta não vira uma tabela com números, ela ainda não é científica o suficiente para ser analisada.</div>
+      `
+    },
+    {
+      icon:"📖", colorClass:"icon-story", title:"Um mini-caso para enxergar o problema", chip:"exemplo real",
+      html: `
+        <div class="story-block">
+          <p>Imagine que você quer saber se usar muito o celular à noite atrapalha o seu sono. Essa é uma curiosidade legítima. Mas como você vai investigar isso?</p>
+          <p>Uma abordagem ingênua seria: numa noite você usou muito o celular e dormiu mal. Conclusão: celular prejudica o sono. Mas isso não funciona. Uma noite de sono ruim pode ter sido causada por estresse, barulho, café, temperatura ou simplesmente o acaso. Um único ponto de dado não permite nenhuma conclusão.</p>
+          <p>A abordagem científica começa diferente: você define Y (horas de sono), define X (minutos de tela), define a unidade amostral (1 dia), define a regra de coleta (anotar sempre às 9h os valores do dia anterior) e coleta por 7 dias completos. Ao final, você tem 7 pares de valores. Aí você pode fazer um gráfico de dispersão e começar a enxergar se há algum padrão.</p>
+          <p>Talvez não haja padrão. Talvez haja. O importante é que agora você tem uma estrutura de dados que permite investigar, não apenas especular.</p>
         </div>
-        <div class="dates">${ls.dates}</div>
-      `;
-      btn.addEventListener("click", ()=>openLesson(ls.id));
-      list.appendChild(btn);
-    });
-  }
+        <p>Este é exatamente o tipo de estudo que você vai construir ao longo das primeiras semanas do curso. Simples, honesto, com réplicas, com pergunta clara.</p>
+      `
+    },
+    {
+      icon:"📚", colorClass:"icon-defs", title:"Definições fundamentais, do zero", chip:"conceitos",
+      html: `
+        <div class="def-grid">
+          <div class="def-card"><div class="def-term">Ciência (o que significa aqui)</div><div class="def-text">Ciência é um jeito organizado de fazer perguntas sobre o mundo e usar dados para reduzir o achismo. Não é decorar fórmula. É perguntar bem, medir bem, e interpretar com honestidade. O método científico não garante verdade absoluta; ele reduz o erro de forma transparente e repetível.</div></div>
+          <div class="def-card"><div class="def-term">Curiosidade vs pergunta científica</div><div class="def-text">Curiosidade é ampla: "o clima afeta minha vida?". Pergunta científica é específica e testável: "em dias mais quentes, eu bebo mais copos de água?". O teste prático: se a pergunta vira uma tabela com dois números por observação, você está no caminho certo.</div></div>
+          <div class="def-card"><div class="def-term">Variável</div><div class="def-text">Qualquer coisa que pode mudar entre observações e que você consegue registrar. Pode ser número (horas de sono, temperatura) ou categoria (choveu: sim/não; fez treino: sim/não). A escolha do tipo de variável define como você vai analisar.</div></div>
+          <div class="def-card"><div class="def-term">Y – variável resposta</div><div class="def-text">Y é o resultado que você quer entender ou explicar. Exemplos: horas de sono; número de passos; qualidade do humor em uma escala de 0 a 10; quantidade de copos de água. Y é o que você quer prever ou compreender.</div></div>
+          <div class="def-card"><div class="def-term">X – variável explicativa</div><div class="def-text">X é o fator que você suspeita que se relaciona com Y. Exemplos: minutos de tela à noite; temperatura do dia; horas de estudo; fez treino (sim/não). X é o que você controla, mede ou varia para ver o efeito em Y.</div></div>
+          <div class="def-card"><div class="def-term">Eixos do gráfico</div><div class="def-text">Os eixos são as réguas do gráfico. Por convenção, o eixo horizontal (X) representa a variável explicativa e o eixo vertical (Y) a variável resposta. Trocar os eixos muda a leitura e, às vezes, muda a pergunta inteira.</div></div>
+          <div class="def-card"><div class="def-term">Unidade amostral</div><div class="def-text">O que conta como uma observação independente. Se você está estudando comportamento por dia, a unidade amostral é o dia. Se estuda por organismo, é o organismo. Definir a unidade amostral corretamente evita o erro de pseudorrepetição.</div></div>
+          <div class="def-card"><div class="def-term">Réplica</div><div class="def-text">São unidades amostral independentes repetidas. Se a sua unidade é o dia, 7 dias completos = 7 réplicas. Réplica não é medir a mesma coisa 3 vezes no mesmo dia. Réplica é observar o mesmo fenômeno em contextos independentes.</div></div>
+          <div class="def-card"><div class="def-term">Pseudorrepetição</div><div class="def-text">Erro grave: tratar medidas não independentes como se fossem réplicas. Exemplo clássico: fazer 3 pesagens do mesmo indivíduo em sequência e contar como n=3. O n real é 1. Pseudorrepetição infla artificialmente o tamanho da amostra e gera conclusões inválidas.</div></div>
+          <div class="def-card"><div class="def-term">Variação</div><div class="def-text">A vida muda. O sono de uma pessoa não é exatamente o mesmo toda noite. A temperatura não é a mesma todos os dias. A estatística existe precisamente para lidar com essa variação: ela ajuda a separar o que é padrão consistente do que é flutuação aleatória.</div></div>
+          <div class="def-card"><div class="def-term">Sinal vs ruído</div><div class="def-text">Sinal é um padrão consistente que aparece nos dados. Ruído é a variação natural do cotidiano. O maior desafio da análise estatística é não confundir ruído com sinal. Um padrão que desaparece quando você aumenta a amostra era ruído, não sinal.</div></div>
+          <div class="def-card"><div class="def-term">Viés</div><div class="def-text">Erro sistemático que distorce a coleta ou interpretação. Exemplos: registrar os dados só nos dias bons (viés de seleção); medir no celular às vezes e no papel outras vezes (viés de medição); lembrar de registrar só quando o resultado foi o esperado (viés de confirmação). O viés engana sem parecer erro.</div></div>
+          <div class="def-card"><div class="def-term">Dispersão</div><div class="def-text">O quão espalhados os valores estão em relação à média. Dois grupos podem ter a mesma média e dispersões completamente diferentes. Por isso, nunca se reporta média sem alguma medida de dispersão (desvio padrão, intervalo interquartil, min-max).</div></div>
+          <div class="def-card"><div class="def-term">Padronização</div><div class="def-text">Medir sempre da mesma forma, no mesmo horário, com a mesma regra. Sem padronização, não é possível comparar. A padronização é o que transforma coleta informal em dado científico.</div></div>
+        </div>
+      `
+    },
+    {
+      icon:"🔬", colorClass:"icon-how", title:"Como funciona um desenho amostral simples", chip:"metodologia",
+      html: `
+        <p>Um desenho amostral é o plano de coleta antes de coletar. Ele define quem (ou o quê) você vai medir, quando, quantas vezes e com quais regras. Um bom desenho amostral é feito antes de qualquer dado ser coletado.</p>
+        <h4>Os elementos de um desenho mínimo</h4>
+        <div class="steps">
+          <div class="step-item"><div class="step-num"></div><div class="step-text"><strong>Pergunta científica clara:</strong> uma frase com X e Y definidos. "Quero investigar se X está associado a Y ao longo de [período]."</div></div>
+          <div class="step-item"><div class="step-num"></div><div class="step-text"><strong>Definição de Y e X:</strong> nome, unidade, escala de medição. Isso evita ambiguidade durante a coleta.</div></div>
+          <div class="step-item"><div class="step-num"></div><div class="step-text"><strong>Unidade amostral:</strong> o que conta como 1 observação independente.</div></div>
+          <div class="step-item"><div class="step-num"></div><div class="step-text"><strong>Regra fixa de coleta:</strong> horário, instrumento, forma de registro. Toda coleta segue a mesma regra.</div></div>
+          <div class="step-item"><div class="step-num"></div><div class="step-text"><strong>Número de réplicas:</strong> mínimo 6, ideal 7 ou mais para este tipo de estudo introdutório.</div></div>
+          <div class="step-item"><div class="step-num"></div><div class="step-text"><strong>Tabela mínima:</strong> Data | Y | X | Observações. Cada linha é um dia.</div></div>
+        </div>
 
-  function renderLinks(list){
-    const ok = (list||[]).filter(x=>x && x.url);
-    if(!ok.length) return `<p style="color:#475569;font-size:12px">Sem links cadastrados.</p>`;
-    return `<div class="links">${ok.map(x=>`<p>• <a href="${x.url}" target="_blank" rel="noopener noreferrer">${x.label||x.url}</a></p>`).join("")}</div>`;
-  }
+        <h4>Exemplos de perguntas executáveis em 7 dias</h4>
+        <div class="box gray">
+          <ul style="margin:0">
+            <li>Tempo de tela à noite (min) vs horas de sono (h).</li>
+            <li>Número de passos do dia vs tempo sentado (min).</li>
+            <li>Temperatura máxima do dia (°C, via app de clima) vs consumo de água (copos).</li>
+            <li>Choveu (sim/não) vs humor percebido (0 a 10).</li>
+            <li>Fez treino (sim/não) vs qualidade do sono (0 a 10).</li>
+          </ul>
+        </div>
 
-  function buildLinkEditor(id){
-    const cur = getLinksFor(id).map(x=>({label:x.label||"", url:x.url||""}));
-    const holder = document.createElement("div");
-    holder.className="box";
-    holder.innerHTML=`
-      <strong>Editar links (Khan/YouTube)</strong>
-      <div style="color:#475569;margin-top:6px;font-size:12px">
-        Cole links em português. Sem artigos aqui.
-      </div>
-      <div id="items"></div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-        <button class="accent" id="add">+ Adicionar link</button>
-        <button class="primary" id="save">Salvar links</button>
-        <button id="reset">Voltar ao padrão (Khan)</button>
+        <h4>Por que mínimo 6 dias?</h4>
+        <p>Com menos de 6 observações, qualquer padrão que você observar pode ser explicado pelo acaso. Com 6 a 7 dias, você começa a ter uma base real para visualização. Para análises formais, você vai precisar de mais, mas o objetivo desta semana é aprender o raciocínio, não gerar conclusões definitivas.</p>
+        <div class="callout green">A qualidade do desenho vale mais do que o resultado. Um estudo com pergunta boa, padronização e réplicas honestas é ciência. Um estudo sem isso é especulação organizada.</div>
+      `
+    },
+    {
+      icon:"💬", colorClass:"icon-interp", title:"Como interpretar: o que significa cada elemento", chip:"interpretação",
+      html: `
+        <p>Nesta semana, você ainda não vai calcular nenhum teste. O objetivo da interpretação é descritivo: o que seus dados mostram, sem exagerar.</p>
+        <h4>Uma boa interpretação tem três partes</h4>
+        <div class="box purple">
+          <strong>Parte 1: a pergunta</strong> — "Investigamos se X está associado a Y."<br><br>
+          <strong>Parte 2: o desenho</strong> — "Coletamos dados por N dias, com registro sempre às [hora], usando [instrumento]."<br><br>
+          <strong>Parte 3: o que o gráfico mostra</strong> — "No gráfico de dispersão, observa-se [tendência/ausência de tendência], com variação considerável entre os dias."
+        </div>
+        <h4>Linguagem científica vs linguagem cotidiana</h4>
+        <p>Na vida cotidiana usamos: "isso <em>prova</em> que", "ficou <em>comprovado</em> que", "com <em>certeza</em> é por causa de". Na ciência, usamos:</p>
+        <div class="tag-row">
+          <span class="tag green">sugere</span>
+          <span class="tag green">indica</span>
+          <span class="tag green">observou-se tendência</span>
+          <span class="tag green">pode estar associado</span>
+          <span class="tag red">NÃO: prova</span>
+          <span class="tag red">NÃO: garante</span>
+          <span class="tag red">NÃO: certeza</span>
+        </div>
+        <p>Essa linguagem não é fraqueza. É honestidade científica. Você reconhece os limites do estudo e não extrapola além do que seus dados permitem dizer.</p>
+        <h4>Limitações são parte da ciência</h4>
+        <p>Toda interpretação boa termina reconhecendo o que <em>não</em> foi medido e o que poderia ser diferente com mais dados ou melhor controle. Exemplo: "Esta análise não mediu estresse, consumo de cafeína ou ruído noturno, que podem afetar o sono independentemente da tela."</p>
+      `
+    },
+    {
+      icon:"⚠️", colorClass:"icon-err", title:"Erros comuns desta semana: como evitá-los", chip:"atenção",
+      html: `
+        <div class="callout red">Os erros desta semana são quase todos de planejamento. Eles não aparecem no software, aparecem na coleta. Corrigi-los depois é difícil.</div>
+        <div class="def-grid">
+          <div class="def-card"><div class="def-term">Pergunta ampla demais</div><div class="def-text">"O sono influencia a saúde?" não é testável em 7 dias. "O tempo de tela (min) está associado às horas de sono?" é testável. Se não vira tabela com dois números por linha, refine a pergunta.</div></div>
+          <div class="def-card"><div class="def-term">Mudar a regra de coleta no meio</div><div class="def-text">Se você registrou minutos nos primeiros 3 dias e horas nos últimos 4, os dados não são comparáveis. Defina a regra antes e mantenha.</div></div>
+          <div class="def-card"><div class="def-term">Confundir réplica com repetição</div><div class="def-text">Medir o mesmo dia 3 vezes não gera 3 réplicas. Gera 3 medições do mesmo dia. Réplica são dias diferentes, cada um com sua própria observação.</div></div>
+          <div class="def-card"><div class="def-term">Registrar média da semana</div><div class="def-text">Se você registra "na semana dormi em média 7h", você perdeu toda a variação. Você precisa dos dados diários para ver padrão. Média como único dado mata a análise.</div></div>
+          <div class="def-card"><div class="def-term">Esquecer as unidades</div><div class="def-text">Uma coluna com números sem unidade é inútil. "180" pode ser minutos, segundos ou passos. Defina a unidade no cabeçalho antes de começar a registrar.</div></div>
+          <div class="def-card"><div class="def-term">Registrar só nos dias que confirmam a hipótese</div><div class="def-text">Se você "esquece" de registrar os dias em que não dormiu mal com tela alta, está criando viés. Registre todos os dias, independentemente do resultado.</div></div>
+        </div>
+      `
+    },
+    {
+      icon:"🔗", colorClass:"icon-links", title:"Links de apoio para esta semana", chip:"recursos",
+      html: `
+        <p>Os materiais abaixo complementam a leitura desta semana. Estão disponíveis gratuitamente em português.</p>
+        <div class="box blue">
+          <ul style="margin:0">
+            <li><a href="https://pt.khanacademy.org/math/statistics-probability" target="_blank" rel="noopener">Khan Academy – Estatística e probabilidade (PT)</a></li>
+          </ul>
+        </div>
+      `
+    }
+  ]
+};
+
+CONTENT[2] = {
+  saturday: "Sábado 07/03/2026: encontro online de tira-dúvidas. Foco: limpar tabela, conferir unidades, corrigir erros de digitação e exportar CSV.",
+  sections: [
+    {
+      icon:"🎯", colorClass:"icon-goals", title:"O que você vai aprender esta semana", chip:"objetivos",
+      html: `
+        <p>Dados mal organizados são a causa número 1 de análises erradas. Esta semana você aprende a montar uma tabela "analisável" do zero, a identificar e corrigir erros antes de qualquer gráfico, e a preparar o arquivo para o software.</p>
+        <ul>
+          <li>Entender os tipos de dados mais comuns: número contínuo, contagem discreta, categoria nominal, categoria ordinal, proporção.</li>
+          <li>Montar uma tabela no formato "tidy data": 1 linha = 1 observação; 1 coluna = 1 variável; 1 célula = 1 valor.</li>
+          <li>Fazer uma checagem de sanidade antes de qualquer gráfico.</li>
+          <li>Exportar em CSV e preparar para PAST 4 / LibreOffice.</li>
+          <li>Criar um mini dicionário de dados para documentar o projeto.</li>
+        </ul>
+        <div class="box blue"><strong>Por que importa:</strong> Tabela ruim gera gráfico ruim. Gráfico ruim gera conclusão ruim. A organização dos dados é parte do método científico.</div>
+      `
+    },
+    {
+      icon:"🧠", colorClass:"icon-mind", title:"Mentalidade: dados bem organizados são ciência", chip:"reflexão",
+      html: `
+        <p>Existe uma crença popular de que a parte importante da estatística é o cálculo. Na prática, pesquisadores experientes gastam 60 a 80% do tempo com limpeza e organização de dados, antes de qualquer análise.</p>
+        <div class="callout">A melhor tabela é aquela que outro colega consegue entender em 30 segundos, sem precisar te perguntar nada.</div>
+        <p>Quando você documenta bem seus dados, você está fazendo ciência reproduzível. Qualquer pessoa poderia pegar sua tabela e repetir a análise. Esse é um princípio fundamental da ciência moderna.</p>
+        <div class="box green"><strong>Teste de qualidade:</strong> Mostre sua tabela para um colega sem explicar nada. Se ele conseguir responder "o que cada coluna significa" e "qual é a unidade de cada variável" apenas olhando, você fez certo.</div>
+      `
+    },
+    {
+      icon:"📖", colorClass:"icon-story", title:"A história dos dois alunos e a mesma pergunta", chip:"exemplo",
+      html: `
+        <div class="story-block">
+          <p>Dois alunos decidiram investigar a mesma pergunta: "o tempo de tela à noite afeta o sono?". Ambos coletaram dados por uma semana.</p>
+          <p>O aluno A registrou assim: segunda "dormiu 2h a menos que o normal", terça "120 min de tela", quinta "duas horas de tela", sexta sem data. Às vezes usou vírgula como separador decimal, às vezes ponto. Às vezes colocou a unidade dentro da célula ("120 min"), às vezes não.</p>
+          <p>O aluno B registrou: Data | Sono (h) | Tela (min). Cada célula com número limpo. Datas completas no formato dd/mm/aaaa. Unidades apenas no cabeçalho. Uma linha por dia.</p>
+          <p>Na hora de analisar, o aluno B abriu o CSV no PAST 4 e teve os gráficos prontos em 10 minutos. O aluno A passou a semana inteira "brigando" com a planilha: convertendo texto para número, encontrando datas inconsistentes, tentando descobrir o que significava cada coluna.</p>
+          <p>A diferença não foi inteligência. Foi organização desde o primeiro registro.</p>
+        </div>
+      `
+    },
+    {
+      icon:"📚", colorClass:"icon-defs", title:"Tipos de dados e estrutura da tabela", chip:"conceitos",
+      html: `
+        <h4>Os principais tipos de dados que você vai encontrar</h4>
+        <div class="def-grid">
+          <div class="def-card"><div class="def-term">Dado (o que é)</div><div class="def-text">Dado é um registro de observação. É o "fato" que você guardou em formato estruturado. Exemplo: "06/03/2026 – sono 6,5 h – tela 180 min". Dado não é opinião; é registro padronizado.</div></div>
+          <div class="def-card"><div class="def-term">Variável numérica contínua</div><div class="def-text">Pode assumir qualquer valor dentro de um intervalo, incluindo frações. Exemplos: temperatura (25,7°C), peso (68,3 kg), horas de sono (6,25 h). Gráficos típicos: histograma, boxplot, dispersão.</div></div>
+          <div class="def-card"><div class="def-term">Variável numérica discreta (contagem)</div><div class="def-text">Só faz sentido em números inteiros. Exemplos: número de despertares durante a noite (0, 1, 2...), número de copos d'água, número de espécies em um quadrante. Pode pedir distribuição de Poisson em análises mais avançadas.</div></div>
+          <div class="def-card"><div class="def-term">Variável categórica nominal</div><div class="def-text">Assume categorias sem nenhuma ordem implícita. Exemplos: choveu (sim/não), turno (manhã/tarde/noite), tipo de solo (arenoso/argiloso). A análise típica é qui-quadrado ou comparação de grupos.</div></div>
+          <div class="def-card"><div class="def-term">Variável categórica ordinal</div><div class="def-text">Assume categorias com ordem clara. Exemplos: humor (ruim/regular/bom/ótimo), grau de infestação (baixo/médio/alto). A ordem importa, mas a distância entre categorias pode não ser igual, o que exige cuidado na análise.</div></div>
+          <div class="def-card"><div class="def-term">Proporção e percentual</div><div class="def-text">Parte de um todo, limitada entre 0 e 100%. Exemplos: % do dia em atividade sedentária, % de germinação. O limite 0–100% tem consequências analíticas: você não pode usar regressão linear simples em proporções que ficam próximas dos extremos.</div></div>
+          <div class="def-card"><div class="def-term">Formato tidy data</div><div class="def-text">O formato de tabela que mais funciona para análise. Regras: (1) cada linha é uma observação, (2) cada coluna é uma variável, (3) cada célula é um valor único. Esse formato é o padrão aceito em R, Python, PAST e LibreOffice para análise.</div></div>
+          <div class="def-card"><div class="def-term">Cabeçalho e unidade</div><div class="def-text">O cabeçalho é a primeira linha da tabela. Cada nome de coluna deve ser curto, sem espaços ou acentos (para CSV) e deve incluir a unidade entre parênteses. Exemplos: Sono_h, Tela_min, Temp_C. A unidade no cabeçalho, o número limpo na célula.</div></div>
+          <div class="def-card"><div class="def-term">Valores ausentes (NA)</div><div class="def-text">Às vezes a coleta falha. Isso é normal e deve ser registrado honestamente como célula vazia ou "NA", não como zero. Zero significa "mediu e deu zero". NA significa "não mediu". Confundir os dois distorce médias e testes.</div></div>
+          <div class="def-card"><div class="def-term">Separador decimal</div><div class="def-text">No Brasil, vírgula é padrão (6,5). Em CSV para softwares internacionais, ponto (6.5) pode ser necessário. O mais importante: seja consistente na mesma coluna. Misturar vírgula e ponto na mesma coluna é um dos erros mais difíceis de detectar e corrigir.</div></div>
+          <div class="def-card"><div class="def-term">Dicionário de dados</div><div class="def-text">Uma lista curta que documenta cada variável: nome, o que significa, unidade, como foi medida, e quem coletou. Exemplo: "Sono_h = número de horas de sono noturno, medido pela estimativa ao acordar, registrado às 9h." Isso acelera revisão e melhora a escrita científica.</div></div>
+          <div class="def-card"><div class="def-term">Checagem de sanidade</div><div class="def-text">Revisão rápida antes de qualquer análise: (1) Há valores impossíveis? (sono de 40h, temperatura de -200°C); (2) Há datas duplicadas sem explicação? (3) Há números guardados como texto? (4) As unidades estão consistentes em cada coluna? (5) Há mistura de vírgula e ponto? Se sim, corrigir antes de continuar.</div></div>
+        </div>
+
+        <h4>Formatos de tabela que funcionam e que não funcionam</h4>
+        <div class="box red">
+          <strong>Formato RUIM (não funciona para análise):</strong><br>
+          <em>Colunas = dias (Seg, Ter, Qua...); Linhas = variáveis (Sono, Tela...)</em><br>
+          Este formato "largo" é intuitivo para leitura, mas impossível de analisar no software. Você precisa transpor tudo antes.
+        </div>
+        <div class="box green">
+          <strong>Formato BOM (tidy data):</strong><br>
+          <em>Data | Sono_h | Tela_min | Grupo | Obs</em><br>
+          Cada linha é um dia. Cada coluna é uma variável. Isso funciona diretamente em PAST, R e LibreOffice.
+        </div>
+      `
+    },
+    {
+      icon:"🔬", colorClass:"icon-how", title:"Como deixar sua tabela pronta para análise", chip:"passo a passo",
+      html: `
+        <p>A seguir está o processo completo de organização de dados, do rascunho ao CSV pronto para o software.</p>
+        <div class="steps">
+          <div class="step-item"><div class="step-num"></div><div class="step-text"><strong>Defina as colunas antes de começar a preencher.</strong> Colunas mínimas: Data | Y_unidade | X_unidade | Grupo (se existir) | Obs. Escreva o cabeçalho primeiro.</div></div>
+          <div class="step-item"><div class="step-num"></div><div class="step-text"><strong>Escolha uma unidade e não mude.</strong> Minutos ou horas, nunca os dois na mesma coluna. Defina no cabeçalho e mantenha em todas as linhas.</div></div>
+          <div class="step-item"><div class="step-num"></div><div class="step-text"><strong>Use somente número nas células de medição.</strong> Escreva 6.5 ou 6,5, não "6,5 horas". A unidade já está no cabeçalho.</div></div>
+          <div class="step-item"><div class="step-num"></div><div class="step-text"><strong>Padronize datas.</strong> Use sempre o mesmo formato (ex.: dd/mm/aaaa). Verifique se não há dois registros com a mesma data.</div></div>
+          <div class="step-item"><div class="step-num"></div><div class="step-text"><strong>Faça a checagem de sanidade.</strong> Valores impossíveis, datas duplicadas, números como texto, separador decimal inconsistente.</div></div>
+          <div class="step-item"><div class="step-num"></div><div class="step-text"><strong>Salve como CSV.</strong> LibreOffice: Arquivo > Salvar como > .csv. Escolha ponto-e-vírgula ou vírgula como separador e verifique a prévia antes de confirmar.</div></div>
+          <div class="step-item"><div class="step-num"></div><div class="step-text"><strong>Abra o CSV no PAST 4.</strong> Importe como planilha. Se as colunas aparecerem corretamente, o arquivo está pronto para análise.</div></div>
+        </div>
+
+        <h4>Como identificar número guardado como texto</h4>
+        <p>Um problema muito comum: você digita "6,5" mas o LibreOffice interpreta como texto por conta do separador. Sinais de alerta: o número fica alinhado à esquerda na célula (números ficam alinhados à direita por padrão); a média da coluna dá zero ou erro; o gráfico não plota nada.</p>
+        <div class="callout yellow">Solução: selecione a coluna inteira, vá em Formatar > Células > Número e escolha o formato decimal correto. Se isso não resolver, use Localizar e Substituir para trocar vírgulas por pontos (ou o contrário, dependendo do software).</div>
+      `
+    },
+    {
+      icon:"💬", colorClass:"icon-interp", title:"Como interpretar seus dados nesta semana", chip:"interpretação",
+      html: `
+        <p>Nesta semana, a qualidade do dado é o foco, não o resultado. Você ainda não vai calcular teste nenhum. Mas você vai produzir duas visualizações iniciais que já dizem muita coisa.</p>
+        <h4>Histograma de Y</h4>
+        <p>O histograma mostra como os valores de Y estão distribuídos. Você vai observar: a distribuição é simétrica ou assimétrica? Há valores extremos (potenciais outliers)? A variação é grande ou pequena? Isso vai guiar decisões de análise nas próximas semanas.</p>
+        <h4>Gráfico principal da pergunta</h4>
+        <p>Se X e Y são numéricos: use dispersão (scatter plot). Cada ponto é um dia. O padrão visual já responde parcialmente a pergunta antes de qualquer teste. Se X é categoria (sim/não, treino/sem treino): use boxplot com pontos individuais. O boxplot mostra mediana, dispersão e outliers de cada grupo.</p>
+        <div class="callout green">A interpretação do histograma deve responder: "A variável Y parece ter distribuição simétrica ou assimétrica? Há valores extremos que se distanciam muito dos demais?" Isso importa para escolher o teste correto nas próximas semanas.</div>
+      `
+    },
+    {
+      icon:"⚠️", colorClass:"icon-err", title:"Erros comuns desta semana", chip:"atenção",
+      html: `
+        <div class="def-grid">
+          <div class="def-card"><div class="def-term">Misturar unidade dentro da célula</div><div class="def-text">"120 min" na célula em vez de 120. Isso faz o software entender a célula como texto, não número. A unidade vai no cabeçalho, nunca na célula de dado.</div></div>
+          <div class="def-card"><div class="def-term">Minutos e horas na mesma coluna</div><div class="def-text">Alguns dias você registrou em horas, outros em minutos. A coluna parece numérica, mas compara valores incomparáveis. Isso gera análises absurdas que parecem corretas.</div></div>
+          <div class="def-card"><div class="def-term">Tabela "largona" com dias em colunas</div><div class="def-text">Intuitivo de fazer, impossível de analisar. O software precisa que cada linha seja uma observação. Se você criou neste formato, precisa transpor antes de analisar.</div></div>
+          <div class="def-card"><div class="def-term">Corrigir dado "na cabeça"</div><div class="def-text">Você olha para um valor e acha que está errado, então troca por outro que "faz mais sentido". Se você não tem evidência de que é erro de digitação, deixe. Se é evento real incomum, registre na coluna de observações.</div></div>
+          <div class="def-card"><div class="def-term">Datas inconsistentes</div><div class="def-text">Às vezes dia/mês/ano, às vezes mês/dia, às vezes só o dia. Datas inconsistentes quebram série temporal e impossibilitam verificar duplicatas.</div></div>
+        </div>
+      `
+    },
+    {
+      icon:"🔗", colorClass:"icon-links", title:"Links de apoio para esta semana", chip:"recursos",
+      html: `
+        <div class="box blue">
+          <ul style="margin:0">
+            <li><a href="https://pt.khanacademy.org/math/statistics-probability" target="_blank" rel="noopener">Khan Academy – Estatística e probabilidade (PT)</a></li>
+          </ul>
+        </div>
+      `
+    }
+  ]
+};
+
+// Semanas 3–15: conteúdo expandido
+const SHORT_WEEKS = {
+  3: {
+    saturday:"Sábado 14/03/2026: encontro online. Foco: escolher gráfico correto e interpretar padrão e variabilidade.",
+    intro:"Esta semana é dedicada exclusivamente a gráficos. Você vai aprender que o gráfico não é decoração do artigo: é o primeiro passo da análise. Antes de qualquer teste, o cientista olha o gráfico.",
+    sections_data:[
+      {title:"Por que gráfico antes de teste?", content:"Um gráfico bem feito já responde 80% da pergunta. O teste confirma com rigor o que o gráfico sugere. Se o gráfico não mostra nada, o teste também não vai mostrar. Por outro lado, um padrão visualmente claro no gráfico, mas com p>0,05, pode ser sinal de amostra pequena demais, não de ausência de efeito. Gráfico e teste precisam conversar."},
+      {title:"Dispersão (scatter plot)", content:"Use quando X e Y são ambos numéricos e você quer ver a relação entre eles. Cada ponto representa uma observação. O padrão de pontos pode revelar: relação positiva (pontos sobem juntos), relação negativa (um sobe enquanto o outro cai), sem relação (nuvem de pontos aleatória) ou relação não-linear (curva em U, por exemplo). O gráfico de dispersão é o mais informativo para perguntas do tipo 'mais X se relaciona com mais Y?'."},
+      {title:"Boxplot com pontos", content:"Use quando X é categórico (grupos) e Y é numérico. O boxplot mostra: mediana (linha central), caixas (50% dos dados), bigodes (valores típicos) e pontos fora dos bigodes (outliers). Crítico: sempre adicione os pontos individuais sobre o boxplot. Com amostras pequenas (n<30), os pontos individuais mostram o dado real; o boxplot sozinho pode enganar ao sugerir distribuição que não existe com poucos dados."},
+      {title:"Histograma", content:"Use para visualizar a distribuição de uma única variável numérica. Mostra: simetria ou assimetria da distribuição; presença de valores extremos; se a distribuição parece normal, bimodal ou com cauda longa. O histograma de Y é o primeiro gráfico que você deve fazer em qualquer análise."},
+      {title:"O que NÃO usar (e por quê)", content:"Gráfico de pizza: só funciona para partes de um todo com poucas categorias. Jamais use para comparar grupos. Gráfico de barras com erro padrão e sem pontos: esconde os dados reais. Prefira boxplot+pontos. Gráfico 3D: não adiciona informação e dificulta leitura. Gráficos decorativos sem dados: figura que parece complexa mas não diz nada."},
+      {title:"Títulos de eixos e escalas", content:"Cada eixo deve ter nome e unidade. Exemplo: 'Tempo de tela (min)' no eixo X; 'Horas de sono (h)' no eixo Y. A escala do eixo não deve ser truncada para fazer diferenças parecerem maiores do que são. Escala que começa em zero ou no valor mínimo razoável do domínio é mais honesta."}
+    ]
+  },
+  4: {
+    saturday:"Sábado 21/03/2026: encontro online. Foco: linguagem científica e interpretação de incerteza.",
+    intro:"Esta semana você aprende o conceito central da inferência estatística: o que é uma hipótese, o que é o valor-p, e como usar essas ferramentas sem cair nos erros clássicos de interpretação.",
+    sections_data:[
+      {title:"O que é hipótese nula (H0)?", content:"A hipótese nula é um modelo de referência que diz 'não há efeito' ou 'não há diferença'. Exemplo: H0 = 'o tempo de tela não está associado ao sono'. É uma afirmação de que qualquer padrão observado é compatível com o acaso. O teste estatístico calcula qual seria a probabilidade de observar dados tão extremos quanto os seus, se H0 fosse verdadeira."},
+      {title:"O que é o valor-p?", content:"O valor-p é a probabilidade de obter resultados tão extremos quanto os seus, assumindo que H0 é verdadeira. Um valor-p pequeno (convencionalmente <0,05) significa que seus dados são pouco compatíveis com H0. Isso não significa que H0 é falsa, e especialmente não significa que você descobriu a causa. É apenas evidência contra H0."},
+      {title:"O que o valor-p NÃO é", content:"O valor-p não é a probabilidade de H0 ser verdadeira. Não é a probabilidade de você estar certo. Não mede tamanho do efeito. Não garante que o resultado é importante. Não garante que é replicável. Um p=0,001 com n=1000 pode ser matematicamente significativo mas biologicamente irrelevante. Um p=0,08 com n=5 pode esconder um efeito real mascarado pelo tamanho amostral pequeno."},
+      {title:"Tamanho do efeito", content:"O tamanho do efeito mede o quanto X e Y se relacionam, independentemente do valor-p. Exemplos: r de correlação, d de Cohen para comparação de grupos. Um efeito pequeno pode ter p<0,05 com amostra grande. Um efeito grande pode ter p>0,05 com amostra pequena. Por isso, sempre reporte tamanho do efeito junto com o valor-p."},
+      {title:"Linguagem certa na interpretação", content:"Use: 'os dados sugerem associação entre X e Y (p=0,03)'; 'observou-se tendência de...'; 'há evidência de...'. Evite: 'foi provado que'; 'está comprovado que'; 'com certeza é causa de'. A ciência trabalha com graus de evidência, não com certezas."},
+      {title:"Significância estatística vs importância prática", content:"Um resultado estatisticamente significativo (p<0,05) não é necessariamente importante na prática. Uma diferença de 0,3°C pode ser estatisticamente significativa em um estudo climático com mil observações, mas irrelevante do ponto de vista biológico. A interpretação precisa juntar o valor-p, o tamanho do efeito e o contexto do problema."}
+    ]
+  },
+  5: {
+    saturday:"Sábado 28/03/2026: encontro online. Foco: reconhecer distribuição pelo histograma.",
+    intro:"Nesta semana você aprende que os dados não têm sempre a mesma forma. A distribuição dos dados é uma informação fundamental que orienta qual análise usar. E o histograma é a ferramenta para enxergar essa distribuição.",
+    sections_data:[
+      {title:"Por que a distribuição importa?", content:"Muitos testes estatísticos foram desenvolvidos assumindo que os dados seguem uma distribuição específica, geralmente a normal. Se os seus dados têm outra distribuição (muito assimétrica, com muitos zeros, limitada entre 0 e 1), usar um teste que assume normalidade vai gerar resultados incorretos. Conhecer a distribuição dos seus dados é o primeiro passo para escolher a análise certa."},
+      {title:"Distribuição normal (Gaussiana)", content:"A distribuição mais conhecida. Simétrica, com 'sino' centrado na média. A maioria dos valores fica próxima da média, e valores extremos são raros. Exemplos: altura de organismos da mesma espécie; erro de medição; alguns atributos comportamentais. Não é universal: muita coisa na biologia e ecologia não é normal."},
+      {title:"Distribuição de Poisson", content:"Descreve contagens de eventos raros em um intervalo fixo de tempo ou espaço. Exemplos: número de espécies raras em parcelas, número de indivíduos de uma espécie por quadrante, número de eventos de comportamento por hora. Características: assimétrica à direita, discreta (números inteiros), média igual à variância (em teoria). Quando a variância é muito maior que a média, usa-se a binomial negativa."},
+      {title:"Distribuição binomial", content:"Descreve o número de sucessos em N tentativas independentes, cada uma com probabilidade p de sucesso. Exemplos: número de sementes germinadas em 20 tentativas, número de indivíduos que respondem a um tratamento. É discreta e limitada entre 0 e N. Quando N é grande e p é pequeno, a binomial se aproxima de Poisson."},
+      {title:"Como reconhecer a distribuição pelo histograma", content:"Normal: formato de sino, simétrico. Poisson: assimétrico à direita, inteiros, muitos zeros à esquerda. Binomial: limitada, pode ter forma simétrica quando p=0,5. Log-normal: assimétrico, mas o logaritmo dos dados fica simétrico (comum em biomassa, concentrações). Bimodal: dois picos, pode indicar dois grupos misturados. Veja o histograma antes de assumir qualquer distribuição."},
+      {title:"Forçar normalidade: por que é errado", content:"Um erro comum é transformar os dados (log, raiz) até o histograma parecer com um sino, sem justificativa biológica. Transformação só é válida quando há razão biológica ou quando o modelo assume determinada escala. O objetivo não é 'fazer o dado ser normal', mas escolher a análise adequada para o tipo de dado que você tem."}
+    ]
+  },
+  6: {
+    saturday:"Sábado 04/04/2026: encontro online. Foco: outliers e premissas dos testes.",
+    intro:"Antes de escolher e rodar um teste, você precisa verificar se as premissas do teste são atendidas. Esta semana você aprende o que são premissas, como verificá-las, e como lidar com outliers de forma cientificamente responsável.",
+    sections_data:[
+      {title:"O que são premissas?", content:"Premissas são condições que precisam ser satisfeitas para que o resultado de um teste seja válido. Se as premissas são violadas, o valor-p pode estar errado, seja inflado ou deflacionado. As principais premissas dos testes paramétricos são: normalidade dos resíduos (ou dos grupos), homogeneidade das variâncias (homocedasticidade), independência das observações, e escala de medição adequada."},
+      {title:"Normalidade: como verificar", content:"Use o histograma dos valores ou dos resíduos. Use o gráfico Q-Q (quantile-quantile): se os pontos ficam na linha diagonal, a distribuição é aproximadamente normal. Com n pequeno (<20), é difícil confirmar ou rejeitar normalidade visualmente ou por testes. Com n grande (>100), qualquer desvio pequeno da normalidade vai ser detectado como significativo, mesmo que seja irrelevante na prática."},
+      {title:"Homogeneidade de variâncias", content:"Os grupos comparados devem ter variâncias similares. Se um grupo tem variância 10 vezes maior que o outro, o teste t assume algo que não é verdadeiro. Verifique visualmente com boxplot: caixas de tamanhos muito diferentes indicam heterocedasticidade. O teste de Levene pode ser usado formalmente."},
+      {title:"O que é um outlier?", content:"Um outlier é um valor que se afasta muito dos demais na mesma condição experimental. Pode ser: erro de digitação (você digitou 650 em vez de 6,5), erro de medição, evento biológico real e incomum (um organismo que respondeu de forma muito diferente). A resposta para cada caso é diferente."},
+      {title:"O que fazer com outlier?", content:"Se há evidência de erro de digitação: corrija ou remova, e documente. Se é evento real: mantenha, descreva na seção de métodos, e considere análise com e sem o valor. Nunca remova outlier simplesmente porque 'atrapalha o resultado'. Isso é manipulação de dados. A transparência é essencial: se removeu, diga por quê, onde e como isso afetou o resultado."},
+      {title:"Quando usar teste não paramétrico?", content:"Quando a distribuição dos dados viola claramente as premissas do teste paramétrico equivalente e a transformação não é adequada. Exemplos: teste de Mann-Whitney no lugar do t-test; Kruskal-Wallis no lugar da ANOVA. Testes não paramétricos são mais robustos a desvios de normalidade e não assumem homocedasticidade, mas tendem a ter menos poder estatístico (detectam efeitos menores com mais dificuldade) quando as premissas do paramétrico são satisfeitas."}
+    ]
+  },
+  7: {
+    saturday:"Sábado 11/04/2026: encontro online. Foco: teste t e interpretação completa do resultado.",
+    intro:"O teste t é um dos mais usados em biologia, ecologia e saúde. Esta semana você aprende quando usá-lo, como interpretar o resultado completo (não só o valor-p) e como comunicar a diferença entre grupos de forma honesta.",
+    sections_data:[
+      {title:"O que o teste t responde", content:"O teste t compara as médias de dois grupos e avalia se a diferença observada é maior do que seria esperado apenas pelo acaso. Exemplos: comparar peso de animais de duas dietas; comparar concentração de CO2 em duas estações; comparar frequência cardíaca antes e depois de uma intervenção."},
+      {title:"Tipos de teste t", content:"Teste t independente (ou para amostras independentes): os dois grupos são formados por indivíduos ou observações diferentes. Exemplo: grupo controle vs grupo tratado com indivíduos diferentes. Teste t pareado: cada observação de um grupo tem um par no outro grupo. Exemplo: mesma pessoa antes e depois de tratamento. O teste t pareado tem mais poder quando o emparelhamento é real."},
+      {title:"Premissas do teste t", content:"As observações são independentes dentro de cada grupo. Os valores de cada grupo seguem distribuição aproximadamente normal (ou a amostra é grande o suficiente pelo Teorema Central do Limite). As variâncias dos grupos são homogêneas (para o teste t clássico; a versão de Welch não assume isso). Se a premissa de normalidade é violada com n pequeno, use Mann-Whitney."},
+      {title:"O que reportar além do valor-p", content:"Sempre reporte: médias (ou medianas) e medidas de dispersão (DP, EP, IC 95%) de cada grupo; estatística t e graus de liberdade; valor-p; tamanho do efeito (d de Cohen: pequeno=0,2; médio=0,5; grande=0,8). Só o valor-p é informação incompleta."},
+      {title:"Interpretação correta", content:"'O grupo A apresentou média X (DP=s), enquanto o grupo B apresentou média Y (DP=s). A diferença foi estatisticamente significativa (t(gl)=valor, p=x), com tamanho de efeito moderado (d=y).' Isso é uma interpretação completa. Evite: 'o teste provou que há diferença'. Use: 'os dados sugerem diferença entre os grupos'."},
+      {title:"Por que não fazer vários testes t para comparar 3+ grupos?", content:"Se você tem 3 grupos (A, B, C) e faz 3 testes t (A vs B, A vs C, B vs C), está inflando artificialmente a taxa de erro. Cada teste tem 5% de chance de erro tipo I (falso positivo). Com 3 testes independentes, a probabilidade de pelo menos um erro é 1-(0,95)^3 = 14,3%, não 5%. Para 3 ou mais grupos, use ANOVA (Semana 8)."}
+    ]
+  },
+  8: {
+    saturday:"Sábado 18/04/2026: encontro online. Foco: ANOVA e pós-testes.",
+    intro:"Quando você tem três ou mais grupos para comparar, a ANOVA é a ferramenta correta. Mas a ANOVA sozinha diz apenas 'há diferença entre os grupos', não 'qual grupo difere de qual'. Para isso existem os pós-testes.",
+    sections_data:[
+      {title:"O que a ANOVA faz", content:"ANOVA (Análise de Variância) compara as variâncias entre grupos e dentro dos grupos. A lógica é: se os grupos são muito diferentes entre si e pouco variáveis internamente, há evidência de diferença real. Se os grupos são parecidos entre si ou muito variáveis internamente, não há evidência suficiente. O resultado é um valor-F e o correspondente valor-p."},
+      {title:"Premissas da ANOVA", content:"Independência das observações dentro e entre grupos. Normalidade dos resíduos (pode ser verificada com gráfico Q-Q dos resíduos, não dos dados brutos). Homogeneidade das variâncias entre grupos (homocedasticidade). Violações moderadas de normalidade são toleradas com n razoável. Violação grave de homocedasticidade é mais problemática."},
+      {title:"A ANOVA responde a pergunta global", content:"O resultado da ANOVA (F, p) responde: 'há alguma diferença entre algum par de grupos?'. Não diz qual par. Para descobrir quais pares diferem, são necessários pós-testes com correção para comparações múltiplas."},
+      {title:"Pós-teste de Tukey", content:"Tukey HSD (Honestly Significant Difference) é o pós-teste mais comum. Compara todos os pares de grupos e controla a taxa de erro global. Resultado: uma lista de comparações par a par com valor-p ajustado para cada par. Letras (a, b, ab) sobre os grupos no gráfico representam grupos que diferem ou não diferem."},
+      {title:"Pós-teste de Bonferroni", content:"Divide o nível de significância (alfa) pelo número de comparações. É mais conservador que Tukey: detecta menos diferenças falsas (menos falsos positivos), mas pode perder diferenças reais (mais falsos negativos). Prefira Tukey para grupos com n parecidos."},
+      {title:"Comunicação gráfica dos resultados", content:"O boxplot com pontos é o gráfico padrão para resultados de ANOVA. Sobre cada grupo, coloque as letras do pós-teste. Grupos com letras diferentes diferem significativamente. Grupos com mesma letra não diferem. Inclua a estatística F, graus de liberdade e p na legenda ou no texto."},
+      {title:"ANOVA de Kruskal-Wallis", content:"Versão não paramétrica da ANOVA 1 via. Usa rankings em vez de médias. Menos sensível a distribuições não normais. Se significativa, use o pós-teste de Dunn (com correção de Bonferroni ou Holm) para comparações par a par."}
+    ]
+  },
+  9: {
+    saturday:"Sábado 25/04/2026: encontro online. Foco: interação e leitura do gráfico de interação.",
+    intro:"Às vezes o efeito de um fator sobre Y não é o mesmo para todos os níveis de outro fator. Isso é interação, e é um dos conceitos mais importantes (e ignorados) na biologia experimental.",
+    sections_data:[
+      {title:"O que é ANOVA 2 vias?", content:"A ANOVA 2 vias testa dois fatores simultaneamente (ex.: tratamento e sexo), verificando o efeito de cada fator isoladamente (efeitos principais) e se o efeito de um fator muda conforme o nível do outro (interação). Isso é mais eficiente e informativo do que fazer duas ANOVAs separadas."},
+      {title:"O que é interação?", content:"Interação ocorre quando o efeito de X1 sobre Y depende do nível de X2. Exemplo: a diferença de peso entre dieta A e dieta B é maior nos machos do que nas fêmeas. Se os efeitos forem simplesmente aditivos (dieta A sempre melhor que B, independente do sexo), não há interação. A interação é biologicamente rica porque mostra que o sistema não é simples."},
+      {title:"Como visualizar a interação", content:"O gráfico de interação plota Y no eixo vertical, os níveis de X1 no eixo horizontal, e usa linhas ou cores diferentes para os níveis de X2. Se as linhas são paralelas: sem interação. Se as linhas se cruzam ou divergem: há interação. Linhas que se cruzam indicam interação qualitativa (um fator reverte o outro). Linhas que divergem indicam interação quantitativa (um amplifica o outro)."},
+      {title:"Por que a interação deve ser interpretada primeiro", content:"Na presença de interação significativa, os efeitos principais perdem sentido isolados. Dizer 'a dieta A é melhor que B' quando o efeito depende do sexo é informação incompleta. O efeito correto a reportar é 'a dieta A é melhor que B nos machos, mas não nas fêmeas (interação: F=valor, p=valor)'."},
+      {title:"Desenho experimental equilibrado", content:"A ANOVA 2 vias assume que o design é equilibrado (mesmo número de observações em cada combinação de fatores) para os cálculos clássicos. Designs desequilibrados requerem ANOVA tipo III ou modelos lineares mistos, que estão além do escopo desta semana, mas é importante saber que existem."},
+      {title:"Confundir ausência de interação com simplicidade", content:"Às vezes o pesquisador conclui que 'não houve interação' e para por aí. Mas ausência de interação significativa pode ser falta de poder (n pequeno) e não ausência real do fenômeno. Reporte o tamanho do efeito da interação, não só o valor-p."}
+    ]
+  },
+  10: {
+    saturday:"Sábado 02/05/2026: encontro online. Foco: tabelas de contingência e qui-quadrado.",
+    intro:"Quando você quer saber se duas variáveis categóricas estão associadas, o qui-quadrado é a ferramenta. Esta semana você aprende a montar a tabela de contingência e interpretar o resultado.",
+    sections_data:[
+      {title:"Quando usar qui-quadrado?", content:"Use o qui-quadrado de independência quando ambas as variáveis são categóricas e você quer testar se a distribuição de uma categoria depende da outra. Exemplo: 'a frequência de dias de treino (sim/não) está associada à qualidade do sono (boa/ruim)?'. A entrada são contagens, não médias."},
+      {title:"O que é tabela de contingência?", content:"Uma tabela que cruza as categorias das duas variáveis e preenche as células com contagens. Exemplo: linhas = choveu (sim/não); colunas = humor (bom/ruim). Cada célula mostra quantas observações caíram naquela combinação. O qui-quadrado compara as contagens observadas com as contagens esperadas se não houvesse associação."},
+      {title:"Como calcular qui-quadrado (a lógica)", content:"Para cada célula, calcula-se (Observado - Esperado)^2 / Esperado. Soma-se todos esses valores: esse é o valor de chi^2. Quanto maior, mais as contagens observadas se afastam do esperado sob independência. O valor-p do chi^2 é a probabilidade de obter um valor tão extremo por acaso se as variáveis fossem independentes."},
+      {title:"Tamanho mínimo de célula", content:"O qui-quadrado exige que as contagens esperadas de cada célula sejam razoavelmente grandes, pelo menos 5 por célula (regra clássica). Se muitas células têm contagem esperada menor que 5, o qui-quadrado é pouco confiável. Alternativa: usar o Teste Exato de Fisher para tabelas 2x2 com células pequenas."},
+      {title:"Medida de associação", content:"O valor-p do qui-quadrado diz se há associação, mas não diz o quanto. Para medir a força da associação, use: Phi (para tabelas 2x2), V de Cramér (para tabelas maiores). Valores próximos de 0: associação fraca. Próximos de 1: associação forte."},
+      {title:"Gráfico para qui-quadrado", content:"Gráfico de barras com proporções é a visualização mais informativa para resultados de qui-quadrado. Eixo Y mostra proporção (%), eixo X mostra os grupos, barras diferentes representam as categorias da segunda variável. Isso permite ver visualmente se as proporções diferem entre grupos."}
+    ]
+  },
+  11: {
+    saturday:"Sábado 09/05/2026: encontro online. Foco: correlação, scatter e interpretação cautelosa.",
+    intro:"Correlação é uma das análises mais usadas e mais mal interpretadas da estatística. Esta semana você aprende o que correlação mede, o que ela não mede, e como usar o gráfico para apoiar a interpretação.",
+    sections_data:[
+      {title:"O que é correlação?", content:"Correlação mede a força e a direção da relação linear entre duas variáveis numéricas. O coeficiente de correlação (r) varia de -1 a +1. r=+1: relação linear perfeita positiva (quando X aumenta, Y aumenta proporcionalmente). r=-1: relação linear perfeita negativa. r=0: sem relação linear (mas pode haver relação não-linear!)."},
+      {title:"Pearson vs Spearman", content:"Pearson mede correlação linear. Assume que ambas as variáveis são numéricas contínuas e que a relação é linear. Sensível a outliers. Use quando a distribuição é aproximadamente normal e não há valores extremos. Spearman mede correlação de rankings. Não assume linearidade nem normalidade. Mais robusto a outliers. Use quando há assimetria, valores extremos, ou quando a relação pode ser monotônica mas não linear."},
+      {title:"Correlação NÃO é causalidade", content:"Este é o princípio mais importante desta semana. Correlação r=0,85 entre X e Y pode existir porque: X causa Y; Y causa X; um terceiro fator Z causa tanto X quanto Y (correlação espúria); coincidência em amostras pequenas. Para estabelecer causalidade, você precisa de desenho experimental com controle, randomização e controle de confundidores. Dados observacionais com correlação alta são evidência inicial, não prova."},
+      {title:"Correlação espúria: exemplos clássicos", content:"Número de sorvetes vendidos se correlaciona com número de afogamentos: ambos são causados pelo calor. Consumo de queijo per capita se correlaciona com mortes por asfixia com lençóis (correlação espúria, dado de Tyler Vigen). Esses exemplos mostram que correlação sem teoria é apenas padrão matemático."},
+      {title:"O scatter plot é obrigatório", content:"Antes de calcular r, sempre faça o gráfico de dispersão. O mesmo valor de r pode representar situações completamente diferentes: relação linear; relação não-linear que parece linear em r; outlier que infla r artificialmente; dois grupos separados que criam r artificialmente. O gráfico revela isso; o número r não."},
+      {title:"Reporting correto de correlação", content:"Reporte: r (ou rho para Spearman), valor-p, e n. Exemplo: 'O tempo de tela se correlacionou negativamente com as horas de sono (r=-0,72, p=0,021, n=14).' Adicione o scatter plot. Com n pequeno, correlações podem ser altas por acaso."}
+    ]
+  },
+  12: {
+    saturday:"Sábado 16/05/2026: encontro online. Foco: regressão, resíduos e interpretação da inclinação.",
+    intro:"A regressão linear vai além da correlação: ela quantifica a relação entre X e Y em termos de uma equação que permite previsão. Mas essa previsão tem limites, e esta semana você aprende onde estão esses limites.",
+    sections_data:[
+      {title:"O que a regressão linear faz", content:"A regressão linear ajusta uma reta que minimiza a soma dos erros quadráticos entre os valores previstos e os observados (critério dos mínimos quadrados). O resultado é uma equação: Y = a + b*X. Onde a é o intercepto (Y quando X=0) e b é a inclinação (quanto Y muda, em média, para cada unidade de aumento em X)."},
+      {title:"Interpretando a inclinação (b)", content:"A inclinação b é o coeficiente mais importante. Se b=-0,5 e X é tempo de tela em horas, Y é sono em horas: 'cada hora adicional de tela está associada a 0,5 hora a menos de sono, em média'. Escreva a interpretação sempre em unidades reais: isso torna o resultado concreto e compreensível."},
+      {title:"O que é R² (coeficiente de determinação)?", content:"R² varia de 0 a 1 e mede a proporção da variância de Y que é explicada pelo modelo com X. R²=0,60 significa que 60% da variação em Y é explicada pela variação em X no modelo. Os outros 40% são explicados por outros fatores não incluídos ou por variação aleatória. R² alto não prova causalidade; mostra ajuste do modelo."},
+      {title:"O que são resíduos?", content:"Resíduo é a diferença entre o valor observado e o valor previsto pelo modelo: resíduo = Y_observado - Y_previsto. Os resíduos devem ser: aleatoriamente distribuídos em torno de zero (sem padrão); independentes; com variância constante ao longo de X (homocedasticidade). Verificar resíduos é obrigatório antes de concluir qualquer regressão."},
+      {title:"Extrapolação: o erro mais perigoso", content:"A regressão é válida apenas dentro da faixa de X coberta pelos dados. Usar a equação para prever Y em valores de X fora do intervalo observado é extrapolação, e pode gerar previsões absurdas. Exemplo: se seus dados cobrem temperatura de 20 a 35°C, não use a equação para prever o que acontece a 5°C ou 50°C."},
+      {title:"Regressão vs correlação: qual usar?", content:"Use correlação quando quer medir a força da associação entre X e Y sem uma relação direcional clara. Use regressão quando quer quantificar quanto Y muda por unidade de X, ou quando quer prever Y a partir de X. A regressão assume que X é fixo ou medido sem erro (premissa que raramente se cumpre perfeitamente em dados observacionais)."}
+    ]
+  },
+  13: {
+    saturday:"Sábado 23/05/2026: encontro online. Foco: quando e por que usar GLM.",
+    intro:"Regressão linear assume que Y é contínuo e normalmente distribuído. Mas muitas variáveis em biologia e saúde não são assim: contagens de eventos, proporções, presença/ausência. Para esses casos, existem os Modelos Lineares Generalizados (GLM).",
+    sections_data:[
+      {title:"O que é um GLM?", content:"Um GLM é uma extensão da regressão linear que permite modelar variáveis Y com distribuições diferentes da normal. A ideia central é a mesma: relacionar Y com X por meio de uma função linear. A diferença está na distribuição assumida para Y (família) e na função que conecta os valores previstos à escala linear (função de ligação)."},
+      {title:"GLM Poisson: para contagens", content:"Use quando Y é uma contagem (número inteiro, não negativo). Exemplos: número de espécies por parcela, número de eventos de comportamento por hora, número de casos de doença por município. A distribuição de Poisson assume que média e variância são iguais. Quando a variância é muito maior que a média (sobredispersão), use binomial negativa."},
+      {title:"GLM Binomial (regressão logística): para proporções e presença/ausência", content:"Use quando Y é uma proporção (entre 0 e 1) ou uma variável binária (0/1, presente/ausente, sobreviveu/morreu). A função de ligação logit transforma a probabilidade para uma escala sem limites, onde a regressão linear pode funcionar. O resultado é interpretado como log-odds ou como odds ratio."},
+      {title:"Como justificar o uso de GLM", content:"A justificativa deve começar pelo tipo de Y: 'Y é uma contagem discreta não negativa, portanto um GLM com distribuição de Poisson é mais adequado do que regressão linear, que assumiria normalidade e poderia prever valores negativos.' A escolha do modelo deve ser justificada biologicamente, não matematicamente."},
+      {title:"Verificação do modelo GLM", content:"Para GLM Poisson: verifique sobredispersão (razão desviance/graus de liberdade muito maior que 1). Para GLM binomial: verifique se há observações com proporções extremas (0 ou 1 perfeitos) que podem causar separação completa. Verifique os resíduos de Pearson ou deviance graficamente."},
+      {title:"Interpretação de coeficientes", content:"Em GLM Poisson (função log): exp(coeficiente) = razão de taxas. Se b=0,3, exp(0,3)=1,35: cada unidade de X aumenta Y esperado em 35%. Em GLM binomial (função logit): exp(coeficiente) = odds ratio. Se b=0,5, exp(0,5)=1,65: cada unidade de X multiplica as chances de Y=1 por 1,65."}
+    ]
+  },
+  14: {
+    saturday:"Sábado 30/05/2026: encontro online. Foco: confundidores, viés e estratégias de controle.",
+    intro:"Esta semana você aprende sobre os problemas que mais ameaçam a validade das conclusões em estudos observacionais: confundidores, viés e falta de controle. Estas são as armadilhas que separam o estudo robusto do estudo que parece certo mas está errado.",
+    sections_data:[
+      {title:"O que é um confundidor?", content:"Um confundidor é uma variável que está associada tanto à variável X (explicativa) quanto à variável Y (resposta), e que não é o mecanismo de interesse. Exemplo: X = consumo de café; Y = doença cardíaca; Z = tabagismo (confundidor). Fumantes tendem a tomar mais café. Fumantes têm mais doenças cardíacas. Se você não mede Z, parece que café causa doença cardíaca."},
+      {title:"Confundidor vs mediador", content:"Confundidor: afeta X e Y por caminhos independentes (precisa ser controlado). Mediador: está no caminho causal entre X e Y (não deve ser controlado se você quer o efeito total de X). Exemplo: X=exercício, Y=glicemia, Z=perda de peso. Z é mediador, não confundidor. Controlar o mediador remove o efeito de interesse."},
+      {title:"O que é ANCOVA?", content:"ANCOVA (Análise de Covariância) combina ANOVA e regressão. Compara grupos (como ANOVA) enquanto ajusta estatisticamente para uma covariável contínua (que pode ser confundidor). Exemplo: comparar peso de dois grupos de dieta, ajustando para peso inicial. O resultado é o efeito da dieta 'limpo' da influência do peso inicial."},
+      {title:"Tipos de viés e como reconhecê-los", content:"Viés de seleção: os indivíduos analisados não representam a população de interesse. Viés de informação: a forma de medir varia entre grupos. Viés de confirmação: o pesquisador registra ou interpreta dados de forma que confirma sua hipótese prévia. Viés de publicação: estudos negativos não são publicados, criando percepção de que tudo funciona. Reconhecer e reportar viés potencial é parte da boa prática científica."},
+      {title:"Teste cego e duplo-cego", content:"Teste simples-cego: o participante não sabe se recebe tratamento ou controle. Elimina viés do participante. Duplo-cego: nem o participante nem o pesquisador sabe durante a coleta. Elimina também o viés do observador. Em estudos ecológicos, o pesquisador que mede biomassa pode ser 'cego' ao tratamento do quadrante. Cegar a coleta reduz viés de expectativa."},
+      {title:"Multivariado: o conceito", content:"Análises multivariadas incluem múltiplos X no mesmo modelo. Isso permite estimar o efeito de cada X controlando os demais simultaneamente. Exemplos: regressão múltipla, ANCOVA, modelos mistos. O risco é o sobreajuste (overfitting): incluir variáveis demais para poucos dados gera modelo que 'explica' os seus dados mas não generaliza. Regra clássica: no mínimo 10 observações por preditor no modelo."}
+    ]
+  },
+  15: {
+    saturday:"Sábado 06/06/2026: encontro online. Foco: revisão final e apresentação.",
+    intro:"Esta semana é a síntese de tudo o que você aprendeu. Um bom projeto final não é o mais complexo estatisticamente, é o mais coerente: pergunta clara, dados honestos, gráficos informativos, análise adequada e interpretação com limites reconhecidos.",
+    sections_data:[
+      {title:"O que faz um projeto científico ser bom?", content:"Um projeto científico bom tem coerência entre todas as partes. A análise estatística escolhida deve ser compatível com o tipo de dado (Y). O gráfico deve representar visualmente o que o teste quantifica. A interpretação deve usar a linguagem certa (sugerir, não provar) e reconhecer as limitações. A limitação não enfraquece o trabalho: ela mostra honestidade e orienta próximos passos."},
+      {title:"Estrutura de um projeto final", content:"1. Pergunta científica: uma frase com X e Y definidos. 2. Métodos: unidade amostral, n, regra de coleta, software. 3. Dados: tabela limpa, mini dicionário de dados. 4. Gráficos: pelo menos histograma de Y e gráfico principal. 5. Análise: teste escolhido com justificativa baseada no tipo de dado. 6. Resultado: estatística, valor-p, tamanho de efeito. 7. Interpretação: o que o resultado significa em linguagem real, com limitações."},
+      {title:"Como escrever a discussão", content:"A discussão conecta o seu resultado com o mundo além dos seus dados. Ela responde: o que seu resultado sugere biologicamente? Esse resultado é compatível com o que outros estudos encontraram? O que poderia explicar diferenças? Quais são as limitações específicas do seu design? O que estudos futuros poderiam fazer melhor? Cada afirmação deve ter suporte: nos seus dados, na literatura, ou ser claramente marcada como especulação."},
+      {title:"Erros que derrubariam o projeto inteiro", content:"Pergunta que não vira tabela. Pseudorrepetição: observações não independentes. Teste inadequado para o tipo de dado (ex.: teste t em proporções com n pequeno). Extrapolação além da faixa de dados. Interpretação como causalidade a partir de dados observacionais. Conclusão sem reconhecer limitações. Remoção de outliers sem justificativa documentada."},
+      {title:"O que você levou deste curso", content:"Você aprendeu que estatística começa com pergunta, não com software. Que gráfico vem antes do teste. Que valor-p sozinho não basta: precisa de tamanho de efeito, contexto e honestidade. Que a organização dos dados é método científico. Que limitação é honestidade, não fraqueza. Que correlação não prova causalidade. Que o modelo deve ser justificado pelo tipo de dado. Essas ideias servem para a vida acadêmica inteira."},
+      {title:"Próximos passos para ir além", content:"Para aprofundar em R: livro gratuito 'R for Data Science' (Hadley Wickham). Para estatística bayesiana: 'Statistical Rethinking' (McElreath). Para ecologia quantitativa: 'Numerical Ecology' (Legendre & Legendre). Para análises de séries temporais ecológicas: explore pacotes xts, forecast e bfast no R. Para análises espaciais: pacotes sf, terra e tmap no R. O aprendizado estatístico é contínuo. Este curso é a fundação."}
+    ]
+  }
+};
+
+// Montar CONTENT para semanas 3-15
+for(const [id, data] of Object.entries(SHORT_WEEKS)){
+  const wid = parseInt(id);
+  CONTENT[wid] = {
+    saturday: data.saturday,
+    sections: [
+      {
+        icon:"💡", colorClass:"icon-goals", title:"Introdução e objetivos desta semana", chip:"visão geral",
+        html: `<p>${data.intro}</p>`
+      },
+      ...data.sections_data.map((s, i) => ({
+        icon: ["📚","🔬","💬","⚠️","🔍","🧮","📊","🌐"][i % 8],
+        colorClass: ["icon-defs","icon-how","icon-interp","icon-err","icon-mind","icon-story","icon-goals","icon-links"][i % 8],
+        title: s.title,
+        chip: "conteúdo",
+        html: `<p>${s.content}</p>`
+      })),
+      {
+        icon:"📅", colorClass:"icon-links", title:"Sábado: orientação semanal", chip:"sábado",
+        html: `<div class="saturday-box"><div class="saturday-icon">📅</div><div>${data.saturday}</div></div>`
+      },
+      {
+        icon:"🔗", colorClass:"icon-links", title:"Links de apoio", chip:"recursos",
+        html: `<div class="box blue"><ul style="margin:0"><li><a href="https://pt.khanacademy.org/math/statistics-probability" target="_blank" rel="noopener">Khan Academy – Estatística e probabilidade (PT)</a></li></ul></div>`
+      }
+    ]
+  };
+}
+
+// Para semanas 1 e 2, adicionar seção do sábado e links dentro das sections quando não houver
+function ensureSaturdaySection(weekId){
+  const c = CONTENT[weekId];
+  if(!c) return;
+  // Already present in sections for week 1 and 2 via links section – add saturday box
+  const satSection = {
+    icon:"📅", colorClass:"icon-links", title:"Sábado: orientação semanal", chip:"sábado",
+    html: `<div class="saturday-box"><div class="saturday-icon">📅</div><div>${c.saturday}</div></div>`
+  };
+  // Insert before last (links) section
+  const insertAt = c.sections.length - 1;
+  c.sections.splice(insertAt, 0, satSection);
+}
+ensureSaturdaySection(1);
+ensureSaturdaySection(2);
+
+// ══════════════════════════════════════════════════════
+// UI
+// ══════════════════════════════════════════════════════
+let currentId = null;
+
+function buildNav(){
+  const nav = document.getElementById('weekNav');
+  LESSONS.forEach(ls => {
+    const btn = document.createElement('button');
+    btn.className = 'week-btn';
+    btn.dataset.id = ls.id;
+    btn.innerHTML = `
+      <div class="week-num">${ls.id}</div>
+      <div class="week-info">
+        <strong>${ls.title}</strong>
+        <span>${ls.dates}</span>
       </div>
     `;
-    const itemsEl = holder.querySelector("#items");
+    btn.addEventListener('click', () => openWeek(ls.id));
+    nav.appendChild(btn);
+  });
+}
 
-    function rerender(){
-      itemsEl.innerHTML="";
-      cur.forEach((it,idx)=>{
-        const item=document.createElement("div");
-        item.className="linkItem";
-        item.innerHTML=`
-          <div class="row">
-            <div>
-              <div style="font-size:12px;color:#475569"><strong>Título</strong></div>
-              <input type="text" value="${it.label.replaceAll('"','&quot;')}" data-i="${idx}" data-k="label" placeholder="Ex.: YouTube – Tipos de variáveis (PT)"/>
-            </div>
-            <div>
-              <div style="font-size:12px;color:#475569"><strong>URL</strong></div>
-              <input type="url" value="${it.url.replaceAll('"','&quot;')}" data-i="${idx}" data-k="url" placeholder="https://..."/>
-            </div>
-          </div>
-          <div style="margin-top:10px"><button class="warn" data-del="${idx}">Remover</button></div>
-        `;
-        itemsEl.appendChild(item);
-      });
+function openWeek(id){
+  currentId = id;
+  const ls = LESSONS.find(x => x.id === id);
+  const content = CONTENT[id];
 
-      itemsEl.querySelectorAll("input").forEach(inp=>{
-        inp.addEventListener("input", ()=>{
-          const i=Number(inp.dataset.i), k=inp.dataset.k;
-          cur[i][k]=inp.value;
-        });
-      });
-      itemsEl.querySelectorAll("button[data-del]").forEach(btn=>{
-        btn.addEventListener("click", ()=>{
-          const i=Number(btn.dataset.del);
-          cur.splice(i,1);
-          rerender();
-        });
-      });
-    }
-    rerender();
+  // Update nav active state
+  document.querySelectorAll('.week-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.id) === id);
+  });
 
-    holder.querySelector("#add").addEventListener("click", ()=>{cur.push({label:"",url:""});rerender();});
-    holder.querySelector("#save").addEventListener("click", ()=>{
-      state.links[id]=cur.filter(x=>x.label||x.url);
-      saveState();
-      alert("Links salvos.");
-      openLesson(id);
-    });
-    holder.querySelector("#reset").addEventListener("click", ()=>{
-      delete state.links[id];
-      saveState();
-      alert("Voltou ao padrão.");
-      openLesson(id);
-    });
-
-    return holder;
+  if(!ls || !content){
+    document.getElementById('mainContent').innerHTML = `<div class="empty-state"><div class="big">🚧</div><p>Conteúdo desta semana em construção.</p></div>`;
+    return;
   }
 
-  function buildQuiz(week){
-    const qs = week.quiz || [];
-    const box = document.createElement("div");
-    box.className="quiz";
-    box.innerHTML=`
-      <div><strong>Quiz curto</strong></div>
-      <div style="color:#475569;margin-top:6px;font-size:12px">Objetivo: checar entendimento do conteúdo desta semana.</div>
-      <div id="qs"></div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-        <button class="primary" id="grade">Corrigir</button>
+  let html = `
+    <div class="week-header">
+      <div class="week-tag">Semana ${ls.id} de 15</div>
+      <h2>${ls.title}</h2>
+      <div class="dates-line">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        ${ls.dates}
       </div>
-      <div class="result" id="res"></div>
+    </div>
+  `;
+
+  content.sections.forEach((sec, idx) => {
+    const openAttr = idx === 0 ? ' open' : '';
+    html += `
+      <div class="section${openAttr}" data-sec="${idx}">
+        <button class="section-toggle" onclick="toggleSection(this)">
+          <div class="section-icon ${sec.colorClass}">${sec.icon}</div>
+          <h3>${sec.title}</h3>
+          <span class="chip">${sec.chip}</span>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="section-body">${sec.html}</div>
+      </div>
     `;
-    const qsEl = box.querySelector("#qs");
-    qs.forEach((q,qi)=>{
-      const w = document.createElement("div");
-      w.className="q";
-      w.innerHTML=`
-        <div class="qtitle">${qi+1}) ${q.q}</div>
-        <div class="opts">${q.opts.map((o,oi)=>`<label><input type="radio" name="q_${week._id}_${qi}" value="${oi}"/> ${o}</label>`).join("")}</div>
-      `;
-      qsEl.appendChild(w);
-    });
-
-    box.querySelector("#grade").addEventListener("click", ()=>{
-      let score=0;
-      const lines=[];
-      qs.forEach((q,qi)=>{
-        const chosen = box.querySelector(`input[name="q_${week._id}_${qi}"]:checked`);
-        const a = chosen ? Number(chosen.value) : null;
-        const ok = (a===q.ans);
-        if(ok) score++;
-        const fb = (a===null) ? "Sem resposta." : q.fb[a];
-        lines.push(`${qi+1}) ${ok?"Certo":"Errado"} – ${fb}`);
-      });
-      const res=box.querySelector("#res");
-      res.style.display="block";
-      res.textContent=`Pontuação: ${score}/${qs.length}\n\n`+lines.join("\n");
-    });
-
-    return box;
-  }
-
-  function block(title, chip, html, open=false){
-    const d=document.createElement("details");
-    d.open=open;
-    d.innerHTML=`<summary>${title} <span class="chip">${chip}</span></summary><div class="sec">${html}</div>`;
-    return d;
-  }
-
-  // =======================
-  // 6) OPEN WEEK
-  // =======================
-  function openLesson(id){
-    state.currentId=id; saveState();
-    const ls = LESSONS.find(x=>x.id===id);
-    const week = COURSE[id];
-    if(!ls || !week) return;
-
-    document.getElementById("title").textContent = `Semana ${ls.id} – ${ls.title}`;
-    document.getElementById("meta").textContent = `Período: ${ls.dates}`;
-
-    const panels=document.getElementById("panels");
-    panels.innerHTML="";
-
-    panels.appendChild(block("1) O que você vai aprender", "objetivos",
-      `<ul>${(week.goals||[]).map(x=>`<li>${x}</li>`).join("")}</ul>
-       <div class="box ok"><strong>Orientação:</strong> Salve suas notas no navegador ou no celular.</div>`, true
-    ));
-
-    if(week.mindset){
-      panels.appendChild(block("2) Mentalidade científica (como um cientista pensa)", "guia",
-        `<div class="callout">${week.mindset.map(p=>`<p>${p}</p>`).join("")}</div>`, false
-      ));
-    }
-
-    if(week.story){
-      panels.appendChild(block("3) Um mini-caso para enxergar o problema", "exemplo",
-        week.story.map(p=>`<p>${p}</p>`).join(""), false
-      ));
-    }
-
-    panels.appendChild(block("4) Definições (do zero)", "conceitos",
-      `<ul>${(week.definitions||[]).map(d=>`<li><strong>${d.term}:</strong> ${d.def}</li>`).join("")}</ul>`, true
-    ));
-
-    if(week.howTo){
-      const h = week.howTo;
-      panels.appendChild(block("5) Como fazer (passo a passo)", "mão na massa",
-        `<p><strong>${h.title||""}</strong></p>
-         ${h.steps ? `<ol>${h.steps.map(x=>`<li>${x}</li>`).join("")}</ol>` : ""}
-         ${h.dataIdeas ? `<div class="box purple"><strong>Observação:</strong><ul>${h.dataIdeas.map(x=>`<li>${x}</li>`).join("")}</ul></div>` : ""}`,
-        false
-      ));
-    }
-
-    panels.appendChild(block("6) Como interpretar (o que escrever no dossiê)", "interpretação",
-      (week.interpret||[]).map(p=>`<p>${p}</p>`).join(""), false
-    ));
-
-    panels.appendChild(block("7) Erros comuns desta semana (evite)", "atenção",
-      `<div class="box warn"><ul>${(week.mistakes||[]).map(x=>`<li>${x}</li>`).join("")}</ul></div>`, false
-    ));
-
-    panels.appendChild(block("8) Atividade da semana (cabe em 4h)", "atividade",
-      `<div class="box ok"><strong>Tarefa:</strong> ${week.activity||"—"}</div>`, false
-    ));
-
-    let dossierHtml = `<ol>${(week.dossier||[]).map(x=>`<li>${x}</li>`).join("")}</ol>`;
-    if(week.dossierModelText){
-      dossierHtml += `<div class="box"><strong>Texto-modelo (exemplo do professor):</strong><p style="margin:8px 0 0">${week.dossierModelText}</p></div>`;
-    }
-    dossierHtml += `<div class="box"><strong>Correção rápida:</strong> eu olho se a pergunta está clara, se a tabela está correta, se há réplicas e se o gráfico conversa com a pergunta.</div>`;
-    panels.appendChild(block("9) Dossiê (1 lauda) – modelo desta semana", "entrega", dossierHtml, false));
-
-    if(week.saturday){
-      panels.appendChild(block("10) Sábado (orientação)", "sábado",
-        `<div class="box warn"><p>${week.saturday}</p></div>`, false
-      ));
-    }
-
-    const links = getLinksFor(id);
-    panels.appendChild(block("11) Links (Khan/YouTube)", "editável",
-      `<p><strong>Links desta semana:</strong></p>${renderLinks(links)}`, false
-    ));
-
-    const ed=document.createElement("details");
-    ed.open=false;
-    ed.innerHTML=`<summary>Editar links da semana <span class="chip">somente links</span></summary><div class="sec" id="ed"></div>`;
-    ed.querySelector("#ed").appendChild(buildLinkEditor(id));
-    panels.appendChild(ed);
-
-    const q=document.createElement("details");
-    q.open=false;
-    week._id=id;
-    q.innerHTML=`<summary>Quiz da semana <span class="chip">3 questões</span></summary><div class="sec" id="qm"></div>`;
-    q.querySelector("#qm").appendChild(buildQuiz(week));
-    panels.appendChild(q);
-
-    updateButtons();
-  }
-
-  function updateButtons(){
-    const id=state.currentId;
-    const done=!!state.done[id];
-    document.getElementById("btnDone").disabled=!id||done;
-    document.getElementById("btnUndone").disabled=!id||!done;
-  }
-
-  // =======================
-  // 7) Botões
-  // =======================
-  document.getElementById("btnDone").addEventListener("click", ()=>{
-    if(!state.currentId) return;
-    state.done[state.currentId]=true; saveState(); renderList(); updateButtons();
-  });
-  document.getElementById("btnUndone").addEventListener("click", ()=>{
-    if(!state.currentId) return;
-    delete state.done[state.currentId]; saveState(); renderList(); updateButtons();
-  });
-  document.getElementById("btnExport").addEventListener("click", ()=>{
-    const payload={exportedAt:new Date().toISOString(), done:state.done, links:state.links};
-    const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
-    const a=document.createElement("a");
-    a.href=URL.createObjectURL(blob); a.download="progresso-curso.json";
-    document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(()=>URL.revokeObjectURL(a.href),1500);
-  });
-  document.getElementById("btnReset").addEventListener("click", ()=>{
-    if(!confirm("Resetar tudo neste navegador?")) return;
-    localStorage.removeItem(KEY);
-    state={currentId:null, done:{}, links:{}};
-    renderList();
-    document.getElementById("title").textContent="Selecione uma semana";
-    document.getElementById("meta").textContent="—";
-    document.getElementById("panels").innerHTML="";
-    updateButtons();
   });
 
-  // =======================
-  // 8) INIT
-  // =======================
-  loadState();
-  renderList();
-  openLesson(state.currentId || 1);
+  document.getElementById('mainContent').innerHTML = html;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleSection(btn){
+  const section = btn.closest('.section');
+  section.classList.toggle('open');
+}
+
+buildNav();
+openWeek(1);
 </script>
 </body>
 </html>
